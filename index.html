@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dr. Anuj Modi — RF Scientist & Engineer</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0b0e14; --surface: #141820; --card: #1a1f2b;
+    --border: #2a3040; --accent: #4f8ef7; --accent2: #34d399;
+    --text: #e2e8f0; --muted: #8892a4; --dim: #5a6478;
+  }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; line-height: 1.7; }
+  a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
+  a:hover { color: var(--accent2); }
+
+  /* ── Nav ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(11,14,20,0.85); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 32px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-brand { font-size: 16px; font-weight: 700; color: var(--accent); padding: 14px 0; }
+  .nav-links { display: flex; gap: 4px; }
+  .nav-links a {
+    padding: 14px 14px; font-size: 13px; font-weight: 500; color: var(--muted);
+    border-bottom: 2px solid transparent; transition: all 0.2s;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .nav-toggle { display: none; background: none; border: none; color: var(--muted); font-size: 22px; cursor: pointer; padding: 10px; }
+
+  /* ── Hero ── */
+  .hero {
+    padding: 80px 32px 60px; text-align: center;
+    background: linear-gradient(180deg, #111827 0%, var(--bg) 100%);
+  }
+  .hero-avatar {
+    width: 120px; height: 120px; border-radius: 50%; border: 3px solid var(--accent);
+    background: var(--card); display: flex; align-items: center; justify-content: center;
+    font-size: 48px; margin: 0 auto 20px; color: var(--accent);
+  }
+  .hero h1 { font-size: 32px; font-weight: 800; margin-bottom: 6px; }
+  .hero h1 span { color: var(--accent); }
+  .hero .subtitle { font-size: 15px; color: var(--muted); max-width: 600px; margin: 0 auto 20px; }
+  .hero-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 16px; }
+  .hero-tags span {
+    padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 500;
+    background: var(--card); border: 1px solid var(--border); color: var(--muted);
+  }
+
+  /* ── Sections ── */
+  .section { max-width: 960px; margin: 0 auto; padding: 60px 32px; }
+  .section-title {
+    font-size: 22px; font-weight: 700; margin-bottom: 28px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  /* ── About ── */
+  .about-text { color: var(--muted); font-size: 14px; line-height: 1.9; }
+  .about-text p { margin-bottom: 14px; }
+
+  /* ── Stats ── */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 32px 0; }
+  .stat-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 20px; text-align: center;
+  }
+  .stat-card .num { font-size: 28px; font-weight: 800; color: var(--accent); }
+  .stat-card .label { font-size: 11px; color: var(--muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* ── Awards ── */
+  .awards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .award {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 18px 20px; display: flex; gap: 14px; align-items: flex-start;
+  }
+  .award-icon { font-size: 24px; flex-shrink: 0; }
+  .award-text { font-size: 13px; color: var(--muted); }
+  .award-text strong { color: var(--text); display: block; margin-bottom: 2px; }
+
+
+  /* ── Research ── */
+  .research-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .research-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 20px; transition: border-color 0.2s;
+  }
+  .research-card:hover { border-color: var(--accent); }
+  .research-card h4 { font-size: 14px; font-weight: 600; margin-bottom: 6px; color: var(--text); }
+  .research-card p { font-size: 12px; color: var(--muted); }
+
+  /* ── Tools ── */
+  .tool-card {
+    background: linear-gradient(135deg, #1a2235, #141820); border: 1px solid var(--border);
+    border-radius: 12px; padding: 28px; display: flex; gap: 24px; align-items: center;
+    transition: border-color 0.2s;
+  }
+  .tool-card:hover { border-color: var(--accent); }
+  .tool-icon { font-size: 48px; flex-shrink: 0; }
+  .tool-info h4 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+  .tool-info p { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+  .tool-btn {
+    display: inline-block; padding: 8px 20px; border-radius: 6px;
+    background: var(--accent); color: #fff; font-size: 12px; font-weight: 600;
+    transition: background 0.2s;
+  }
+  .tool-btn:hover { background: #3b7de8; color: #fff; }
+
+  /* ── Memberships ── */
+  .membership-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .membership-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 16px; text-align: center;
+  }
+  .membership-card .m-icon { font-size: 24px; margin-bottom: 6px; }
+  .membership-card .m-name { font-size: 12px; font-weight: 600; color: var(--text); }
+  .membership-card .m-type { font-size: 10px; color: var(--dim); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+  /* ── Contact ── */
+  .contact-row { display: flex; flex-wrap: wrap; gap: 14px; }
+  .contact-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 16px 24px; display: flex; align-items: center; gap: 12px; flex: 1; min-width: 200px;
+  }
+  .contact-card .c-icon { font-size: 20px; }
+  .contact-card .c-label { font-size: 10px; color: var(--dim); text-transform: uppercase; }
+  .contact-card .c-value { font-size: 13px; color: var(--text); }
+
+  /* ── Footer ── */
+  footer {
+    text-align: center; padding: 32px; border-top: 1px solid var(--border);
+    font-size: 12px; color: var(--dim);
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 768px) {
+    nav { padding: 0 16px; }
+    .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: var(--surface); flex-direction: column; border-bottom: 1px solid var(--border); }
+    .nav-links.open { display: flex; }
+    .nav-links a { padding: 12px 20px; border-bottom: none; }
+    .nav-toggle { display: block; }
+    .hero { padding: 50px 20px 40px; }
+    .hero h1 { font-size: 24px; }
+    .section { padding: 40px 16px; }
+    .stats { grid-template-columns: 1fr 1fr; }
+    .awards, .research-grid { grid-template-columns: 1fr; }
+    .membership-grid { grid-template-columns: 1fr 1fr; }
+    .tool-card { flex-direction: column; text-align: center; }
+  }
+</style>
+
+</head>
+<body>
+
+<!-- Nav -->
+<nav>
+  <div class="nav-brand">Dr. Anuj Modi</div>
+  <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+  <div class="nav-links">
+    <a href="#about" class="active">About</a>
+    <a href="#research">Research</a>
+    <a href="#awards">Awards</a>
+    <a href="#tools">Tools</a>
+    <a href="#memberships">Memberships</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-avatar">📡</div>
+  <h1>Dr. <span>Anuj Modi</span></h1>
+  <div class="subtitle">Senior Wireless Research Scientist · RF & Antenna Engineer · Silicon Valley</div>
+  <div class="hero-tags">
+    <span>🎯 Antenna Design</span>
+    <span>📻 RF Desense</span>
+    <span>⚡ EMI/EMC</span>
+    <span>🔬 SIPI Analysis</span>
+    <span>🤖 Gen-AI for Hardware</span>
+  </div>
+</div>
+
+<!-- About -->
+<div class="section" id="about">
+  <div class="section-title">About</div>
+  <div class="about-text">
+    <p>Currently serving as a Senior Wireless Research Scientist at Amazon Lab126 in Sunnyvale, CA. Recognized with the Builders Build Award in 2023 and 2025 for work on miniaturized On-PCB Electromagnetic Bandgap (EBG)-based components and Hardware-Sage: Gen-AI Hardware design co-pilot. Two-time recipient of the Honorable Mention Award at the IEEE Antennas and Propagation Symposium (2017, 2019).</p>
+    <p>Earned B.Tech. in Electronics and Communication Engineering from Nirma University, India (2013), B.A. in Indian Classical Music from Gandharv Vidyalaya (2014), M.S. in Electrical Engineering from Arizona State University (2017), and Ph.D. in Electrical Engineering from ASU (2020).</p>
+    <p>Instrumental in shipping over 100 million devices, leveraging expertise in designing cost-effective antenna systems, EMI/EMC/RF desense solutions, RF immunity strategies, and SIPI analysis for high-speed interfaces and power nets. Active reviewer for IEEE AWPL, IEEE TAP, PIERs, IET EL, and IET MAP.</p>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat-card"><div class="num">5</div><div class="label">US Patents</div></div>
+    <div class="stat-card"><div class="num">30+</div><div class="label">Publications</div></div>
+    <div class="stat-card"><div class="num">1000+</div><div class="label">Citations</div></div>
+    <div class="stat-card"><div class="num">100M+</div><div class="label">Devices Shipped</div></div>
+  </div>
+</div>
+
+<!-- Research -->
+<div class="section" id="research">
+  <div class="section-title">Research Interests</div>
+  <div class="research-grid">
+    <div class="research-card">
+      <h4>📡 Antenna Design</h4>
+      <p>Miniaturized antennas, MIMO systems, on-PCB EBG structures, multi-band antenna systems for IoT and consumer electronics.</p>
+    </div>
+    <div class="research-card">
+      <h4>📻 RF Desense</h4>
+      <p>Receiver sensitivity degradation analysis, cascaded noise figure, spectrum capture methodology, multi-radio coexistence.</p>
+    </div>
+    <div class="research-card">
+      <h4>⚡ EMI / EMC</h4>
+      <p>Electromagnetic interference mitigation, EMC compliance, shielding effectiveness, noise coupling analysis.</p>
+    </div>
+    <div class="research-card">
+      <h4>🔬 SIPI Analysis</h4>
+      <p>Signal integrity and power integrity for high-speed interfaces, power delivery network design, PDN impedance optimization.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Awards -->
+<div class="section" id="awards">
+  <div class="section-title">Awards & Recognition</div>
+  <div class="awards">
+    <div class="award">
+      <div class="award-icon">🏆</div>
+      <div class="award-text">
+        <strong>Builders Build Award — Amazon Lab126 (2025)</strong>
+        Hardware-Sage: Gen-AI Hardware design co-pilot
+      </div>
+    </div>
+    <div class="award">
+      <div class="award-icon">🏆</div>
+      <div class="award-text">
+        <strong>Builders Build Award — Amazon Lab126 (2023)</strong>
+        Miniaturized On-PCB EBG-based components
+      </div>
+    </div>
+    <div class="award">
+      <div class="award-icon">🏅</div>
+      <div class="award-text">
+        <strong>Honorable Mention — IEEE AP-S Symposium (2019)</strong>
+        IEEE Antennas and Propagation Society
+      </div>
+    </div>
+    <div class="award">
+      <div class="award-icon">🏅</div>
+      <div class="award-text">
+        <strong>Honorable Mention — IEEE AP-S Symposium (2017)</strong>
+        IEEE Antennas and Propagation Society
+      </div>
+    </div>
+    <div class="award">
+      <div class="award-icon">🇺🇸</div>
+      <div class="award-text">
+        <strong>U.S. Permanent Residency (2022)</strong>
+        Granted in recognition of significant contributions to the field
+      </div>
+    </div>
+    <div class="award">
+      <div class="award-icon">🎓</div>
+      <div class="award-text">
+        <strong>VP, Eta Kappa Nu — IEEE Honor Society (2019)</strong>
+        Epsilon Beta Chapter, Arizona State University
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Tools -->
+<div class="section" id="tools">
+  <div class="section-title">Tools & Projects</div>
+  <div class="tool-card">
+    <div class="tool-icon">📡</div>
+    <div class="tool-info">
+      <h4>RF Desense Toolbox</h4>
+      <p>Comprehensive RF desense analysis tool for multi-radio coexistence design. Cascaded NF calculator, desense & range dashboards, RF architecture builder, PDF/Excel export. Supports LoRa, BLE, LTE, WiFi, and GNSS.</p>
+      <a href="https://eda83536.github.io/rf-desense-toolbox/" class="tool-btn">Launch Toolbox →</a>
+    </div>
+  </div>
+</div>
+
+<!-- Memberships -->
+<div class="section" id="memberships">
+  <div class="section-title">Memberships</div>
+  <div class="membership-grid">
+    <div class="membership-card">
+      <div class="m-icon">⚡</div>
+      <div class="m-name">IEEE</div>
+      <div class="m-type">Professional Society</div>
+    </div>
+    <div class="membership-card">
+      <div class="m-icon">📡</div>
+      <div class="m-name">IEEE AP-S</div>
+      <div class="m-type">Antenna & Propagation</div>
+    </div>
+    <div class="membership-card">
+      <div class="m-icon">🏅</div>
+      <div class="m-name">Eta Kappa Nu (HKN)</div>
+      <div class="m-type">IEEE Honor Society</div>
+    </div>
+    <div class="membership-card">
+      <div class="m-icon">🎖</div>
+      <div class="m-name">Tau Beta Pi (TBP)</div>
+      <div class="m-type">Engineering Honor Society</div>
+    </div>
+    <div class="membership-card">
+      <div class="m-icon">🎓</div>
+      <div class="m-name">ISTE</div>
+      <div class="m-type">Indian Society for Technical Education</div>
+    </div>
+    <div class="membership-card">
+      <div class="m-icon">❤️</div>
+      <div class="m-name">Yuva Unstoppable</div>
+      <div class="m-type">NGO</div>
+    </div>
+  </div>
+</div>
+
+<!-- Contact -->
+<div class="section" id="contact">
+  <div class="section-title">Contact</div>
+  <div class="contact-row">
+    <div class="contact-card">
+      <div class="c-icon">📧</div>
+      <div>
+        <div class="c-label">Email</div>
+        <div class="c-value"><a href="mailto:anujyrmodi@gmail.com">anujyrmodi@gmail.com</a></div>
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="c-icon">🔗</div>
+      <div>
+        <div class="c-label">Google Scholar</div>
+        <div class="c-value"><a href="https://scholar.google.com/citations?user=anujmodi" target="_blank">Publications</a></div>
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="c-icon">📍</div>
+      <div>
+        <div class="c-label">Location</div>
+        <div class="c-value">Silicon Valley, CA</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  © 2026 Dr. Anuj Modi · anujyrmodi@gmail.com
+</footer>
+
+<!-- Smooth scroll + active nav -->
+<script>
+document.querySelectorAll('.nav-links a').forEach(function(a) {
+  a.addEventListener('click', function(e) {
+    var href = this.getAttribute('href');
+    if (href.startsWith('#')) {
+      e.preventDefault();
+      var el = document.querySelector(href);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.querySelector('.nav-links').classList.remove('open');
+      document.querySelectorAll('.nav-links a').forEach(function(x) { x.classList.remove('active'); });
+      this.classList.add('active');
+    }
+  });
+});
+</script>
+
+</body>
+</html>
