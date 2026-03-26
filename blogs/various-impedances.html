@@ -6,7 +6,7 @@
 <title>Various Impedances — Dr. Anuj Modi</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#0b0e14;--card:#1a1f2b;--border:#2a3040;--accent:#4f8ef7;--text:#e2e8f0;--muted:#8892a4;--dim:#5a6478}
+:root{--bg:#0b0e14;--card:#1a1f2b;--border:#2a3040;--accent:#4f8ef7;--text:#e2e8f0;--muted:#8892a4;--dim:#5a6478;--surface:#141820}
 body{background:var(--bg);color:var(--text);font-family:'Inter','Segoe UI',system-ui,sans-serif;line-height:1.8}
 a{color:var(--accent);text-decoration:none}
 a:hover{color:#34d399}
@@ -19,13 +19,13 @@ article .meta{font-size:12px;color:var(--dim);margin-bottom:12px}
 article .intro{font-size:14px;color:var(--muted);margin-bottom:28px;line-height:1.8}
 /* Table */
 .imp-table{width:100%;border-collapse:separate;border-spacing:0;margin:20px 0;font-size:13px}
-.imp-table thead th{background:#141820;color:var(--accent);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;padding:12px 16px;text-align:left;border-bottom:2px solid var(--accent);position:sticky;top:46px}
+.imp-table thead th{background:var(--surface);color:var(--accent);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;padding:12px 16px;text-align:left;border-bottom:2px solid var(--accent);position:sticky;top:46px}
 .imp-table thead th:first-child{border-radius:8px 0 0 0;width:220px}
 .imp-table thead th:last-child{border-radius:0 8px 0 0}
 .imp-table tbody tr{transition:background 0.15s}
-.imp-table tbody tr:hover{background:#141820}
+.imp-table tbody tr:hover{background:var(--surface)}
 .imp-table tbody tr:nth-child(even){background:rgba(26,31,43,0.5)}
-.imp-table tbody tr:nth-child(even):hover{background:#141820}
+.imp-table tbody tr:nth-child(even):hover{background:var(--surface)}
 .imp-table td{padding:12px 16px;border-bottom:1px solid var(--border);vertical-align:top}
 .imp-table td:first-child{font-weight:600;color:var(--text);white-space:nowrap}
 .imp-table td:last-child{color:var(--muted);line-height:1.7}

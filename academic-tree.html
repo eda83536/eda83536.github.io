@@ -5,20 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Academic Family Tree — Dr. Anuj Modi</title>
 <style>
+:root{--bg:#0b0e14;--card:#1a1f2b;--border:#2a3040;--accent:#4f8ef7;--text:#e2e8f0;--muted:#8892a4;--dim:#5a6478;--surface:#141820}
+
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:#0b0e14;color:#e2e8f0;font-family:'Inter','Segoe UI',system-ui,sans-serif}
-a{color:#4f8ef7;text-decoration:none}a:hover{color:#34d399}
-.bar{background:rgba(11,14,20,0.9);backdrop-filter:blur(12px);border-bottom:1px solid #2a3040;padding:12px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
-.bar a{font-size:12px;color:#8892a4;font-weight:500}.bar .b{color:#4f8ef7;font-weight:700;font-size:14px}
+body{background:var(--bg);color:var(--text);font-family:'Inter','Segoe UI',system-ui,sans-serif}
+a{color:var(--accent);text-decoration:none}a:hover{color:#34d399}
+.bar{background:var(--surface);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:12px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
+.bar a{font-size:12px;color:var(--muted);font-weight:500}.bar .b{color:var(--accent);font-weight:700;font-size:14px}
 .pg{padding:28px 16px 48px;text-align:center}
 h1{font-size:22px;font-weight:800;margin-bottom:4px}
-.sub{font-size:12px;color:#8892a4;margin-bottom:20px}
+.sub{font-size:12px;color:var(--muted);margin-bottom:20px}
 .wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;padding:8px 0}
 .wrap svg{display:block;margin:0 auto}
 .ref{margin-top:18px}
-.btn{display:inline-block;padding:7px 16px;border-radius:6px;font-size:11px;font-weight:600;border:1px solid #2a3040;color:#4f8ef7;background:transparent}
-.btn:hover{border-color:#4f8ef7}
-footer{text-align:center;padding:20px;border-top:1px solid #2a3040;font-size:11px;color:#5a6478;margin-top:32px}
+.btn{display:inline-block;padding:7px 16px;border-radius:6px;font-size:11px;font-weight:600;border:1px solid var(--border);color:var(--accent);background:transparent}
+.btn:hover{border-color:var(--accent)}
+footer{text-align:center;padding:20px;border-top:1px solid var(--border);font-size:11px;color:var(--dim);margin-top:32px}
 
 html.light {
   --bg: #f8f9fb; --surface: #ffffff; --card: #ffffff;
