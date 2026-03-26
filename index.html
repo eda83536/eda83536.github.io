@@ -11,6 +11,16 @@
   --border: #2a3040; --accent: #4f8ef7; --accent2: #34d399;
   --text: #e2e8f0; --muted: #8892a4; --dim: #5a6478;
 }
+html.light {
+  --bg: #f8f9fb; --surface: #ffffff; --card: #ffffff;
+  --border: #e2e5ea; --accent: #2563eb; --accent2: #059669;
+  --text: #1e293b; --muted: #64748b; --dim: #94a3b8;
+}
+html.light nav { background:rgba(248,249,251,0.92); }
+html.light .hero { background:linear-gradient(180deg,#eef2f7 0%,var(--bg) 100%); }
+html.light .stat .n { color:var(--accent); }
+.theme-btn { background:none;border:1px solid var(--border);color:var(--muted);border-radius:6px;padding:5px 10px;font-size:12px;cursor:pointer;transition:all 0.2s;margin-left:8px; }
+.theme-btn:hover { border-color:var(--accent);color:var(--accent); }
 body { background:var(--bg); color:var(--text); font-family:'Inter','Segoe UI',system-ui,sans-serif; line-height:1.7; }
 a { color:var(--accent); text-decoration:none; transition:color 0.2s; }
 a:hover { color:var(--accent2); }
@@ -116,6 +126,7 @@ footer { text-align:center;padding:28px;border-top:1px solid var(--border);font-
 <!-- ═══════════════════ NAV ═══════════════════ -->
 <nav>
   <div class="nav-brand">Dr. Anuj Modi</div>
+  <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">☾</button>
   <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
   <div class="nav-links">
     <a href="#about" class="active">About</a>
@@ -387,6 +398,24 @@ window.addEventListener('scroll', function() {
     }
   });
 });
+</script>
+
+<script>
+function toggleTheme() {
+  var html = document.documentElement;
+  var isLight = html.classList.toggle('light');
+  localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  document.getElementById('themeBtn').textContent = isLight ? '☽' : '☾';
+}
+// Restore saved theme
+(function() {
+  var saved = localStorage.getItem('theme');
+  if (saved === 'light') {
+    document.documentElement.classList.add('light');
+    var btn = document.getElementById('themeBtn');
+    if (btn) btn.textContent = '☽';
+  }
+})();
 </script>
 </body>
 </html>

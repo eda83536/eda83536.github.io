@@ -44,6 +44,18 @@ footer{text-align:center;padding:24px;border-top:1px solid var(--border);font-si
   .cmp-table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
   .cmp-table thead th,.cmp-table td{padding:8px 10px;font-size:11px}
 }
+
+html.light {
+  --bg: #f8f9fb; --surface: #ffffff; --card: #ffffff;
+  --border: #e2e5ea; --accent: #2563eb; --accent2: #059669;
+  --text: #1e293b; --muted: #64748b; --dim: #94a3b8;
+}
+html.light .top-bar { background:rgba(248,249,251,0.92); }
+html.light .math { background:#f1f5f9; border-color:#e2e5ea; }
+html.light .key { background:#f1f5f9; }
+html.light .sidebar { background:#f1f5f9; border-color:#e2e5ea; }
+.theme-btn { background:none;border:1px solid var(--border);color:var(--muted);border-radius:6px;padding:4px 8px;font-size:12px;cursor:pointer;transition:all 0.2s; }
+.theme-btn:hover { border-color:var(--accent);color:var(--accent); }
 </style>
 </head>
 <body>
@@ -118,5 +130,22 @@ footer{text-align:center;padding:24px;border-top:1px solid var(--border);font-si
 
 </article>
 <footer>© 2026 Dr. Anuj Modi · anujyrmodi@gmail.com</footer>
+
+<script>
+function toggleTheme() {
+  var html = document.documentElement;
+  var isLight = html.classList.toggle('light');
+  localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  document.getElementById('themeBtn').textContent = isLight ? '\u263d' : '\u263e';
+}
+(function() {
+  var saved = localStorage.getItem('theme');
+  if (saved === 'light') {
+    document.documentElement.classList.add('light');
+    var btn = document.getElementById('themeBtn');
+    if (btn) btn.textContent = '\u263d';
+  }
+})();
+</script>
 </body>
 </html>
