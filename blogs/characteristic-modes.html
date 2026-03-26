@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Characteristic Mode Analysis — Dr. Anuj Modi</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0b0e14;--card:#1a1f2b;--border:#2a3040;--accent:#4f8ef7;--text:#e2e8f0;--muted:#8892a4;--dim:#5a6478}
+body{background:var(--bg);color:var(--text);font-family:'Inter','Segoe UI',system-ui,sans-serif;line-height:1.8}
+a{color:var(--accent);text-decoration:none}
+a:hover{color:#34d399}
+.top-bar{background:rgba(11,14,20,0.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:12px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
+.top-bar a{font-size:12px;color:var(--muted);font-weight:500}
+.top-bar .brand{color:var(--accent);font-weight:700;font-size:14px}
+article{max-width:900px;margin:0 auto;padding:48px 28px 64px}
+article h1{font-size:26px;font-weight:800;margin-bottom:6px;letter-spacing:-0.5px}
+article .meta{font-size:12px;color:var(--dim);margin-bottom:12px}
+article .intro{font-size:14px;color:var(--muted);margin-bottom:28px;line-height:1.8}
+article h2{font-size:18px;font-weight:700;color:var(--accent);margin:32px 0 6px}
+article h3{font-size:14px;font-weight:600;color:var(--text);margin:20px 0 6px;font-style:italic}
+article p{font-size:14px;color:var(--muted);margin-bottom:14px}
+.pro{color:#34d399;font-weight:600}
+.con{color:#f59e0b;font-weight:600}
+/* Comparison table */
+.cmp-table{width:100%;border-collapse:separate;border-spacing:0;margin:20px 0;font-size:12px}
+.cmp-table thead th{background:#141820;color:var(--accent);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;padding:10px 12px;text-align:left;border-bottom:2px solid var(--accent);position:sticky;top:46px}
+.cmp-table thead th:first-child{border-radius:8px 0 0 0}
+.cmp-table thead th:last-child{border-radius:0 8px 0 0}
+.cmp-table tbody tr{transition:background 0.15s}
+.cmp-table tbody tr:hover{background:#141820}
+.cmp-table tbody tr:nth-child(even){background:rgba(26,31,43,0.5)}
+.cmp-table tbody tr:nth-child(even):hover{background:#141820}
+.cmp-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.6}
+.cmp-table td:first-child{font-weight:700;color:var(--text);white-space:nowrap}
+.cmp-table .str{color:#34d399}
+.cmp-table .wk{color:#f59e0b}
+.cmp-table tbody tr:last-child td:first-child{border-radius:0 0 0 8px}
+.cmp-table tbody tr:last-child td:last-child{border-radius:0 0 8px 0}
+footer{text-align:center;padding:24px;border-top:1px solid var(--border);font-size:11px;color:var(--dim)}
+@media(max-width:700px){
+  article{padding:28px 12px 40px}
+  article h1{font-size:20px}
+  .cmp-table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .cmp-table thead th,.cmp-table td{padding:8px 10px;font-size:11px}
+}
+
+.math{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 18px;margin:14px 0;font-family:'Courier New',monospace;font-size:14px;color:var(--accent);overflow-x:auto;text-align:center;letter-spacing:0.5px}
+.key{background:var(--card);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0;font-size:13px;color:var(--text)}
+.key strong{color:var(--accent)}
+.ev-table{width:100%;border-collapse:separate;border-spacing:0;margin:16px 0;font-size:13px}
+.ev-table th{background:#141820;color:var(--accent);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;padding:10px 14px;text-align:left;border-bottom:2px solid var(--accent)}
+.ev-table th:first-child{border-radius:8px 0 0 0}.ev-table th:last-child{border-radius:0 8px 0 0}
+.ev-table td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:top}
+.ev-table td:first-child{font-family:'Courier New',monospace;font-weight:700;color:var(--accent);white-space:nowrap}
+.ev-table td:last-child{color:var(--muted)}
+.ev-table tbody tr:hover{background:#141820}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <a href="../" class="brand">Dr. Anuj Modi</a>
+  <a href="../#blogs">← Back to Blogs</a>
+</div>
+<article>
+<h1>Characteristic Mode Analysis (CMA)</h1>
+<div class="meta">Technical Blog · Theory & Design Methodology</div>
+<div class="intro">Characteristic Mode Analysis (CMA) has transitioned from a theoretical curiosity in the 1970s to a cornerstone of modern antenna design, particularly for 5G MIMO and platform-integrated systems. This document details the mathematical derivation from the Method of Moments (MoM), physical interpretation of modal parameters, and systematic design methodologies.</div>
+
+<h2>1. Mathematical Foundation: From EFIE to Eigenvalues</h2>
+<p>The theory, refined by Harrington and Mautz, begins with the Electric Field Integral Equation (EFIE).</p>
+
+<h3>1.1 The Impedance Operator</h3>
+<p>For a perfectly conducting body, the tangential electric field is zero:</p>
+<div class="math">[L(J) − E<sup>i</sup>]<sub>tan</sub> = 0</div>
+<p>The operator L relates the surface current J to the scattered field. Using the Method of Moments (MoM), this is discretized into a matrix equation:</p>
+<div class="math">[Z][I] = [V]</div>
+<p>Where <code style="color:var(--accent)">[Z] = [R] + j[X]</code> is the complex impedance matrix.</p>
+
+<h3>1.2 The Weighted Eigenvalue Equation</h3>
+<p>CMA solves for the eigencurrents J<sub>n</sub> that diagonalize both the radiation resistance (R) and reactance (X) matrices:</p>
+<div class="math">[X] J<sub>n</sub> = λ<sub>n</sub> [R] J<sub>n</sub></div>
+<div class="key"><strong>Key Property:</strong> The resulting eigencurrents are real and orthogonal over the surface, and their far-fields are orthogonal over a sphere at infinity.</div>
+
+<h2>2. Physical Insight via Modal Parameters</h2>
+<p>Unlike standard S-parameter analysis, CMA provides parameters that describe the inherent capability of a structure to radiate.</p>
+
+<h3>2.1 Eigenvalues (λ<sub>n</sub>)</h3>
+<p>The eigenvalue represents the ratio of stored reactive power to radiated power.</p>
+<table class="ev-table">
+<thead><tr><th>Condition</th><th>Physical Meaning</th></tr></thead>
+<tbody>
+<tr><td>λ<sub>n</sub> = 0</td><td>Resonance. Optimal radiation efficiency.</td></tr>
+<tr><td>λ<sub>n</sub> > 0</td><td>Inductive. Magnetic energy dominates (stored energy).</td></tr>
+<tr><td>λ<sub>n</sub> < 0</td><td>Capacitive. Electric energy dominates (stored energy).</td></tr>
+</tbody>
+</table>
+
+<h3>2.2 Modal Significance (MS)</h3>
+<p>MS normalizes the eigenvalue to a range of [0, 1], making it easier to track bandwidth:</p>
+<div class="math">MS<sub>n</sub> = | 1 / (1 + jλ<sub>n</sub>) |</div>
+<p>A high MS (>0.7) typically indicates a mode that can be easily excited for efficient radiation.</p>
+
+<h3>2.3 Characteristic Angle (α<sub>n</sub>)</h3>
+<p>Describes the phase angle between the modal current and field:</p>
+<div class="math">α<sub>n</sub> = 180° − tan<sup>−1</sup>(λ<sub>n</sub>)</div>
+<p>Resonance occurs at 180°. This parameter is vital for predicting how multiple modes will combine in wideband designs.</p>
+
+<h2>3. Advanced Design Methodologies</h2>
+
+<h3>3.1 Systematic Feed Placement</h3>
+<p>By examining the Modal Current Distribution, designers can place feeds (probes, slots, or coupling elements) at current maxima to strongly excite a mode, or at nulls to suppress it.</p>
+
+<h3>3.2 Platform Integration and MIMO</h3>
+<p>For devices like smartphones, CMA treats the entire chassis as the radiator.</p>
+<div class="key"><strong>MIMO Isolation:</strong> Since characteristic modes are inherently orthogonal, exciting different modes (e.g., a dipole-like mode and a loop-like mode) provides high isolation without physical separation.</div>
+
+<div class="refs">
+<h3>References</h3>
+<p>[1] R. J. Garbacz, "Modal expansions for resonance scattering phenomena," Proc. IEEE, 1965.</p>
+<p>[2] R. F. Harrington and J. R. Mautz, "Theory of characteristic modes for conducting bodies," IEEE Trans. Antennas Propag., 1971.</p>
+<p>[3] M. Cabedo-Fabrés, Systematic Design of Antennas Using the Theory of Characteristic Modes, Ph.D. Thesis, 2007.</p>
+<p>[4] Altair Feko / Ansys HFSS Documentation, "Characteristic Mode Analysis Theory Guide."</p>
+<p>[5] Y. Chen and C. F. Wang, Characteristic Modes: Theory and Applications in Antenna Engineering, Wiley-IEEE Press, 2015.</p>
+</div>
+
+</article>
+<footer>© 2026 Dr. Anuj Modi · anujyrmodi@gmail.com</footer>
+</body>
+</html>
