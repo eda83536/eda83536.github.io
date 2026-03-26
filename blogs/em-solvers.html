@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Commercial EM Solver Comparison — Dr. Anuj Modi</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0b0e14;--card:#1a1f2b;--border:#2a3040;--accent:#4f8ef7;--text:#e2e8f0;--muted:#8892a4;--dim:#5a6478}
+body{background:var(--bg);color:var(--text);font-family:'Inter','Segoe UI',system-ui,sans-serif;line-height:1.8}
+a{color:var(--accent);text-decoration:none}
+a:hover{color:#34d399}
+.top-bar{background:rgba(11,14,20,0.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:12px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
+.top-bar a{font-size:12px;color:var(--muted);font-weight:500}
+.top-bar .brand{color:var(--accent);font-weight:700;font-size:14px}
+article{max-width:900px;margin:0 auto;padding:48px 28px 64px}
+article h1{font-size:26px;font-weight:800;margin-bottom:6px;letter-spacing:-0.5px}
+article .meta{font-size:12px;color:var(--dim);margin-bottom:12px}
+article .intro{font-size:14px;color:var(--muted);margin-bottom:28px;line-height:1.8}
+article h2{font-size:18px;font-weight:700;color:var(--accent);margin:32px 0 6px}
+article h3{font-size:14px;font-weight:600;color:var(--text);margin:20px 0 6px;font-style:italic}
+article p{font-size:14px;color:var(--muted);margin-bottom:14px}
+.pro{color:#34d399;font-weight:600}
+.con{color:#f59e0b;font-weight:600}
+/* Comparison table */
+.cmp-table{width:100%;border-collapse:separate;border-spacing:0;margin:20px 0;font-size:12px}
+.cmp-table thead th{background:#141820;color:var(--accent);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;padding:10px 12px;text-align:left;border-bottom:2px solid var(--accent);position:sticky;top:46px}
+.cmp-table thead th:first-child{border-radius:8px 0 0 0}
+.cmp-table thead th:last-child{border-radius:0 8px 0 0}
+.cmp-table tbody tr{transition:background 0.15s}
+.cmp-table tbody tr:hover{background:#141820}
+.cmp-table tbody tr:nth-child(even){background:rgba(26,31,43,0.5)}
+.cmp-table tbody tr:nth-child(even):hover{background:#141820}
+.cmp-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.6}
+.cmp-table td:first-child{font-weight:700;color:var(--text);white-space:nowrap}
+.cmp-table .str{color:#34d399}
+.cmp-table .wk{color:#f59e0b}
+.cmp-table tbody tr:last-child td:first-child{border-radius:0 0 0 8px}
+.cmp-table tbody tr:last-child td:last-child{border-radius:0 0 8px 0}
+footer{text-align:center;padding:24px;border-top:1px solid var(--border);font-size:11px;color:var(--dim)}
+@media(max-width:700px){
+  article{padding:28px 12px 40px}
+  article h1{font-size:20px}
+  .cmp-table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .cmp-table thead th,.cmp-table td{padding:8px 10px;font-size:11px}
+}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <a href="../" class="brand">Dr. Anuj Modi</a>
+  <a href="../#blogs">← Back to Blogs</a>
+</div>
+<article>
+<h1>Commercial EM Solver Comparison</h1>
+<div class="meta">Technical Blog · Solver Selection Guide</div>
+<div class="intro">Choosing a commercial Electromagnetic (EM) solver is a trade-off between electrical size, geometric complexity, and frequency requirements. While high-frequency tools like Ansys HFSS and CST Studio Suite are industry standards, specialized tools like Remcom XFdtd and Keysight ADS Momentum dominate specific niches such as biomedical SAR or planar PCB design.</div>
+
+<table class="cmp-table">
+<thead>
+<tr><th>Method</th><th>Best For...</th><th>Major Commercial Tools</th><th>Core Strength</th><th>Primary Weakness</th></tr>
+</thead>
+<tbody>
+<tr>
+  <td>FEM</td>
+  <td>Filters, Connectors, High-Q resonators</td>
+  <td>Ansys HFSS, CST (Frequency Domain)</td>
+  <td class="str">Exceptional accuracy for complex internal geometries</td>
+  <td class="wk">High RAM usage; meshes the surrounding "air" volume</td>
+</tr>
+<tr>
+  <td>FDTD</td>
+  <td>Antennas, Pulsed systems, Broadband</td>
+  <td>Remcom XFdtd, CST Transient</td>
+  <td class="str">Efficiency scales linearly with size; excellent GPU acceleration</td>
+  <td class="wk">Struggles with high-Q structures (long convergence times)</td>
+</tr>
+<tr>
+  <td>MoM</td>
+  <td>Planar PCBs, Antennas, Wire structures</td>
+  <td>ADS Momentum, Altair FEKO</td>
+  <td class="str">No air mesh required; only meshes surfaces</td>
+  <td class="wk">Computationally "expensive" for complex 3D non-planar objects</td>
+</tr>
+<tr>
+  <td>SBR+ / PO</td>
+  <td>Radar Cross Section (RCS), Large-scale propagation</td>
+  <td>Ansys Savant, Remcom Wireless InSite, FEKO</td>
+  <td class="str">Only feasible method for electrically massive environments (ships, cities)</td>
+  <td class="wk">Asymptotic approximation; loses accuracy for small details</td>
+</tr>
+</tbody>
+</table>
+
+<h2>1. Finite Element Method (FEM)</h2>
+<h3>The Gold Standard for Precision</h3>
+<p>The Finite Element Method (FEM) is a volumetric, frequency-domain approach that excels in modeling intricate 3D structures where small geometric details significantly impact performance.</p>
+<p><span class="pro">Pro:</span> Highly accurate for narrow-band, high-Q components like cavity filters or medical implants where dielectric inhomogeneity is critical.</p>
+<p><span class="con">Con:</span> Because it requires meshing the entire computational volume — including the air — memory consumption grows rapidly as the object size (in wavelengths) increases.</p>
+
+<h2>2. Finite Difference Time Domain (FDTD)</h2>
+<h3>The Broadband Workhorse</h3>
+<p>FDTD (and its close relative, FIT) solves Maxwell's equations by "marching" a pulse through a grid over time.</p>
+<p><span class="pro">Pro:</span> A single simulation provides broadband frequency data (S-parameters over a wide range). It is inherently parallelizable, allowing tools like Remcom XFdtd to utilize powerful GPU acceleration for massive speed gains.</p>
+<p><span class="con">Con:</span> Not ideal for structures with long-lasting resonances (high-Q), as the simulation must run until the energy completely dissipates.</p>
+
+<h2>3. Method of Moments (MoM)</h2>
+<h3>Optimized for Planar Designs</h3>
+<p>MoM is a boundary-element method that calculates currents on the surface of conductors rather than fields in a volume.</p>
+<p><span class="pro">Pro:</span> It avoids the "air mesh" entirely, making it incredibly fast for antennas and multi-layer PCBs (2.5D problems). Tools like Keysight ADS Momentum are the industry leaders for high-speed digital and RFIC layout verification.</p>
+<p><span class="con">Con:</span> As complexity increases, the matrix inversion required for MoM becomes a bottleneck, often necessitating specialized solvers for large-scale problems.</p>
+
+<h2>4. Asymptotic Solvers (SBR+ / PO)</h2>
+<h3>The Solution for Extreme Scale</h3>
+<p>When a problem involves objects thousands of wavelengths in size — such as a 5G base station in an urban city — full-wave solvers become impractical.</p>
+<p><span class="pro">Pro:</span> Shooting and Bouncing Rays (SBR+) treats EM waves like light rays, allowing for rapid calculation of coverage and interference in massive scenes.</p>
+<p><span class="con">Con:</span> Accuracy is compromised for structures where wave-like effects (diffraction, complex coupling) are the dominant factors.</p>
+
+</article>
+<footer>© 2026 Dr. Anuj Modi · anujyrmodi@gmail.com</footer>
+</body>
+</html>
