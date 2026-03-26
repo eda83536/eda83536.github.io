@@ -216,6 +216,66 @@ footer{text-align:center;padding:24px;border-top:1px solid var(--border);font-si
 <p>For devices like smartphones, CMA treats the entire chassis as the radiator.</p>
 <div class="key"><strong>MIMO Isolation:</strong> Since characteristic modes are inherently orthogonal, exciting different modes (e.g., a dipole-like mode and a loop-like mode) provides high isolation without physical separation.</div>
 
+
+<h2>4. CMA for Non-Metallic Structures</h2>
+<p>CMA can and does work for non-metallic structures, but the reason it isn't formulated using "direct" Maxwell differential equations (like FDTD or FEM solvers) comes down to a fundamental mathematical requirement: the separation of radiated and stored power.</p>
+
+<h3>4.1 Why Direct Maxwell (Differential Form) is Difficult for CMA</h3>
+<p>Standard Maxwell solvers like those in CST (Transient) or HFSS (Driven) solve the differential form of Maxwell's equations within a bounded box.</p>
+<div class="key"><strong>The "Boundary" Problem:</strong> CMA requires a clear mathematical distinction between the energy that stays near the object (stored) and the energy that escapes to infinity (radiated). Differential equations require artificial absorbing boundary conditions (like PML) to simulate "infinity". Because these boundaries are numerical approximations, they "pollute" the eigenvalue calculation, making it nearly impossible to get the clean, real-valued eigenvalues needed for Modal Significance.</div>
+
+<h3>4.2 The Solution: Integral Equations for Non-Metals</h3>
+<p>To analyze dielectrics (glass, plastic, ceramics), engineers use Integral Equation (IE) versions of Maxwell’s equations instead of differential ones:</p>
+<table class="ev-table">
+<thead><tr><th>Method</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td>VIE</td><td>Volume Integral Equation — treats the dielectric as a cloud of "equivalent volume currents". Physically accurate for inhomogeneous materials but computationally heavy (requires meshing the entire 3D volume).</td></tr>
+<tr><td>SIE / PMCHWT</td><td>Surface Integral Equation — the "gold standard" for homogeneous dielectrics (like a Dielectric Resonator Antenna). Uses the PMCHWT formulation (Poggio, Miller, Chang, Harrington, Wu, Tsai), placing equivalent electric and magnetic currents only on the surface.</td></tr>
+</tbody>
+</table>
+
+<h3>4.3 How it Works for Dielectrics</h3>
+<p>When you run CMA on a non-metal structure using these formulations, you get:</p>
+<div class="key"><strong>Electric Currents (J):</strong> Representing the displacement currents in the material.</div>
+<div class="key"><strong>Magnetic Currents (M):</strong> Representing the change in magnetic flux at the boundaries.</div>
+<p>These modes still give you Modal Significance and Characteristic Angles, allowing you to design "Antennas without Metal," such as Dielectric Resonator Antennas (DRAs), by exciting the natural dielectric modes.</p>
+
+<h3>Summary of CMA Availability</h3>
+<table class="ev-table">
+<thead><tr><th>Material Type</th><th>Solver Technology</th><th>Key Formulation</th></tr></thead>
+<tbody>
+<tr><td>Metals (PEC)</td><td>Surface Integral (MoM)</td><td>EFIE (Electric Field Integral Eq)</td></tr>
+<tr><td>Homogeneous Dielectrics</td><td>Surface Integral (MoM)</td><td>PMCHWT (Surface currents)</td></tr>
+<tr><td>Complex / Inhomogeneous</td><td>Volume Integral (VIE)</td><td>Volume equivalent currents</td></tr>
+</tbody>
+</table>
+
+<h2>5. Characteristic Angle: Metal Plate vs. Dielectric Sphere</h2>
+<p>The Characteristic Angle (α<sub>n</sub>) provides a phase-based view of how a mode transitions from storing energy to radiating it. While both a metal plate and a dielectric sphere can resonate, their angle plots behave differently.</p>
+
+<h3>Comparison Table</h3>
+<table class="ev-table">
+<thead><tr><th>Feature</th><th>Metal (PEC) Plate</th><th>Dielectric Sphere (DRA)</th></tr></thead>
+<tbody>
+<tr><td>Resonance</td><td>α<sub>n</sub> = 180°</td><td>α<sub>n</sub> = 180°</td></tr>
+<tr><td>Angle Range</td><td>Strictly 90° < α<sub>n</sub> < 270°</td><td>Can exhibit "looping" or rapid phase shifts</td></tr>
+<tr><td>Slope at Resonance</td><td>Typically follows an "S-curve" shape</td><td>Steeper slopes due to higher Q-factors</td></tr>
+<tr><td>Mode Type</td><td>Surface currents only (J)</td><td>Equivalent surface (J, M) or volume currents</td></tr>
+</tbody>
+</table>
+
+<h3>Metal Plate (PEC) Behavior</h3>
+<div class="key"><strong>Capacitive Region (90° < α < 180°):</strong> At low frequencies, the plate behaves like a capacitor. The angle starts near 90° and rises toward 180° as frequency increases.</div>
+<div class="key"><strong>Inductive Region (180° < α < 270°):</strong> After passing resonance (180°), the mode becomes inductive and the angle continues toward 270°.</div>
+<p>For a PEC plate, the modes are relatively "broad," meaning the angle changes gradually with frequency, indicating a lower Q-factor and wider potential bandwidth.</p>
+
+<h3>Dielectric Sphere Behavior</h3>
+<div class="key"><strong>High Q Resonances:</strong> Dielectric spheres trap energy much more effectively than open metal plates. This results in very steep characteristic angle curves that "snap" through the 180° resonance point over a very narrow frequency range.</div>
+<div class="key"><strong>Internal vs. External Fields:</strong> Because the dielectric has a specific permittivity (ε<sub>r</sub>), the angle plot is heavily influenced by internal standing waves. Higher-order modes appear much more frequently compared to a metal plate of similar size.</div>
+<div class="key"><strong>Magnetic Modes:</strong> Unlike the plate, a sphere easily supports TE (Transverse Electric) and TM (Transverse Magnetic) modes. You will often see two distinct sets of angle curves: one for electric-type resonances and one for magnetic-type resonances.</div>
+
+<p style="background:var(--card);border-left:3px solid #34d399;border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0;font-size:13px;color:#34d399;font-weight:600">Key Takeaway: The "steepness" of the characteristic angle slope is a direct indicator of the stored energy in the structure. Dielectric spheres concentrate fields internally, leading to rapid phase transitions.</p>
+
 <div class="refs">
 <h3>References</h3>
 <p>[1] R. J. Garbacz, "Modal expansions for resonance scattering phenomena," Proc. IEEE, 1965.</p>
