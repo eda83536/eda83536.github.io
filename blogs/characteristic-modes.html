@@ -96,10 +96,50 @@ footer{text-align:center;padding:24px;border-top:1px solid var(--border);font-si
 </tbody>
 </table>
 
-<h3>2.2 Modal Significance (MS)</h3>
-<p>MS normalizes the eigenvalue to a range of [0, 1], making it easier to track bandwidth:</p>
+<h3>2.2 Modal Significance (MS) — Deep Dive</h3>
+<p>The Modal Significance (MS) is a normalized parameter derived from the eigenvalue λ<sub>n</sub> that quantifies how effectively a specific characteristic mode can radiate at a given frequency.</p>
 <div class="math">MS<sub>n</sub> = | 1 / (1 + jλ<sub>n</sub>) |</div>
-<p>A high MS (>0.7) typically indicates a mode that can be easily excited for efficient radiation.</p>
+
+<h3>Normalization Range</h3>
+<p>MS normalizes the eigenvalue λ<sub>n</sub>, which can range from −∞ to +∞, into a strictly bounded range of 0 to 1:</p>
+<table class="ev-table">
+<thead><tr><th>Condition</th><th>Physical Meaning</th></tr></thead>
+<tbody>
+<tr><td>MS = 1</td><td>Occurs when λ<sub>n</sub> = 0. The mode is at resonance and has the maximum potential to radiate.</td></tr>
+<tr><td>MS → 0</td><td>Occurs as |λ<sub>n</sub>| → ∞. The mode is non-resonant and stores significant reactive energy, making it a very poor radiator.</td></tr>
+</tbody>
+</table>
+
+<h3>High MS and Radiation Efficiency</h3>
+<p>A "high" MS value is typically defined as MS ≥ 0.707. This threshold is significant for several reasons:</p>
+<div class="key"><strong>Ease of Excitation:</strong> Modes with MS ≥ 0.707 are considered "significant" because they can be easily excited by an external source (like a feed) to contribute to the total radiation of the antenna.</div>
+<div class="key"><strong>Power Balance:</strong> At MS = 0.707 (where |λ<sub>n</sub>| = 1), the power radiated by the mode is exactly equal to the net reactive power it stores.</div>
+
+<h3>Tracking Bandwidth</h3>
+<p>MS is a powerful tool for tracking the potential bandwidth of a structure before a physical feed is even designed.</p>
+<table class="ev-table">
+<thead><tr><th>MS Characteristic</th><th>Interpretation</th></tr></thead>
+<tbody>
+<tr><td>MS curve width</td><td>The "radiating bandwidth" of a mode is defined by the frequency range over which its MS remains above the 0.707 threshold.</td></tr>
+<tr><td>Narrow, sharp peak</td><td>High-Q, narrowband mode — the mode resonates strongly but over a very limited frequency range.</td></tr>
+<tr><td>Broad MS curve</td><td>Low-Q, wideband mode — the mode can contribute to radiation over a wide frequency range.</td></tr>
+</tbody>
+</table>
+
+<h3>Numerical Example: λ → MS Mapping</h3>
+<p>The following table demonstrates how eigenvalues map to Modal Significance:</p>
+<table class="ev-table">
+<thead><tr><th>λ<sub>n</sub></th><th>MS</th><th>Interpretation</th></tr></thead>
+<tbody>
+<tr><td>−10</td><td>0.0995</td><td>Far from resonance (capacitive), poor radiator</td></tr>
+<tr><td>−1</td><td>0.7071</td><td>Threshold — equal radiated and reactive power</td></tr>
+<tr><td>−0.5</td><td>0.8944</td><td>Near resonance, good radiator</td></tr>
+<tr><td>0</td><td>1.0000</td><td>Resonance — maximum radiation potential</td></tr>
+<tr><td>0.5</td><td>0.8944</td><td>Near resonance, good radiator</td></tr>
+<tr><td>1</td><td>0.7071</td><td>Threshold — equal radiated and reactive power</td></tr>
+<tr><td>10</td><td>0.0995</td><td>Far from resonance (inductive), poor radiator</td></tr>
+</tbody>
+</table>
 
 <h3>2.3 Characteristic Angle (α<sub>n</sub>)</h3>
 <p>Describes the phase angle between the modal current and field:</p>
