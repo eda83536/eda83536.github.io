@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Various Impedances — Dr. Anuj Modi</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0b0e14;--card:#1a1f2b;--border:#2a3040;--accent:#4f8ef7;--text:#e2e8f0;--muted:#8892a4;--dim:#5a6478}
+body{background:var(--bg);color:var(--text);font-family:'Inter','Segoe UI',system-ui,sans-serif;line-height:1.8}
+a{color:var(--accent);text-decoration:none}
+a:hover{color:#34d399}
+.top-bar{background:rgba(11,14,20,0.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:12px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
+.top-bar a{font-size:12px;color:var(--muted);font-weight:500}
+.top-bar .brand{color:var(--accent);font-weight:700;font-size:14px}
+article{max-width:860px;margin:0 auto;padding:48px 28px 64px}
+article h1{font-size:26px;font-weight:800;margin-bottom:6px;letter-spacing:-0.5px}
+article .meta{font-size:12px;color:var(--dim);margin-bottom:12px}
+article .intro{font-size:14px;color:var(--muted);margin-bottom:28px;line-height:1.8}
+/* Table */
+.imp-table{width:100%;border-collapse:separate;border-spacing:0;margin:20px 0;font-size:13px}
+.imp-table thead th{background:#141820;color:var(--accent);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;padding:12px 16px;text-align:left;border-bottom:2px solid var(--accent);position:sticky;top:46px}
+.imp-table thead th:first-child{border-radius:8px 0 0 0;width:220px}
+.imp-table thead th:last-child{border-radius:0 8px 0 0}
+.imp-table tbody tr{transition:background 0.15s}
+.imp-table tbody tr:hover{background:#141820}
+.imp-table tbody tr:nth-child(even){background:rgba(26,31,43,0.5)}
+.imp-table tbody tr:nth-child(even):hover{background:#141820}
+.imp-table td{padding:12px 16px;border-bottom:1px solid var(--border);vertical-align:top}
+.imp-table td:first-child{font-weight:600;color:var(--text);white-space:nowrap}
+.imp-table td:last-child{color:var(--muted);line-height:1.7}
+.imp-table .sym{color:var(--accent);font-family:'Courier New',monospace;font-size:14px;font-weight:700}
+.imp-table tbody tr:last-child td:first-child{border-radius:0 0 0 8px}
+.imp-table tbody tr:last-child td:last-child{border-radius:0 0 8px 0}
+footer{text-align:center;padding:24px;border-top:1px solid var(--border);font-size:11px;color:var(--dim)}
+@media(max-width:700px){
+  article{padding:28px 12px 40px}
+  article h1{font-size:20px}
+  .imp-table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .imp-table thead th,.imp-table td{padding:10px 12px;font-size:12px}
+  .imp-table td:first-child{min-width:160px}
+}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <a href="../" class="brand">Dr. Anuj Modi</a>
+  <a href="../#blogs">← Back to Blogs</a>
+</div>
+<article>
+<h1>Various Impedances in RF & EM Engineering</h1>
+<div class="meta">Technical Blog · Reference Guide</div>
+<div class="intro">A comprehensive reference of impedance types encountered in electromagnetics, antenna design, transmission line theory, and EMC. Each impedance captures a different physical relationship between voltage, current, and electromagnetic fields.</div>
+
+<table class="imp-table">
+<thead>
+<tr><th>Impedance Type</th><th>Definition & Engineering Context</th></tr>
+</thead>
+<tbody>
+<tr><td>Intrinsic Impedance <span class="sym">η</span></td><td>A fundamental property of a material medium, representing the ratio of the electric field to the magnetic field for a plane wave. In a vacuum, this is approximately 377 Ω. It depends solely on the material's permeability and permittivity, describing how the medium itself resists the electromagnetic wave regardless of any physical boundaries.</td></tr>
+
+<tr><td>Characteristic Impedance <span class="sym">Z₀</span></td><td>The ratio of voltage to current for a single wave propagating along a uniform transmission line (like a coax or microstrip). It is determined by the physical geometry and materials of the line. If a line is terminated with this value, it behaves as if it is infinitely long, preventing any signal reflections.</td></tr>
+
+<tr><td>Wave Impedance <span class="sym">Z<sub>w</sub></span></td><td>The ratio of the transverse electric field to the transverse magnetic field at a specific point in a waveguide or antenna system. Unlike intrinsic impedance, wave impedance depends on the specific "mode" of travel (TE or TM) and the frequency, often changing significantly near the waveguide's cutoff frequency.</td></tr>
+
+<tr><td>System Impedance <span class="sym">Z<sub>sys</sub></span></td><td>A standardized reference value (usually 50 Ω or 75 Ω) chosen for an entire ecosystem of hardware to ensure compatibility. By designing all connectors, cables, and components to this single value, engineers can plug different devices together without needing custom matching for every connection.</td></tr>
+
+<tr><td>Input Impedance <span class="sym">Z<sub>in</sub></span></td><td>The total impedance "seen" by a source looking into a transmission line or component port. It is a combination of the line's characteristic impedance, its electrical length, and the actual load at the other end. It changes as you move along a mismatched line due to the presence of standing waves.</td></tr>
+
+<tr><td>Surface Impedance <span class="sym">Z<sub>s</sub></span></td><td>Used to describe the behavior of lossy conductors at high frequencies where the "skin effect" occurs. It relates the tangential electric field at the conductor's surface to the linear current density. It includes both a resistive part (power loss/heat) and an inductive part (stored magnetic energy inside the conductor).</td></tr>
+
+<tr><td>Radiation Impedance <span class="sym">Z<sub>rad</sub></span></td><td>The impedance presented by an antenna to its feedline, consisting of radiation resistance (energy turned into waves) and loss resistance (energy turned into heat). The reactive part represents energy stored in the antenna's near-field. Matching this to the feedline is critical for efficient signal transmission.</td></tr>
+
+<tr><td>Mutual Impedance <span class="sym">Z<sub>ij</sub></span></td><td>A measure of the electromagnetic coupling between two nearby components, such as two elements in an antenna array. It describes the voltage induced in one element due to the current flowing in the other. It is essential for calculating the true input impedance of antennas in close proximity.</td></tr>
+
+<tr><td>Transfer Impedance <span class="sym">Z<sub>t</sub></span></td><td>A parameter used in Electromagnetic Compatibility (EMC) to evaluate the effectiveness of cable shielding. It relates the current flowing on the outside of a shield to the voltage induced on the center conductors inside. A lower transfer impedance indicates a higher quality shield that blocks interference more effectively.</td></tr>
+
+<tr><td>Even/Odd Mode Impedance</td><td>Specific to "coupled" transmission lines (like differential pairs on a PCB). Even-mode impedance occurs when both lines carry identical signals in phase, while odd-mode occurs when signals are 180° out of phase. These are vital for designing high-speed digital buses and directional couplers.</td></tr>
+
+<tr><td>Free Space Impedance <span class="sym">η₀</span></td><td>A physical constant representing the intrinsic impedance of a perfect vacuum. Defined as the square root of the ratio of vacuum permeability to vacuum permittivity, it is exactly 120π Ω (≈ 376.73 Ω). It serves as the baseline for all wave propagation calculations in air or space.</td></tr>
+
+<tr><td>Normalized Impedance <span class="sym">z</span></td><td>A dimensionless mathematical value calculated by dividing an actual impedance (Z) by the system's characteristic impedance (Z₀). This technique allows engineers to plot and analyze complex circuits on a Smith Chart regardless of whether the system is 50 Ω, 75 Ω, or any other standard.</td></tr>
+
+<tr><td>Image Impedance <span class="sym">Z<sub>i</sub></span></td><td>Used primarily in filter design and cascaded networks. It is the impedance that, when connected to the ports of a network, results in the same impedance being seen looking into the opposite port. This ensures that multiple identical stages can be linked together without causing internal reflections.</td></tr>
+
+<tr><td>Terminal Impedance</td><td>The impedance measured at the specific physical boundaries or "terminals" of a component. In multi-port network analysis (Z-parameters), it defines how the voltage at one port relates to currents at all other ports, helping describe the behavior of a "black box" circuit within a larger system.</td></tr>
+
+<tr><td>Aperture Impedance</td><td>Describes the "resistance" an electromagnetic field encounters when passing through an opening (like a slot or hole) in a conducting surface. It is used in the study of diffraction and shielding effectiveness, quantifying how much energy leaks through a gap in a microwave housing or enclosure.</td></tr>
+</tbody>
+</table>
+
+</article>
+<footer>© 2026 Dr. Anuj Modi · anujyrmodi@gmail.com</footer>
+</body>
+</html>
