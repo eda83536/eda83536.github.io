@@ -127,7 +127,68 @@ footer{text-align:center;padding:24px;border-top:1px solid var(--border);font-si
 </table>
 
 <h3>Numerical Example: λ → MS Mapping</h3>
-<p>The following table demonstrates how eigenvalues map to Modal Significance:</p>
+<p>The following chart and table demonstrate how eigenvalues map to Modal Significance:</p>
+
+<!-- Interactive MS vs Lambda Plot -->
+<div style="margin:20px 0">
+<canvas id="msPlot" width="680" height="400" style="width:100%;max-width:680px;height:auto;display:block;margin:0 auto;background:#1a1f2b;border:1px solid #2a3040;border-radius:8px"></canvas>
+</div>
+<script>
+(function(){
+  var c=document.getElementById('msPlot'),ctx=c.getContext('2d'),W=c.width,H=c.height;
+  var p={t:40,r:30,b:55,l:60},pw=W-p.l-p.r,ph=H-p.t-p.b;
+  ctx.fillStyle='#1a1f2b';ctx.fillRect(0,0,W,H);
+  ctx.strokeStyle='#2a3040';ctx.lineWidth=0.5;
+  for(var i=0;i<=10;i++){var x=p.l+i*pw/10;ctx.beginPath();ctx.moveTo(x,p.t);ctx.lineTo(x,p.t+ph);ctx.stroke();}
+  for(var j=0;j<=5;j++){var y=p.t+j*ph/5;ctx.beginPath();ctx.moveTo(p.l,y);ctx.lineTo(p.l+pw,y);ctx.stroke();}
+  ctx.strokeStyle='#5a6478';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(p.l,p.t);ctx.lineTo(p.l,p.t+ph);ctx.lineTo(p.l+pw,p.t+ph);ctx.stroke();
+  function lx(v){return p.l+(v+5)/10*pw;}
+  function my(v){return p.t+ph-v*ph;}
+  // Efficient zone fill
+  ctx.fillStyle='rgba(52,211,153,0.12)';ctx.beginPath();
+  for(var l=-1;l<=1;l+=0.02){var ms=1/Math.sqrt(1+l*l);if(l===-1)ctx.moveTo(lx(l),my(ms));else ctx.lineTo(lx(l),my(ms));}
+  ctx.lineTo(lx(1),my(0.707));ctx.lineTo(lx(-1),my(0.707));ctx.closePath();ctx.fill();
+  // Threshold
+  ctx.strokeStyle='#ef4444';ctx.lineWidth=1.5;ctx.setLineDash([6,4]);
+  ctx.beginPath();ctx.moveTo(p.l,my(0.707));ctx.lineTo(p.l+pw,my(0.707));ctx.stroke();ctx.setLineDash([]);
+  // MS curve
+  ctx.strokeStyle='#4f8ef7';ctx.lineWidth=2.5;ctx.beginPath();
+  for(var l=-5;l<=5;l+=0.05){var ms=1/Math.sqrt(1+l*l),x=lx(l),y=my(ms);if(l===-5)ctx.moveTo(x,y);else ctx.lineTo(x,y);}
+  ctx.stroke();
+  // Title
+  ctx.fillStyle='#e2e8f0';ctx.font='13px Inter,Segoe UI,system-ui,sans-serif';ctx.textAlign='center';
+  ctx.fillText('Modal Significance vs. Eigenvalue (\u03bb)',W/2,22);
+  // X labels
+  ctx.fillStyle='#8892a4';ctx.font='11px Inter,system-ui,sans-serif';
+  for(var v=-4;v<=4;v+=2)ctx.fillText(v.toString(),lx(v),p.t+ph+18);
+  ctx.fillText('Eigenvalue (\u03bbn)',W/2,p.t+ph+42);
+  // Y labels
+  ctx.textAlign='right';
+  for(var m=0;m<=1;m+=0.2)ctx.fillText(m.toFixed(1),p.l-8,my(m)+4);
+  ctx.save();ctx.translate(16,p.t+ph/2);ctx.rotate(-Math.PI/2);ctx.textAlign='center';
+  ctx.fillText('Modal Significance (MS)',0,0);ctx.restore();
+  // Annotations
+  ctx.fillStyle='#34d399';ctx.beginPath();ctx.arc(lx(0),my(1),4,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#e2e8f0';ctx.font='10px Inter,system-ui,sans-serif';ctx.textAlign='left';
+  ctx.fillText('Resonance (\u03bb = 0)',lx(0)+8,my(1)-6);
+  ctx.fillText('Limit (\u03bb = \u00b11)',lx(1.2),my(0.707)-6);
+  ctx.fillStyle='#f59e0b';ctx.beginPath();ctx.arc(lx(1),my(0.707),3,0,Math.PI*2);ctx.fill();
+  ctx.beginPath();ctx.arc(lx(-1),my(0.707),3,0,Math.PI*2);ctx.fill();
+  // Legend
+  var x0=p.l+12,y0=p.t+14;
+  ctx.fillStyle='#4f8ef7';ctx.fillRect(x0,y0,16,2);
+  ctx.fillStyle='#8892a4';ctx.font='9px Inter,system-ui,sans-serif';ctx.textAlign='left';
+  ctx.fillText('MS = |1/(1 + j\u03bbn)|',x0+20,y0+4);
+  ctx.strokeStyle='#ef4444';ctx.lineWidth=1;ctx.setLineDash([4,3]);
+  ctx.beginPath();ctx.moveTo(x0,y0+14);ctx.lineTo(x0+16,y0+14);ctx.stroke();ctx.setLineDash([]);
+  ctx.fillStyle='#8892a4';ctx.fillText('Threshold (0.707)',x0+20,y0+18);
+  ctx.fillStyle='rgba(52,211,153,0.25)';ctx.fillRect(x0,y0+24,16,10);
+  ctx.fillStyle='#8892a4';ctx.fillText('Efficient Radiation Zone',x0+20,y0+32);
+})();
+</script>
+
+<p>The same data shown numerically:</p>
 <table class="ev-table">
 <thead><tr><th>λ<sub>n</sub></th><th>MS</th><th>Interpretation</th></tr></thead>
 <tbody>
