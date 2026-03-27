@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FIT, FDTD & PBA Deep Dive — Dr. Anuj Modi</title>
+<style>
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0b0e14;--card:#1a1f2b;--border:#2a3040;--accent:#4f8ef7;--text:#e2e8f0;--muted:#8892a4;--dim:#5a6478;--surface:#141820}
+body{background:var(--bg);color:var(--text);font-family:'Inter','Segoe UI',system-ui,sans-serif;line-height:1.8}
+a{color:var(--accent);text-decoration:none}
+a:hover{color:#34d399}
+.top-bar{background:rgba(11,14,20,0.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:12px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
+.top-bar a{font-size:12px;color:var(--muted);font-weight:500}
+.top-bar .brand{color:var(--accent);font-weight:700;font-size:14px}
+article{max-width:900px;margin:0 auto;padding:48px 28px 64px}
+article h1{font-size:26px;font-weight:800;margin-bottom:6px;letter-spacing:-0.5px}
+article .meta{font-size:12px;color:var(--dim);margin-bottom:12px}
+article .intro{font-size:14px;color:var(--muted);margin-bottom:28px;line-height:1.8}
+article h2{font-size:18px;font-weight:700;color:var(--accent);margin:32px 0 6px}
+article h3{font-size:14px;font-weight:600;color:var(--text);margin:20px 0 6px;font-style:italic}
+article p{font-size:14px;color:var(--muted);margin-bottom:14px}
+.pro{color:#34d399;font-weight:600}
+.con{color:#f59e0b;font-weight:600}
+/* Comparison table */
+.cmp-table{width:100%;border-collapse:separate;border-spacing:0;margin:20px 0;font-size:12px}
+.cmp-table thead th{background:var(--surface);color:var(--accent);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;padding:10px 12px;text-align:left;border-bottom:2px solid var(--accent);position:sticky;top:46px}
+.cmp-table thead th:first-child{border-radius:8px 0 0 0}
+.cmp-table thead th:last-child{border-radius:0 8px 0 0}
+.cmp-table tbody tr{transition:background 0.15s}
+.cmp-table tbody tr:hover{background:var(--surface)}
+.cmp-table tbody tr:nth-child(even){background:rgba(26,31,43,0.5)}
+.cmp-table tbody tr:nth-child(even):hover{background:var(--surface)}
+.cmp-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.6}
+.cmp-table td:first-child{font-weight:700;color:var(--text);white-space:nowrap}
+.cmp-table .str{color:#34d399}
+.cmp-table .wk{color:#f59e0b}
+.cmp-table tbody tr:last-child td:first-child{border-radius:0 0 0 8px}
+.cmp-table tbody tr:last-child td:last-child{border-radius:0 0 8px 0}
+footer{text-align:center;padding:24px;border-top:1px solid var(--border);font-size:11px;color:var(--dim)}
+@media(max-width:700px){
+  article{padding:28px 12px 40px}
+  article h1{font-size:20px}
+  .cmp-table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .cmp-table thead th,.cmp-table td{padding:8px 10px;font-size:11px}
+}
+
+html.light {
+  --bg: #f8f9fb; --surface: #ffffff; --card: #ffffff;
+  --border: #e2e5ea; --accent: #2563eb; --accent2: #059669;
+  --text: #1e293b; --muted: #64748b; --dim: #94a3b8;
+}
+html.light .top-bar { background:rgba(248,249,251,0.92); }
+html.light .math { background:#f1f5f9; border-color:#e2e5ea; }
+html.light .key { background:#f1f5f9; }
+html.light .sidebar { background:#f1f5f9; border-color:#e2e5ea; }
+.theme-btn { background:none;border:1px solid var(--border);color:var(--muted);border-radius:6px;padding:4px 8px;font-size:12px;cursor:pointer;transition:all 0.2s; }
+.theme-btn:hover { border-color:var(--accent);color:var(--accent); }
+
+.math{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:14px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--accent);overflow-x:auto;text-align:center;letter-spacing:0.5px}
+.key{background:var(--card);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0;font-size:13px;color:var(--text)}
+.key strong{color:var(--accent)}
+.takeaway{background:var(--card);border-left:3px solid #34d399;border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0;font-size:13px;color:#34d399;font-weight:600}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <a href="../" class="brand">Dr. Anuj Modi</a>
+  <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">☾</button> <a href="../#blogs">← Back to Blogs</a>
+</div>
+<article>
+<h1>Finite Integration Technique (FIT), FDTD & Perfect Boundary Approximation</h1>
+<div class="meta">Technical Blog · White Paper · Comparative Study</div>
+<div class="intro">The Finite Integration Technique (FIT) represents a paradigm shift from differential-based methods like FDTD. By discretizing the integral form of Maxwell’s equations, FIT provides a robust, physically consistent framework for simulating complex electromagnetic phenomena. This document explores the mathematical foundations, the PBA revolution, and comparative analysis with FEM and MoM.</div>
+
+<h2>1. Discretizing Maxwell: Two Different Paths</h2>
+<p>The core challenge in Computational Electromagnetics (CEM) is converting Maxwell’s continuous partial differential equations into a discrete form. Volume-based solvers accomplish this by dividing the entire simulation space into small cells.</p>
+
+<h3>1.1 FDTD: Differential Approximation</h3>
+<p>Introduced by Kane Yee in 1966, FDTD discretizes the differential form of Maxwell’s equations. The "Yee-grid" places electric (E) and magnetic (H) field components at staggered locations within a Cartesian cell, using "Central Difference" approximations for derivatives.</p>
+<div class="key"><strong>Staircasing Limitation:</strong> Because FDTD relies on point-to-point differences, if a material boundary doesn’t align with the grid, the solver must "snap" it to the nearest edge. Smooth curves become jagged steps, leading to artificial numerical scattering and frequency shifts.</div>
+
+<h3>1.2 FIT: Integral Consistency</h3>
+<p>Proposed by Thomas Weiland in 1977, FIT starts from the integral form of Maxwell’s equations. Instead of approximating a derivative at a single point, FIT integrates fields along edges and over faces of a dual-grid system (G and Ĩ).</p>
+
+<h3>The Maxwell-Grid-Equations (MGE)</h3>
+<p>FIT transforms the four Maxwell equations into discrete matrix equations:</p>
+<div class="math">C e = −d/dt b &nbsp;&nbsp; (Faraday’s Law)</div>
+<div class="math">Ĉ h = d/dt d + j &nbsp;&nbsp; (Ampere’s Law)</div>
+<div class="math">S b = 0 &nbsp;&nbsp; (Gauss’s Law — Magnetic)</div>
+<div class="math">Ĩ d = q &nbsp;&nbsp; (Gauss’s Law — Electric)</div>
+
+<div class="key"><strong>Key Advantage:</strong> The topology (how cells connect) is separated from the geometry (lengths and areas). Material properties are contained in "Material Matrices" (Mε, Mμ, Mσ), linking fields on primary and dual grids. Because FIT uses integrals, it naturally enforces Gauss’s Law and the non-existence of magnetic monopoles across the entire grid.</div>
+
+<h2>2. The PBA Revolution: Solving the Staircase Problem</h2>
+<p>The defining feature of modern FIT (as implemented in CST Studio Suite) is Perfect Boundary Approximation (PBA).</p>
+
+<h3>2.1 Conformal Mapping</h3>
+<p>Traditional FDTD treats a cell as entirely filled or entirely empty. PBA allows a cell to be partially filled:</p>
+<div class="key"><strong>How it works:</strong> PBA calculates the exact intersection of a CAD surface with mesh cell edges. It then adjusts the "filling factor" of the permittivity and permeability tensors for that specific cell. The integration path follows the actual curve, not the mesh line.</div>
+<p>The result: a conformal representation within a Cartesian grid. You can model a perfect circle or a complex curved car body without millions of tiny "staircase" cells. FIT with PBA achieves the same accuracy as FDTD but with a mesh that is often 10–20x coarser.</p>
+
+<h3>2.2 Thin Sheet Technique (TST)</h3>
+<p>An extension of PBA, TST allows the solver to model sheets thinner than a single mesh cell (like a PCB trace or a carbon fiber panel) without requiring a mesh fine enough to resolve the thickness.</p>
+
+<h2>3. FIT vs. FDTD: Key Differences</h2>
+<table class="cmp-table">
+<thead><tr><th>Feature</th><th>FDTD</th><th>FIT</th></tr></thead>
+<tbody>
+<tr><td>Mathematical Basis</td><td>Differential form (point-based)</td><td>Integral form (edge/face integrals)</td></tr>
+<tr><td>Grid</td><td>Yee-cell (staggered)</td><td>Dual-grid system (G and Ĩ)</td></tr>
+<tr><td>Geometry Handling</td><td>Staircasing</td><td class="str">PBA — conformal within Cartesian grid</td></tr>
+<tr><td>Energy Conservation</td><td>Can accumulate numerical noise</td><td class="str">Divergence-free by design</td></tr>
+<tr><td>Domain Versatility</td><td class="wk">Time domain only</td><td class="str">Time, frequency, and static domains</td></tr>
+<tr><td>Mesh Efficiency</td><td>Requires fine mesh for curves</td><td class="str">5–10x fewer cells via PBA</td></tr>
+</tbody>
+</table>
+
+<h2>4. Global Solver Comparison</h2>
+<table class="cmp-table">
+<thead><tr><th>Feature</th><th>FIT / FDTD</th><th>FEM</th><th>MoM</th></tr></thead>
+<tbody>
+<tr><td>Discretization</td><td>Entire Volume (Hexahedral)</td><td>Entire Volume (Tetrahedral)</td><td>Surface/Boundaries only</td></tr>
+<tr><td>Matrix Type</td><td class="str">Sparse (Explicit calculation)</td><td>Sparse (Requires inversion)</td><td class="wk">Dense (Fully populated)</td></tr>
+<tr><td>Scaling</td><td class="str">O(N) — Linear</td><td class="wk">O(N²) to O(N³)</td><td class="wk">O(N²) to O(N³)</td></tr>
+<tr><td>Best For</td><td>Broadband, complex CAD, EMC</td><td>High-Q filters, highly resonant</td><td>Electrically large antennas</td></tr>
+<tr><td>Domain</td><td>Primarily Time Domain</td><td>Frequency Domain</td><td>Frequency Domain</td></tr>
+</tbody>
+</table>
+
+<h3>4.1 Why Not Always Use FEM?</h3>
+<p>FEM uses tetrahedral meshes that "shrink-wrap" complex shapes accurately. However, it requires solving massive systems of linear equations (Ax = b). As mesh cells (N) grow, the cost of matrix inversion increases non-linearly (O(N²) to O(N³)). FIT/FDTD is explicit — it updates fields cell-by-cell with linear O(N) scaling, making it the only viable choice for electrically large structures.</p>
+
+<h3>4.2 Why Not Always Use MoM?</h3>
+<p>MoM only meshes metal surfaces (no air mesh), making it fast for antennas in open space. However, it creates a dense matrix where every element "talks" to every other element. For complex dielectrics (human body, multi-layered plastic housing), MoM becomes impractical. FIT/FDTD handles inhomogeneous materials naturally — it’s the "gold standard" for Consumer Electronics and Bio-EM (SAR) simulations.</p>
+
+<h2>5. Solver Settings & Stability</h2>
+<table class="cmp-table">
+<thead><tr><th>Setting</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td>Courant Limit (CFL)</td><td>The time step Δt must be small enough that information doesn’t travel further than one mesh cell per step. PBA allows larger Δt than traditional conformal FDTD.</td></tr>
+<tr><td>Mesh Adaptation</td><td>FIT uses an "Expert System" to identify high-gradient regions (like port edges) and refine them automatically.</td></tr>
+<tr><td>Stability Factor</td><td>Usually set to 1.0, but can be reduced for extremely complex "degenerated" cells where PBA might face numerical limits.</td></tr>
+</tbody>
+</table>
+
+<h2>6. Practical Implications</h2>
+<div class="key"><strong>Simulation Speed:</strong> By using PBA, an engineer can use 5–10x fewer mesh cells than a staircase FDTD solver for the same level of accuracy.</div>
+<div class="key"><strong>Broadband Performance:</strong> A single FIT run with a Gaussian pulse provides the entire S-parameter spectrum (S₁₁, S₂₁) from DC to the cutoff frequency.</div>
+<div class="key"><strong>Memory Efficiency:</strong> Memory scales linearly O(N) with mesh cells, making it superior to FEM O(N²) for electrically large structures.</div>
+
+<div class="takeaway">The "Integration Solver" (FIT) combines the computational speed of FDTD with the geometric accuracy of conformal methods through PBA. Its "Universal Discretization" allows seamless transitions between time and frequency domain analysis.</div>
+
+<div class="refs">
+<h3>References</h3>
+<p>[1] K. S. Yee, "Numerical solution of initial boundary value problems involving Maxwell’s equations in isotropic media," IEEE Trans. Antennas Propag., 1966.</p>
+<p>[2] T. Weiland, "A discretization method for the solution of Maxwell’s equations for six-component fields," Electronics and Communications AEÜ, 1977.</p>
+<p>[3] CST Studio Suite Documentation, "Finite Integration Technique and Perfect Boundary Approximation Theory Guide."</p>
+<p>[4] A. Taflove and S. C. Hagness, Computational Electrodynamics: The Finite-Difference Time-Domain Method, 3rd ed., Artech House, 2005.</p>
+</div>
+
+</article>
+<footer>© 2026 Dr. Anuj Modi · anujyrmodi@gmail.com</footer>
+
+<script>
+function toggleTheme() {
+  var html = document.documentElement;
+  var isLight = html.classList.toggle('light');
+  localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  document.getElementById('themeBtn').textContent = isLight ? '\u263d' : '\u263e';
+}
+(function() {
+  var saved = localStorage.getItem('theme');
+  if (saved === 'light') {
+    document.documentElement.classList.add('light');
+    var btn = document.getElementById('themeBtn');
+    if (btn) btn.textContent = '\u263d';
+  }
+})();
+</script>
+</body>
+</html>
