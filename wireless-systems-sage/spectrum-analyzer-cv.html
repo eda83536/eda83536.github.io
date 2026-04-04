@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spectrum Analyzer CV — RF Desense Toolbox</title>
+<style>
+  :root {
+    --bg: #0f1117; --panel: #1a1d27; --border: #2e3248;
+    --accent: #4f8ef7; --accent2: #34d399; --warn: #f59e0b; --err: #ef4444;
+    --text: #e2e8f0; --muted: #64748b; --input-bg: #0f1117;
+    --card-header-bg: #1e2a4a; --metric-bg: #12151f;
+  }
+  [data-theme="light"] {
+    --bg: #f0f2f5; --panel: #ffffff; --border: #d1d5db;
+    --accent: #2563eb; --accent2: #059669; --warn: #d97706; --err: #dc2626;
+    --text: #1e293b; --muted: #6b7280; --input-bg: #f9fafb;
+    --card-header-bg: #dbeafe; --metric-bg: #f3f4f6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; padding: 20px; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  h1 { font-size: 18px; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
+  .subtitle { font-size: 11px; color: var(--muted); margin-bottom: 20px; }
+  .card { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 16px; }
+  .card-header { background: var(--card-header-bg); padding: 10px 16px; font-size: 12px; font-weight: 600; color: var(--accent); letter-spacing: 0.5px; text-transform: uppercase; display: flex; align-items: center; gap: 8px; }
+  .card-header .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+  .card-body { padding: 16px; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>📸 Spectrum Analyzer — AI Measurement Extraction</h1>
+<div class="subtitle">Upload a spectrum analyzer screenshot and extract measurement data automatically using multimodal AI</div>
+</div>
+
+<!-- ═══ UPLOAD ZONE ═══ -->
+<div class="container">
+<div class="card">
+  <div class="card-header"><div class="dot"></div>Image Upload</div>
+  <div class="card-body">
+    <div id="dropZone" style="border:2px dashed var(--border);border-radius:10px;padding:48px 24px;text-align:center;cursor:pointer;transition:all 0.2s;position:relative">
+      <div style="font-size:36px;margin-bottom:10px">📡</div>
+      <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px">Drop spectrum analyzer screenshot here</div>
+      <div style="font-size:11px;color:var(--muted)">or click to browse · PNG, JPG, BMP supported</div>
+      <input type="file" id="fileInput" accept="image/*" style="position:absolute;inset:0;opacity:0;cursor:pointer">
+    </div>
+    <div id="previewArea" style="display:none;margin-top:14px">
+      <div style="display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap">
+        <div style="flex:1;min-width:300px">
+          <div style="font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px">Uploaded Image</div>
+          <img id="previewImg" style="max-width:100%;border-radius:8px;border:1px solid var(--border)" alt="Spectrum analyzer screenshot preview">
+        </div>
+        <div style="flex:1;min-width:300px">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+            <div style="font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px">Instrument Hint (optional)</div>
+          </div>
+          <select id="instrumentHint" style="width:100%;padding:8px 10px;background:var(--input-bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:12px;margin-bottom:12px">
+            <option value="auto">Auto-detect</option>
+            <option value="keysight">Keysight (Agilent) — N9020A, N9030A, EXA, MXA, PXA</option>
+            <option value="rohde_schwarz">Rohde & Schwarz — FSW, FSV, FPL</option>
+            <option value="anritsu">Anritsu — MS2720T, MS2830A</option>
+            <option value="tektronix">Tektronix — RSA500, RSA600</option>
+            <option value="signal_hound">Signal Hound — BB60C, SM200A</option>
+            <option value="other">Other / Unknown</option>
+          </select>
+
+          <div style="font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px">Extraction Focus</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px">
+            <label style="display:flex;align-items:center;gap:4px;font-size:11px;color:var(--text);background:var(--metric-bg);padding:4px 10px;border-radius:5px;border:1px solid var(--border);cursor:pointer">
+              <input type="checkbox" id="ext_markers" checked> Markers
+            </label>
+            <label style="display:flex;align-items:center;gap:4px;font-size:11px;color:var(--text);background:var(--metric-bg);padding:4px 10px;border-radius:5px;border:1px solid var(--border);cursor:pointer">
+              <input type="checkbox" id="ext_peak" checked> Peak Power
+            </label>
+            <label style="display:flex;align-items:center;gap:4px;font-size:11px;color:var(--text);background:var(--metric-bg);padding:4px 10px;border-radius:5px;border:1px solid var(--border);cursor:pointer">
+              <input type="checkbox" id="ext_noise" checked> Noise Floor
+            </label>
+            <label style="display:flex;align-items:center;gap:4px;font-size:11px;color:var(--text);background:var(--metric-bg);padding:4px 10px;border-radius:5px;border:1px solid var(--border);cursor:pointer">
+              <input type="checkbox" id="ext_chpower" checked> Channel Power
+            </label>
+            <label style="display:flex;align-items:center;gap:4px;font-size:11px;color:var(--text);background:var(--metric-bg);padding:4px 10px;border-radius:5px;border:1px solid var(--border);cursor:pointer">
+              <input type="checkbox" id="ext_settings" checked> Instrument Settings
+            </label>
+          </div>
+
+          <button id="extractBtn" onclick="extractMeasurements()" style="width:100%;padding:12px;background:var(--accent);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:8px">
+            <span>🔍</span> Extract Measurements with AI
+          </button>
+          <div id="extractStatus" style="font-size:11px;color:var(--muted);margin-top:8px;text-align:center;display:none"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ API KEY CONFIG ═══ -->
+<div class="card">
+  <div class="card-header"><div class="dot" style="background:#f59e0b"></div>AI Backend Configuration</div>
+  <div class="card-body">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:end">
+      <div>
+        <label style="font-size:11px;color:var(--muted);display:block;margin-bottom:4px">Model Provider</label>
+        <select id="aiProvider" style="width:100%;padding:8px 10px;background:var(--input-bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:12px" onchange="updateProviderUI()">
+          <option value="anthropic">Anthropic (Claude) — claude-sonnet-4-20250514</option>
+          <option value="openai">OpenAI — gpt-4o</option>
+          <option value="bedrock_proxy">Amazon Bedrock (via Lambda proxy)</option>
+          <option value="demo">🎯 Demo Mode (no API key needed)</option>
+        </select>
+      </div>
+      <div id="apiKeyGroup">
+        <label style="font-size:11px;color:var(--muted);display:block;margin-bottom:4px">API Key</label>
+        <input type="password" id="apiKey" placeholder="sk-ant-... or sk-..." style="width:100%;padding:8px 10px;background:var(--input-bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:12px">
+      </div>
+      <div id="proxyUrlGroup" style="display:none">
+        <label style="font-size:11px;color:var(--muted);display:block;margin-bottom:4px">Bedrock Proxy URL</label>
+        <input type="text" id="proxyUrl" placeholder="https://xxxxxxxx.execute-api.us-east-1.amazonaws.com/Prod/extract" style="width:100%;padding:8px 10px;background:var(--input-bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:12px">
+      </div>
+    </div>
+    <div style="margin-top:8px;font-size:10px;color:var(--muted)">
+      💡 Your API key is stored only in browser memory and never sent anywhere except the selected provider's API endpoint. Use Demo Mode to test with simulated extraction.
+    </div>
+  </div>
+</div>
+
+<!-- ═══ RESULTS ═══ -->
+<div class="card" id="resultsCard" style="display:none">
+  <div class="card-header"><div class="dot" style="background:#34d399"></div>Extracted Measurements</div>
+  <div class="card-body">
+    <!-- Confidence bar -->
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+      <div style="font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase">Confidence</div>
+      <div style="flex:1;height:6px;background:var(--metric-bg);border-radius:3px;overflow:hidden">
+        <div id="confidenceBar" style="height:100%;background:var(--accent2);border-radius:3px;width:0%;transition:width 0.6s"></div>
+      </div>
+      <div id="confidenceVal" style="font-size:12px;font-weight:700;color:var(--accent2);min-width:36px;text-align:right">—</div>
+    </div>
+
+    <!-- Instrument info -->
+    <div id="instrumentInfo" style="background:var(--metric-bg);border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-bottom:14px">
+    </div>
+
+    <!-- Key metrics grid -->
+    <div id="metricsGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-bottom:14px">
+    </div>
+
+    <!-- Markers table -->
+    <div id="markersSection" style="display:none">
+      <div style="font-size:11px;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px">📍 Marker Readings</div>
+      <div style="overflow-x:auto">
+        <table id="markersTable" style="width:100%;border-collapse:collapse">
+          <thead>
+            <tr>
+              <th style="text-align:left;color:var(--muted);font-size:11px;font-weight:600;padding:6px 8px;border-bottom:1px solid var(--border)">Marker</th>
+              <th style="text-align:left;color:var(--muted);font-size:11px;font-weight:600;padding:6px 8px;border-bottom:1px solid var(--border)">Frequency</th>
+              <th style="text-align:left;color:var(--muted);font-size:11px;font-weight:600;padding:6px 8px;border-bottom:1px solid var(--border)">Power</th>
+              <th style="text-align:left;color:var(--muted);font-size:11px;font-weight:600;padding:6px 8px;border-bottom:1px solid var(--border)">Type</th>
+            </tr>
+          </thead>
+          <tbody id="markersBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Raw JSON toggle -->
+    <div style="margin-top:14px">
+      <button onclick="document.getElementById('rawJson').style.display=document.getElementById('rawJson').style.display==='none'?'block':'none'" style="padding:6px 14px;background:var(--metric-bg);border:1px solid var(--border);border-radius:6px;color:var(--muted);font-size:11px;cursor:pointer">
+        📋 Toggle Raw JSON
+      </button>
+      <pre id="rawJson" style="display:none;margin-top:8px;background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:12px;font-size:11px;color:var(--accent);overflow-x:auto;max-height:400px;white-space:pre-wrap"></pre>
+    </div>
+
+    <!-- Push to desense calculator -->
+    <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border)">
+      <div style="font-size:11px;font-weight:600;color:var(--warn);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px">⚡ Push to Desense Calculator</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button onclick="pushToDesense('noise_floor')" class="push-action-btn" style="padding:8px 16px;background:var(--card-header-bg);border:1px solid var(--accent);border-radius:6px;color:var(--accent);font-size:11px;font-weight:600;cursor:pointer">
+          Use as Noise Floor Measurement
+        </button>
+        <button onclick="pushToDesense('interference')" class="push-action-btn" style="padding:8px 16px;background:var(--card-header-bg);border:1px solid var(--warn);border-radius:6px;color:var(--warn);font-size:11px;font-weight:600;cursor:pointer">
+          Use as Interference Level
+        </button>
+        <button onclick="copyJson()" style="padding:8px 16px;background:var(--metric-bg);border:1px solid var(--border);border-radius:6px;color:var(--muted);font-size:11px;font-weight:600;cursor:pointer">
+          📋 Copy JSON to Clipboard
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ HISTORY ═══ -->
+<div class="card" id="historyCard" style="display:none">
+  <div class="card-header"><div class="dot" style="background:#a78bfa"></div>Extraction History</div>
+  <div class="card-body">
+    <div id="historyList" style="display:flex;flex-direction:column;gap:8px"></div>
+  </div>
+</div>
+
+</div><!-- end container -->
+
+<script>
+// ═══════════════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════════════
+let currentImageBase64 = null;
+let currentImageType = null;
+let extractionHistory = [];
+let lastExtraction = null;
+
+// ═══════════════════════════════════════════════════════════════════
+// FILE UPLOAD / DRAG-DROP
+// ═══════════════════════════════════════════════════════════════════
+const dropZone = document.getElementById('dropZone');
+const fileInput = document.getElementById('fileInput');
+
+['dragenter','dragover'].forEach(e => {
+  dropZone.addEventListener(e, ev => { ev.preventDefault(); dropZone.style.borderColor = 'var(--accent)'; dropZone.style.background = 'var(--card-header-bg)'; });
+});
+['dragleave','drop'].forEach(e => {
+  dropZone.addEventListener(e, ev => { ev.preventDefault(); dropZone.style.borderColor = 'var(--border)'; dropZone.style.background = 'transparent'; });
+});
+dropZone.addEventListener('drop', ev => { if (ev.dataTransfer.files.length) handleFile(ev.dataTransfer.files[0]); });
+fileInput.addEventListener('change', ev => { if (ev.target.files.length) handleFile(ev.target.files[0]); });
+
+function handleFile(file) {
+  if (!file.type.startsWith('image/')) { alert('Please upload an image file.'); return; }
+  currentImageType = file.type;
+  const reader = new FileReader();
+  reader.onload = e => {
+    currentImageBase64 = e.target.result.split(',')[1];
+    document.getElementById('previewImg').src = e.target.result;
+    document.getElementById('previewArea').style.display = 'block';
+    document.getElementById('resultsCard').style.display = 'none';
+  };
+  reader.readAsDataURL(file);
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// PROVIDER UI
+// ═══════════════════════════════════════════════════════════════════
+function updateProviderUI() {
+  const p = document.getElementById('aiProvider').value;
+  document.getElementById('apiKeyGroup').style.display = (p === 'demo' || p === 'bedrock_proxy') ? 'none' : 'block';
+  document.getElementById('proxyUrlGroup').style.display = p === 'bedrock_proxy' ? 'block' : 'none';
+}
+</script>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════
+// EXTRACTION PROMPT
+// ═══════════════════════════════════════════════════════════════════
+function buildPrompt() {
+  const hint = document.getElementById('instrumentHint').value;
+  const checks = {
+    markers: document.getElementById('ext_markers').checked,
+    peak: document.getElementById('ext_peak').checked,
+    noise: document.getElementById('ext_noise').checked,
+    chpower: document.getElementById('ext_chpower').checked,
+    settings: document.getElementById('ext_settings').checked,
+  };
+
+  let prompt = `You are an expert RF measurement extraction tool. Analyze this spectrum analyzer screenshot and extract all visible measurement data.\n\n`;
+  if (hint !== 'auto') prompt += `Instrument hint: ${hint}\n\n`;
+
+  prompt += `Extract the following into a JSON object:\n`;
+  prompt += `{\n`;
+  prompt += `  "confidence": <0-100 integer, your confidence in the extraction accuracy>,\n`;
+  prompt += `  "instrument": { "make": "<string>", "model": "<string>", "detected": <bool> },\n`;
+  if (checks.settings) {
+    prompt += `  "settings": {\n`;
+    prompt += `    "center_frequency": { "value": <number>, "unit": "<Hz|kHz|MHz|GHz>" },\n`;
+    prompt += `    "span": { "value": <number>, "unit": "<Hz|kHz|MHz|GHz>" },\n`;
+    prompt += `    "start_frequency": { "value": <number|null>, "unit": "<Hz|kHz|MHz|GHz>" },\n`;
+    prompt += `    "stop_frequency": { "value": <number|null>, "unit": "<Hz|kHz|MHz|GHz>" },\n`;
+    prompt += `    "rbw": { "value": <number|null>, "unit": "<Hz|kHz|MHz>" },\n`;
+    prompt += `    "vbw": { "value": <number|null>, "unit": "<Hz|kHz|MHz>" },\n`;
+    prompt += `    "ref_level": { "value": <number|null>, "unit": "dBm" },\n`;
+    prompt += `    "scale": { "value": <number|null>, "unit": "dB/div" },\n`;
+    prompt += `    "sweep_time": { "value": <number|null>, "unit": "<ms|s>" },\n`;
+    prompt += `    "detector_type": "<string|null>",\n`;
+    prompt += `    "trace_mode": "<string|null>"\n`;
+    prompt += `  },\n`;
+  }
+  if (checks.markers) {
+    prompt += `  "markers": [\n`;
+    prompt += `    { "id": "<M1|M2|...>", "frequency": { "value": <number>, "unit": "<MHz|GHz>" }, "power": { "value": <number>, "unit": "dBm" }, "type": "<normal|delta|peak>" }\n`;
+    prompt += `  ],\n`;
+  }
+  if (checks.peak) prompt += `  "peak_power": { "value": <number|null>, "unit": "dBm" },\n`;
+  if (checks.noise) prompt += `  "noise_floor": { "value": <number|null>, "unit": "dBm", "estimation_method": "<read|estimated>" },\n`;
+  if (checks.chpower) {
+    prompt += `  "channel_power": { "value": <number|null>, "unit": "dBm", "bandwidth": { "value": <number|null>, "unit": "<MHz|kHz>" } },\n`;
+    prompt += `  "occupied_bandwidth": { "value": <number|null>, "unit": "<MHz|kHz>" },\n`;
+  }
+  prompt += `  "additional_measurements": {}\n`;
+  prompt += `}\n\n`;
+  prompt += `Rules:\n`;
+  prompt += `- Return ONLY valid JSON, no markdown fences, no explanation.\n`;
+  prompt += `- Use null for any value you cannot read or confidently determine.\n`;
+  prompt += `- All power values in dBm. All frequencies with explicit units.\n`;
+  prompt += `- If the image is not a spectrum analyzer screenshot, return {"error": "Not a spectrum analyzer screenshot", "confidence": 0}.\n`;
+
+  return prompt;
+}
+</script>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════
+// DEMO DATA
+// ═══════════════════════════════════════════════════════════════════
+function getDemoResult() {
+  return {
+    confidence: 88,
+    instrument: { make: "Keysight", model: "N9020A MXA", detected: true },
+    settings: {
+      center_frequency: { value: 868, unit: "MHz" },
+      span: { value: 10, unit: "MHz" },
+      start_frequency: { value: 863, unit: "MHz" },
+      stop_frequency: { value: 873, unit: "MHz" },
+      rbw: { value: 10, unit: "kHz" },
+      vbw: { value: 10, unit: "kHz" },
+      ref_level: { value: -20, unit: "dBm" },
+      scale: { value: 10, unit: "dB/div" },
+      sweep_time: { value: 100, unit: "ms" },
+      detector_type: "RMS",
+      trace_mode: "Clear Write"
+    },
+    markers: [
+      { id: "M1", frequency: { value: 868.0, unit: "MHz" }, power: { value: -42.3, unit: "dBm" }, type: "peak" },
+      { id: "M2", frequency: { value: 866.5, unit: "MHz" }, power: { value: -78.1, unit: "dBm" }, type: "normal" },
+      { id: "M3", frequency: { value: 869.2, unit: "MHz" }, power: { value: -65.7, unit: "dBm" }, type: "normal" }
+    ],
+    peak_power: { value: -42.3, unit: "dBm" },
+    noise_floor: { value: -98.5, unit: "dBm", estimation_method: "estimated" },
+    channel_power: { value: -38.7, unit: "dBm", bandwidth: { value: 500, unit: "kHz" } },
+    occupied_bandwidth: { value: 125, unit: "kHz" },
+    additional_measurements: {}
+  };
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// API CALLS
+// ═══════════════════════════════════════════════════════════════════
+async function callAnthropic(apiKey, prompt, imageBase64, imageType) {
+  const mediaType = imageType || 'image/png';
+  const resp = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': apiKey,
+      'anthropic-version': '2023-06-01',
+      'anthropic-dangerous-direct-browser-access': 'true'
+    },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 4096,
+      messages: [{
+        role: 'user',
+        content: [
+          { type: 'image', source: { type: 'base64', media_type: mediaType, data: imageBase64 } },
+          { type: 'text', text: prompt }
+        ]
+      }]
+    })
+  });
+  if (!resp.ok) throw new Error(`Anthropic API error: ${resp.status} ${await resp.text()}`);
+  const data = await resp.json();
+  return data.content[0].text;
+}
+
+async function callOpenAI(apiKey, prompt, imageBase64, imageType) {
+  const dataUrl = `data:${imageType || 'image/png'};base64,${imageBase64}`;
+  const resp = await fetch('https://api.openai.com/v1/chat/completions', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
+    body: JSON.stringify({
+      model: 'gpt-4o',
+      max_tokens: 4096,
+      messages: [{
+        role: 'user',
+        content: [
+          { type: 'image_url', image_url: { url: dataUrl, detail: 'high' } },
+          { type: 'text', text: prompt }
+        ]
+      }]
+    })
+  });
+  if (!resp.ok) throw new Error(`OpenAI API error: ${resp.status} ${await resp.text()}`);
+  const data = await resp.json();
+  return data.choices[0].message.content;
+}
+
+async function callBedrockProxy(proxyUrl, imageBase64, imageType) {
+  const hint = document.getElementById('instrumentHint').value;
+  const focus = [];
+  if (document.getElementById('ext_markers').checked) focus.push('markers');
+  if (document.getElementById('ext_peak').checked) focus.push('peak_power');
+  if (document.getElementById('ext_noise').checked) focus.push('noise_floor');
+  if (document.getElementById('ext_chpower').checked) focus.push('channel_power');
+  if (document.getElementById('ext_settings').checked) focus.push('instrument_settings');
+
+  const resp = await fetch(proxyUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      image: imageBase64,
+      media_type: imageType || 'image/png',
+      instrument_hint: hint,
+      focus: focus
+    })
+  });
+  if (!resp.ok) {
+    const errBody = await resp.text();
+    throw new Error(`Bedrock proxy error (${resp.status}): ${errBody}`);
+  }
+  const data = await resp.json();
+  return JSON.stringify(data);
+}
+</script>
+</script>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════
+// MAIN EXTRACTION
+// ═══════════════════════════════════════════════════════════════════
+async function extractMeasurements() {
+  if (!currentImageBase64) { alert('Please upload an image first.'); return; }
+
+  const provider = document.getElementById('aiProvider').value;
+  const apiKey = document.getElementById('apiKey').value;
+  const statusEl = document.getElementById('extractStatus');
+  const btn = document.getElementById('extractBtn');
+
+  if (provider !== 'demo' && !apiKey) { alert('Please enter your API key or switch to Demo Mode.'); return; }
+
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner">⏳</span> Analyzing...';
+  statusEl.style.display = 'block';
+  statusEl.textContent = 'Sending image to AI model for analysis...';
+
+  try {
+    let rawText;
+    if (provider === 'demo') {
+      await new Promise(r => setTimeout(r, 1500)); // simulate latency
+      rawText = JSON.stringify(getDemoResult());
+    } else if (provider === 'anthropic') {
+      const prompt = buildPrompt();
+      rawText = await callAnthropic(apiKey, prompt, currentImageBase64, currentImageType);
+    } else if (provider === 'openai') {
+      const prompt = buildPrompt();
+      rawText = await callOpenAI(apiKey, prompt, currentImageBase64, currentImageType);
+    } else if (provider === 'bedrock_proxy') {
+      const proxyUrl = document.getElementById('proxyUrl').value;
+      if (!proxyUrl) { alert('Please enter your Bedrock Proxy URL (from SAM deploy output).'); btn.disabled = false; btn.innerHTML = '<span>🔍</span> Extract Measurements with AI'; return; }
+      rawText = await callBedrockProxy(proxyUrl, currentImageBase64, currentImageType);
+    }
+
+    // Parse JSON — handle markdown fences if model wraps it
+    let jsonStr = rawText.trim();
+    if (jsonStr.startsWith('```')) {
+      jsonStr = jsonStr.replace(/^```(?:json)?\n?/, '').replace(/\n?```$/, '');
+    }
+    const result = JSON.parse(jsonStr);
+
+    if (result.error) {
+      statusEl.textContent = '⚠️ ' + result.error;
+      btn.disabled = false;
+      btn.innerHTML = '<span>🔍</span> Extract Measurements with AI';
+      return;
+    }
+
+    lastExtraction = result;
+    renderResults(result);
+    addToHistory(result);
+    statusEl.textContent = '✅ Extraction complete';
+
+  } catch (err) {
+    statusEl.textContent = '❌ Error: ' + err.message;
+    console.error(err);
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = '<span>🔍</span> Extract Measurements with AI';
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// RENDER RESULTS
+// ═══════════════════════════════════════════════════════════════════
+function renderResults(data) {
+  document.getElementById('resultsCard').style.display = 'block';
+
+  // Confidence
+  const conf = data.confidence || 0;
+  const confColor = conf >= 80 ? 'var(--accent2)' : conf >= 50 ? 'var(--warn)' : 'var(--err)';
+  document.getElementById('confidenceBar').style.width = conf + '%';
+  document.getElementById('confidenceBar').style.background = confColor;
+  document.getElementById('confidenceVal').textContent = conf + '%';
+  document.getElementById('confidenceVal').style.color = confColor;
+
+  // Instrument
+  const inst = data.instrument || {};
+  document.getElementById('instrumentInfo').innerHTML = `
+    <div style="display:flex;align-items:center;gap:12px">
+      <span style="font-size:20px">🔬</span>
+      <div>
+        <div style="font-size:13px;font-weight:600;color:var(--text)">${inst.make || 'Unknown'} ${inst.model || ''}</div>
+        <div style="font-size:10px;color:var(--muted)">${inst.detected ? 'Auto-detected from screenshot' : 'Could not auto-detect instrument'}</div>
+      </div>
+    </div>`;
+
+  // Metrics grid
+  const grid = document.getElementById('metricsGrid');
+  grid.innerHTML = '';
+  const metrics = [];
+
+  if (data.settings) {
+    const s = data.settings;
+    if (s.center_frequency) metrics.push({ label: 'Center Freq', value: s.center_frequency.value, unit: s.center_frequency.unit, color: 'var(--accent)' });
+    if (s.span) metrics.push({ label: 'Span', value: s.span.value, unit: s.span.unit, color: 'var(--accent)' });
+    if (s.rbw) metrics.push({ label: 'RBW', value: s.rbw.value, unit: s.rbw.unit, color: 'var(--muted)' });
+    if (s.vbw) metrics.push({ label: 'VBW', value: s.vbw.value, unit: s.vbw.unit, color: 'var(--muted)' });
+    if (s.ref_level) metrics.push({ label: 'Ref Level', value: s.ref_level.value, unit: s.ref_level.unit, color: 'var(--warn)' });
+  }
+  if (data.peak_power && data.peak_power.value !== null) metrics.push({ label: 'Peak Power', value: data.peak_power.value, unit: data.peak_power.unit, color: 'var(--err)' });
+  if (data.noise_floor && data.noise_floor.value !== null) metrics.push({ label: 'Noise Floor', value: data.noise_floor.value, unit: data.noise_floor.unit, color: 'var(--accent2)' });
+  if (data.channel_power && data.channel_power.value !== null) metrics.push({ label: 'Channel Power', value: data.channel_power.value, unit: data.channel_power.unit, color: 'var(--warn)' });
+
+  metrics.forEach(m => {
+    grid.innerHTML += `
+      <div style="background:var(--metric-bg);border:1px solid var(--border);border-radius:8px;padding:10px 14px">
+        <div style="font-size:10px;color:var(--muted);margin-bottom:2px">${m.label}</div>
+        <div style="font-size:18px;font-weight:700;font-family:'Courier New',monospace;color:${m.color}">${m.value}</div>
+        <div style="font-size:10px;color:var(--muted)">${m.unit}</div>
+      </div>`;
+  });
+
+  // Markers
+  const markersSection = document.getElementById('markersSection');
+  const markersBody = document.getElementById('markersBody');
+  if (data.markers && data.markers.length > 0) {
+    markersSection.style.display = 'block';
+    markersBody.innerHTML = data.markers.map(m => `
+      <tr>
+        <td style="padding:5px 8px;border-bottom:1px solid var(--border);font-weight:600;color:var(--accent);font-size:12px">${m.id}</td>
+        <td style="padding:5px 8px;border-bottom:1px solid var(--border);font-family:'Courier New',monospace;font-size:12px">${m.frequency.value} ${m.frequency.unit}</td>
+        <td style="padding:5px 8px;border-bottom:1px solid var(--border);font-family:'Courier New',monospace;font-size:12px;font-weight:700;color:var(--accent2)">${m.power.value} ${m.power.unit}</td>
+        <td style="padding:5px 8px;border-bottom:1px solid var(--border);font-size:11px;color:var(--muted)">${m.type}</td>
+      </tr>`).join('');
+  } else {
+    markersSection.style.display = 'none';
+  }
+
+  // Raw JSON
+  document.getElementById('rawJson').textContent = JSON.stringify(data, null, 2);
+
+  // Scroll to results
+  document.getElementById('resultsCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+</script>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════
+// HISTORY
+// ═══════════════════════════════════════════════════════════════════
+function addToHistory(data) {
+  const entry = {
+    timestamp: new Date().toLocaleString(),
+    instrument: `${(data.instrument||{}).make||'?'} ${(data.instrument||{}).model||''}`.trim(),
+    centerFreq: data.settings?.center_frequency ? `${data.settings.center_frequency.value} ${data.settings.center_frequency.unit}` : '—',
+    peakPower: data.peak_power?.value != null ? `${data.peak_power.value} dBm` : '—',
+    noiseFloor: data.noise_floor?.value != null ? `${data.noise_floor.value} dBm` : '—',
+    confidence: data.confidence || 0,
+    data: data
+  };
+  extractionHistory.unshift(entry);
+  renderHistory();
+}
+
+function renderHistory() {
+  if (extractionHistory.length === 0) { document.getElementById('historyCard').style.display = 'none'; return; }
+  document.getElementById('historyCard').style.display = 'block';
+  const list = document.getElementById('historyList');
+  list.innerHTML = extractionHistory.map((h, i) => `
+    <div style="display:flex;align-items:center;gap:12px;padding:8px 12px;background:var(--metric-bg);border:1px solid var(--border);border-radius:8px;cursor:pointer" onclick="renderResults(extractionHistory[${i}].data)">
+      <div style="font-size:16px">📊</div>
+      <div style="flex:1">
+        <div style="font-size:12px;font-weight:600;color:var(--text)">${h.instrument} · ${h.centerFreq}</div>
+        <div style="font-size:10px;color:var(--muted)">${h.timestamp} · Peak: ${h.peakPower} · Floor: ${h.noiseFloor}</div>
+      </div>
+      <div style="font-size:11px;font-weight:700;color:${h.confidence>=80?'var(--accent2)':h.confidence>=50?'var(--warn)':'var(--err)'}">${h.confidence}%</div>
+    </div>`).join('');
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// PUSH TO DESENSE / COPY
+// ═══════════════════════════════════════════════════════════════════
+function pushToDesense(mode) {
+  if (!lastExtraction) return;
+  // Store in localStorage for the main desense calculator to pick up
+  const payload = {
+    mode: mode,
+    timestamp: new Date().toISOString(),
+    data: lastExtraction
+  };
+  localStorage.setItem('spectrumCV_push', JSON.stringify(payload));
+  alert(`✅ Measurement data stored.\n\nMode: ${mode === 'noise_floor' ? 'Noise Floor' : 'Interference Level'}\n\nOpen the Desense Calculator — it will detect this data and offer to import it into the active radio tab.`);
+}
+
+function copyJson() {
+  if (!lastExtraction) return;
+  navigator.clipboard.writeText(JSON.stringify(lastExtraction, null, 2))
+    .then(() => alert('✅ JSON copied to clipboard'))
+    .catch(() => {
+      // Fallback
+      const ta = document.createElement('textarea');
+      ta.value = JSON.stringify(lastExtraction, null, 2);
+      document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+      document.body.removeChild(ta);
+      alert('✅ JSON copied to clipboard');
+    });
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// THEME TOGGLE (match main toolbox)
+// ═══════════════════════════════════════════════════════════════════
+const savedTheme = localStorage.getItem('rfdesense_theme') || 'dark';
+document.documentElement.setAttribute('data-theme', savedTheme);
+</script>
+</body>
+</html>

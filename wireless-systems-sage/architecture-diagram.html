@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wireless Systems Sage - Architecture</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(135deg, #f0f4f8 0%, #e8edf4 50%, #f0f4f8 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+</style>
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="920" height="920">
+  <defs>
+    <radialGradient id="bgGrad" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f0f4f8"/>
+    </radialGradient>
+    <linearGradient id="hubGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a6fb5"/>
+      <stop offset="50%" stop-color="#145a94"/>
+      <stop offset="100%" stop-color="#0e4470"/>
+    </linearGradient>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f0a04a"/><stop offset="100%" stop-color="#e08830"/>
+    </linearGradient>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#b060d0"/><stop offset="100%" stop-color="#9848b8"/>
+    </linearGradient>
+    <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#50c0e0"/><stop offset="100%" stop-color="#38a8cc"/>
+    </linearGradient>
+    <linearGradient id="grad4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5cc488"/><stop offset="100%" stop-color="#44ac6e"/>
+    </linearGradient>
+    <linearGradient id="grad5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e86868"/><stop offset="100%" stop-color="#d04848"/>
+    </linearGradient>
+
+    <filter id="hubGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feFlood flood-color="#1a6fb5" flood-opacity="0.18"/>
+      <feComposite in2="blur" operator="in"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="nodeGlow" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="3" stdDeviation="7" flood-color="#4a5568" flood-opacity="0.18"/>
+    </filter>
+
+    <marker id="arrowEnd" viewBox="0 0 10 10" refX="9" refY="5"
+            markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 Z" fill="#5a7a9a"/>
+    </marker>
+    <marker id="arrowStart" viewBox="0 0 10 10" refX="1" refY="5"
+            markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 10 1.5 L 2 5 L 10 8.5 Z" fill="#5a7a9a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="1000" fill="url(#bgGrad)"/>
+
+  <!-- Decorative rings -->
+  <circle cx="500" cy="500" r="120" fill="none" stroke="#c8d4e4" stroke-width="0.8" stroke-dasharray="3 5" opacity="0.5"/>
+  <circle cx="500" cy="500" r="240" fill="none" stroke="#c8d4e4" stroke-width="0.8" stroke-dasharray="3 5" opacity="0.35"/>
+  <circle cx="500" cy="500" r="360" fill="none" stroke="#c8d4e4" stroke-width="0.8" stroke-dasharray="3 5" opacity="0.2"/>
+
+  <!-- Connection lines -->
+  <line x1="500" y1="428" x2="500" y2="264" stroke="#5a7a9a" stroke-width="2" opacity="0.45"
+        marker-start="url(#arrowStart)" marker-end="url(#arrowEnd)"/>
+  <line x1="566" y1="472" x2="725" y2="410" stroke="#5a7a9a" stroke-width="2" opacity="0.45"
+        marker-start="url(#arrowStart)" marker-end="url(#arrowEnd)"/>
+  <line x1="540" y1="562" x2="640" y2="695" stroke="#5a7a9a" stroke-width="2" opacity="0.45"
+        marker-start="url(#arrowStart)" marker-end="url(#arrowEnd)"/>
+  <line x1="460" y1="562" x2="360" y2="695" stroke="#5a7a9a" stroke-width="2" opacity="0.45"
+        marker-start="url(#arrowStart)" marker-end="url(#arrowEnd)"/>
+  <line x1="434" y1="472" x2="275" y2="410" stroke="#5a7a9a" stroke-width="2" opacity="0.45"
+        marker-start="url(#arrowStart)" marker-end="url(#arrowEnd)"/>
+
+  <!-- MCP Server labels (all horizontal) -->
+  <g font-family="'SF Pro Display','Segoe UI',system-ui,sans-serif" font-size="10.5" fill="#5a7a9a" letter-spacing="0.6" font-weight="600" opacity="0.75">
+    <text x="515" y="350" text-anchor="start">MCP Server</text>
+    <text x="660" y="428" text-anchor="middle">MCP Server</text>
+    <text x="608" y="640" text-anchor="middle">MCP Server</text>
+    <text x="388" y="640" text-anchor="middle">MCP Server</text>
+    <text x="340" y="428" text-anchor="middle">MCP Server</text>
+  </g>
+
+  <!-- Center Hub -->
+  <g filter="url(#hubGlow)">
+    <circle cx="500" cy="500" r="72" fill="url(#hubGrad)" stroke="#2a80c0" stroke-width="1.5"/>
+    <text x="500" y="488" text-anchor="middle" fill="#ffffff"
+          font-family="'SF Pro Display','Segoe UI',system-ui,sans-serif" font-weight="700" font-size="15" letter-spacing="0.3">
+      <tspan x="500" dy="0">Wireless</tspan>
+      <tspan x="500" dy="19">Systems</tspan>
+      <tspan x="500" dy="19">Sage</tspan>
+    </text>
+  </g>
+
+  <!-- Node 0 — Top: Wireless Architecture -->
+  <g filter="url(#nodeGlow)">
+    <circle cx="500" cy="190" r="74" fill="url(#grad1)" stroke="#e8a040" stroke-width="1"/>
+    <text x="500" y="178" text-anchor="middle" fill="#fff"
+          font-family="'SF Pro Display','Segoe UI',system-ui,sans-serif" font-weight="600" font-size="12" letter-spacing="0.2">
+      <tspan x="500" dy="0">Wireless</tspan>
+      <tspan x="500" dy="16">Architecture</tspan>
+      <tspan x="500" dy="16">Workflows</tspan>
+    </text>
+  </g>
+
+  <!-- Node 1 — Top-Right: Measurement -->
+  <g filter="url(#nodeGlow)">
+    <circle cx="795" cy="404" r="74" fill="url(#grad4)" stroke="#50b878" stroke-width="1"/>
+    <text x="795" y="392" text-anchor="middle" fill="#fff"
+          font-family="'SF Pro Display','Segoe UI',system-ui,sans-serif" font-weight="600" font-size="12" letter-spacing="0.2">
+      <tspan x="795" dy="0">Measurement</tspan>
+      <tspan x="795" dy="16">Mechanisms /</tspan>
+      <tspan x="795" dy="16">Workflows</tspan>
+    </text>
+  </g>
+
+  <!-- Node 2 — Bottom-Right: Design Review -->
+  <g filter="url(#nodeGlow)">
+    <circle cx="682" cy="751" r="74" fill="url(#grad5)" stroke="#d85858" stroke-width="1"/>
+    <text x="682" y="736" text-anchor="middle" fill="#fff"
+          font-family="'SF Pro Display','Segoe UI',system-ui,sans-serif" font-weight="600" font-size="11.5" letter-spacing="0.2">
+      <tspan x="682" dy="0">Wireless Design</tspan>
+      <tspan x="682" dy="16">Review &amp;</tspan>
+      <tspan x="682" dy="16">Feedback</tspan>
+      <tspan x="682" dy="16">Workflows</tspan>
+    </text>
+  </g>
+
+  <!-- Node 3 — Bottom-Left: Simulation -->
+  <g filter="url(#nodeGlow)">
+    <circle cx="318" cy="751" r="74" fill="url(#grad3)" stroke="#40b0d0" stroke-width="1"/>
+    <text x="318" y="739" text-anchor="middle" fill="#fff"
+          font-family="'SF Pro Display','Segoe UI',system-ui,sans-serif" font-weight="600" font-size="12" letter-spacing="0.2">
+      <tspan x="318" dy="0">Simulation</tspan>
+      <tspan x="318" dy="16">Mechanisms /</tspan>
+      <tspan x="318" dy="16">Workflows</tspan>
+    </text>
+  </g>
+
+  <!-- Node 4 — Top-Left: Data Fetching -->
+  <g filter="url(#nodeGlow)">
+    <circle cx="205" cy="404" r="74" fill="url(#grad2)" stroke="#a050c0" stroke-width="1"/>
+    <text x="205" y="392" text-anchor="middle" fill="#fff"
+          font-family="'SF Pro Display','Segoe UI',system-ui,sans-serif" font-weight="600" font-size="12" letter-spacing="0.2">
+      <tspan x="205" dy="0">Data Fetching /</tspan>
+      <tspan x="205" dy="16">Reporting</tspan>
+      <tspan x="205" dy="16">Workflows</tspan>
+    </text>
+  </g>
+
+</svg>
+</body>
+</html>

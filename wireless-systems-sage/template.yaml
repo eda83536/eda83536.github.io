@@ -1,0 +1,57 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Wireless Systems Sage — Spectrum Analyzer CV Extraction API.
+  Deploys a Lambda + API Gateway that calls Bedrock Claude to extract
+  measurement data from spectrum analyzer screenshots.
+
+Globals:
+  Function:
+    Timeout: 120
+    MemorySize: 512
+
+Parameters:
+  BedrockRegion:
+    Type: String
+    Default: us-east-1
+    Description: AWS region where Bedrock models are enabled
+  ModelId:
+    Type: String
+    Default: anthropic.claude-sonnet-4-20250514-v1:0
+    Description: Bedrock model ID for vision extraction
+
+Resources:
+  ExtractFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: wireless-sage-spectrum-extract
+      Handler: extract_measurements.lambda_handler
+      Runtime: python3.12
+      CodeUri: lambda/
+      Environment:
+        Variables:
+          BEDROCK_REGION: !Ref BedrockRegion
+          MODEL_ID: !Ref ModelId
+      Policies:
+        - Statement:
+            - Effect: Allow
+              Action:
+                - bedrock:InvokeModel
+                - bedrock:Converse
+              Resource: "*"
+      Events:
+        ExtractApi:
+          Type: Api
+          Properties:
+            Path: /extract
+            Method: post
+        CorsOptions:
+          Type: Api
+          Properties:
+            Path: /extract
+            Method: options
+
+Outputs:
+  ApiEndpoint:
+    Description: API Gateway endpoint URL for the extraction API
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/extract"
