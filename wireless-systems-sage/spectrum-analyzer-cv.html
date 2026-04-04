@@ -104,7 +104,7 @@
         <select id="aiProvider" style="width:100%;padding:8px 10px;background:var(--input-bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:12px" onchange="updateProviderUI()">
           <option value="anthropic">Anthropic (Claude) — claude-sonnet-4-20250514</option>
           <option value="openai">OpenAI — gpt-4o</option>
-          <option value="bedrock_proxy">Amazon Bedrock (via Lambda proxy)</option>
+          <option value="bedrock_proxy" selected>Amazon Bedrock (via Lambda proxy)</option>
           <option value="demo">🎯 Demo Mode (no API key needed)</option>
         </select>
       </div>
@@ -114,7 +114,7 @@
       </div>
       <div id="proxyUrlGroup" style="display:none">
         <label style="font-size:11px;color:var(--muted);display:block;margin-bottom:4px">Bedrock Proxy URL</label>
-        <input type="text" id="proxyUrl" placeholder="https://xxxxxxxx.execute-api.us-east-1.amazonaws.com/Prod/extract" style="width:100%;padding:8px 10px;background:var(--input-bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:12px">
+        <input type="text" id="proxyUrl" placeholder="https://xxxxxxxx.execute-api.us-east-1.amazonaws.com/Prod/extract" value="https://kynp1m06ac.execute-api.us-east-1.amazonaws.com/prod/extract" style="width:100%;padding:8px 10px;background:var(--input-bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:12px">
       </div>
     </div>
     <div style="margin-top:8px;font-size:10px;color:var(--muted)">
@@ -625,6 +625,7 @@ function copyJson() {
 // ═══════════════════════════════════════════════════════════════════
 const savedTheme = localStorage.getItem('rfdesense_theme') || 'dark';
 document.documentElement.setAttribute('data-theme', savedTheme);
+updateProviderUI();
 </script>
 </body>
 </html>
