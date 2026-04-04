@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- RF Desense Toolbox v12 - Updated 2026-03-30 with Coupler Method tab -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -10,37 +9,180 @@
     --bg: #0f1117; --panel: #1a1d27; --border: #2e3248;
     --accent: #4f8ef7; --accent2: #34d399; --warn: #f59e0b; --err: #ef4444;
     --text: #e2e8f0; --muted: #64748b; --input-bg: #0f1117;
+    --header-bg: linear-gradient(135deg, #1e2a4a, #0f1117);
+    --tab-bg: #12151f; --tab-active-bg: #1a1d27;
+    --card-header-bg: #1e2a4a; --metric-bg: #12151f;
+    --friis-bg: #1e2a4a; --formula-bg: #12151f;
+    --lock-bg: #0a0c14; --lock-panel: #1a1d27;
+  }
+  [data-theme="light"] {
+    --bg: #f0f2f5; --panel: #ffffff; --border: #d1d5db;
+    --accent: #2563eb; --accent2: #059669; --warn: #d97706; --err: #dc2626;
+    --text: #1e293b; --muted: #6b7280; --input-bg: #f9fafb;
+    --header-bg: linear-gradient(135deg, #dbeafe, #f0f2f5);
+    --tab-bg: #e5e7eb; --tab-active-bg: #ffffff;
+    --card-header-bg: #dbeafe; --metric-bg: #f3f4f6;
+    --friis-bg: #dbeafe; --formula-bg: #f3f4f6;
+    --lock-bg: #e5e7eb; --lock-panel: #ffffff;
+  }
+  /* Light theme overrides for inline-styled elements */
+  [data-theme="light"] .tab-panel,
+  [data-theme="light"] .tab-panel * {
+    border-color: #d1d5db !important;
+  }
+  [data-theme="light"] .tab-panel [style*="background:#0f1117"],
+  [data-theme="light"] .tab-panel [style*="background: #0f1117"],
+  [data-theme="light"] .tab-panel [style*="background:#12151f"],
+  [data-theme="light"] .tab-panel [style*="background: #12151f"] {
+    background: #f3f4f6 !important;
+  }
+  [data-theme="light"] .tab-panel [style*="background:#1a1d27"],
+  [data-theme="light"] .tab-panel [style*="background: #1a1d27"],
+  [data-theme="light"] .tab-panel [style*="background:#141820"],
+  [data-theme="light"] .tab-panel [style*="background: #141820"] {
+    background: #ffffff !important;
+  }
+  [data-theme="light"] .tab-panel [style*="background:#1e2a4a"],
+  [data-theme="light"] .tab-panel [style*="background: #1e2a4a"],
+  [data-theme="light"] .tab-panel [style*="background:#1e3a5f"],
+  [data-theme="light"] .tab-panel [style*="background: #1e3a5f"],
+  [data-theme="light"] .tab-panel [style*="background:#1e3a6e"] {
+    background: #dbeafe !important;
+  }
+  [data-theme="light"] .tab-panel [style*="color:#e2e8f0"],
+  [data-theme="light"] .tab-panel [style*="color: #e2e8f0"] {
+    color: #1e293b !important;
+  }
+  [data-theme="light"] .tab-panel [style*="color:#94a3b8"],
+  [data-theme="light"] .tab-panel [style*="color: #94a3b8"],
+  [data-theme="light"] .tab-panel [style*="color:#64748b"],
+  [data-theme="light"] .tab-panel [style*="color: #64748b"],
+  [data-theme="light"] .tab-panel [style*="color:#5a6478"] {
+    color: #6b7280 !important;
+  }
+  [data-theme="light"] .tab-panel [style*="color:#cbd5e1"],
+  [data-theme="light"] .tab-panel [style*="color: #cbd5e1"] {
+    color: #374151 !important;
+  }
+  [data-theme="light"] .tab-panel [style*="color:#fff"],
+  [data-theme="light"] .tab-panel [style*="color: #fff"],
+  [data-theme="light"] .tab-panel [style*="color:white"] {
+    color: #1e293b !important;
+  }
+  [data-theme="light"] .tab-panel [style*="border-color:#2e3248"],
+  [data-theme="light"] .tab-panel [style*="border:1px solid #2e3248"],
+  [data-theme="light"] .tab-panel [style*="border: 1px solid #2e3248"] {
+    border-color: #d1d5db !important;
+  }
+  [data-theme="light"] .tab-panel input[type=number],
+  [data-theme="light"] .tab-panel input[type=text],
+  [data-theme="light"] .tab-panel select {
+    background: #f9fafb !important;
+    border-color: #d1d5db !important;
+    color: #1e293b !important;
+  }
+  [data-theme="light"] .tab-panel .friis-block {
+    background: #dbeafe !important;
+    border-color: #93c5fd !important;
+  }
+  [data-theme="light"] .tab-panel .formula-box {
+    background: #f3f4f6 !important;
+    border-color: #d1d5db !important;
+    color: #7c3aed !important;
+  }
+  [data-theme="light"] .tab-panel .metric-box {
+    background: #f3f4f6 !important;
+    border-color: #d1d5db !important;
+  }
+  [data-theme="light"] .tab-panel .section-divider {
+    background: #f3f4f6 !important;
+    border-color: #d1d5db !important;
+  }
+  [data-theme="light"] .tab-panel .result-box,
+  [data-theme="light"] .tab-panel [class*="result-box"] {
+    background: #f3f4f6 !important;
+    border-color: #d1d5db !important;
+  }
+  /* Light theme for report metadata and header areas */
+  [data-theme="light"] #appContent > div[style*="background:#1a1d27"],
+  [data-theme="light"] #appContent > div[style*="background: #1a1d27"] {
+    background: #ffffff !important;
+  }
+  [data-theme="light"] #reportMetaBar [style*="background:#1e2a4a"],
+  [data-theme="light"] #reportMetaBar [style*="background:#1a1d27"],
+  [data-theme="light"] #reportMetaBar [style*="background:#0f1117"] {
+    background: #dbeafe !important;
+  }
+  [data-theme="light"] #reportMetaBar [style*="color:#60a5fa"] { color: #2563eb !important; }
+  [data-theme="light"] #reportMetaBar [style*="color:#64748b"] { color: #6b7280 !important; }
+  [data-theme="light"] #reportMetaBar [style*="color:#4f8ef7"] { color: #2563eb !important; }
+  [data-theme="light"] #reportMetaBar input {
+    background: #f9fafb !important; border-color: #d1d5db !important; color: #1e293b !important;
+  }
+  [data-theme="light"] #reportMetaBar { color: #1e293b; }
+  [data-theme="light"] #reportMetaBar [style*="border:1px solid #2e3248"],
+  [data-theme="light"] #reportMetaBar [style*="border: 1px solid #2e3248"] {
+    border-color: #d1d5db !important;
+  }
+  /* Global light overrides for any remaining dark backgrounds */
+  [data-theme="light"] [style*="background:#0f1117"] { background: #f3f4f6 !important; }
+  [data-theme="light"] [style*="background:#12151f"] { background: #f3f4f6 !important; }
+  [data-theme="light"] [style*="background:#1a1d27"] { background: #ffffff !important; }
+  [data-theme="light"] [style*="background:#141820"] { background: #f8fafc !important; }
+  [data-theme="light"] [style*="background:#1e2a4a"] { background: #dbeafe !important; }
+  [data-theme="light"] [style*="background:#1e3a5f"] { background: #dbeafe !important; }
+  [data-theme="light"] [style*="background:#1e3a6e"] { background: #dbeafe !important; }
+  [data-theme="light"] [style*="background:#1a3a2a"] { background: #d1fae5 !important; }
+  [data-theme="light"] [style*="border:1px solid #2e3248"] { border-color: #d1d5db !important; }
+  [data-theme="light"] [style*="border: 1px solid #2e3248"] { border-color: #d1d5db !important; }
+  [data-theme="light"] [style*="border:2px solid #2e3248"] { border-color: #d1d5db !important; }
+  [data-theme="light"] [style*="stroke:#2e3248"] { stroke: #d1d5db !important; }
+  [data-theme="light"] .radio-section {
+    background: #ffffff !important;
+    border-color: #d1d5db !important;
+  }
+  [data-theme="light"] .radio-section .section-title {
+    color: #2563eb !important;
+  }
+  [data-theme="light"] .radio-section .input-row label {
+    color: #374151 !important;
+  }
+  [data-theme="light"] .radio-section .input-row input,
+  [data-theme="light"] .radio-section .input-row select {
+    background: #f9fafb !important;
+    border-color: #d1d5db !important;
+    color: #1e293b !important;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; }
   #lockScreen {
-    position: fixed; inset: 0; background: #0a0c14;
+    position: fixed; inset: 0; background: var(--lock-bg);
     display: flex; align-items: center; justify-content: center; z-index: 9999;
   }
   .lock-box {
-    background: #1a1d27; border: 1px solid #2e3248; border-radius: 14px;
+    background: var(--lock-panel); border: 1px solid var(--border); border-radius: 14px;
     padding: 40px 48px; text-align: center; width: 360px;
   }
   .lock-box .lock-icon { font-size: 40px; margin-bottom: 16px; }
-  .lock-box h2 { font-size: 16px; font-weight: 700; color: #4f8ef7; margin-bottom: 4px; }
-  .lock-box p { font-size: 12px; color: #64748b; margin-bottom: 24px; }
+  .lock-box h2 { font-size: 16px; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
+  .lock-box p { font-size: 12px; color: var(--muted); margin-bottom: 24px; }
   .lock-box input[type=password] {
-    width: 100%; padding: 10px 14px; background: #0f1117; border: 1px solid #2e3248;
-    border-radius: 7px; color: #e2e8f0; font-size: 14px; text-align: center;
+    width: 100%; padding: 10px 14px; background: var(--input-bg); border: 1px solid var(--border);
+    border-radius: 7px; color: var(--text); font-size: 14px; text-align: center;
     letter-spacing: 4px; margin-bottom: 12px; outline: none; transition: border-color 0.2s;
   }
-  .lock-box input[type=password]:focus { border-color: #4f8ef7; }
+  .lock-box input[type=password]:focus { border-color: var(--accent); }
   .lock-box button {
-    width: 100%; padding: 10px; background: #4f8ef7; border: none; border-radius: 7px;
+    width: 100%; padding: 10px; background: var(--accent); border: none; border-radius: 7px;
     color: #fff; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s;
   }
-  .lock-box button:hover { background: #3b7de8; }
-  .lock-box .error { color: #ef4444; font-size: 12px; margin-top: 10px; display: none; }
+  .lock-box button:hover { opacity: 0.9; }
+  .lock-box .error { color: var(--err); font-size: 12px; margin-top: 10px; display: none; }
   #appContent { display: none; }
-  header { background: linear-gradient(135deg, #1e2a4a, #0f1117); border-bottom: 1px solid var(--border); padding: 18px 28px; display: flex; align-items: center; gap: 14px; }
+  header { background: var(--header-bg); border-bottom: 1px solid var(--border); padding: 18px 28px; display: flex; align-items: center; gap: 14px; }
   header h1 { font-size: 18px; font-weight: 700; color: var(--accent); }
-  header span { font-size: 11px; color: var(--muted); background: #1e2a4a; padding: 3px 8px; border-radius: 4px; border: 1px solid var(--border); }
-  .tab-bar { display: flex; gap: 0; border-bottom: 2px solid var(--border); background: #12151f; padding: 0 20px; }
+  header span { font-size: 11px; color: var(--muted); background: var(--card-header-bg); padding: 3px 8px; border-radius: 4px; border: 1px solid var(--border); }
+  .tab-bar { display: flex; gap: 0; border-bottom: 2px solid var(--border); background: var(--tab-bg); padding: 0 20px; }
   .tab-btn {
     padding: 12px 28px; font-size: 13px; font-weight: 600; cursor: pointer;
     border: none; background: transparent; color: var(--muted);
@@ -48,18 +190,18 @@
     letter-spacing: 0.3px;
   }
   .tab-btn:hover { color: var(--text); }
-  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); background: #1a1d27; }
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); background: var(--tab-active-bg); }
   .tab-panel { display: none; }
   .tab-panel.active { display: block; }
   .layout { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 16px 20px; max-width: 1400px; margin: 0 auto; }
   .full { grid-column: 1 / -1; }
   .card { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
-  .card-header { background: #1e2a4a; padding: 10px 16px; font-size: 12px; font-weight: 600; color: var(--accent); letter-spacing: 0.5px; text-transform: uppercase; display: flex; align-items: center; gap: 8px; }
+  .card-header { background: var(--card-header-bg); padding: 10px 16px; font-size: 12px; font-weight: 600; color: var(--accent); letter-spacing: 0.5px; text-transform: uppercase; display: flex; align-items: center; gap: 8px; }
   .card-header .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
   .card-body { padding: 14px 16px; }
   table { width: 100%; border-collapse: collapse; }
   th { text-align: left; color: var(--muted); font-size: 11px; font-weight: 600; padding: 6px 8px; border-bottom: 1px solid var(--border); text-transform: uppercase; letter-spacing: 0.4px; }
-  td { padding: 5px 8px; border-bottom: 1px solid #1e2233; vertical-align: middle; }
+  td { padding: 5px 8px; border-bottom: 1px solid var(--border); vertical-align: middle; }
   tr:last-child td { border-bottom: none; }
   .param-label { color: var(--text); font-size: 12px; }
   .param-unit { color: var(--muted); font-size: 11px; white-space: nowrap; }
@@ -74,51 +216,51 @@
   .result.warn { color: var(--warn); }
   .result.bad { color: var(--err); }
   .result.neutral { color: var(--text); }
-  .section-divider { background: #12151f; padding: 6px 16px; font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-  .friis-block { background: #1e2a4a; border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; min-width: 130px; }
+  .section-divider { background: var(--metric-bg); padding: 6px 16px; font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .friis-block { background: var(--friis-bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; min-width: 130px; }
   .friis-block h4 { font-size: 11px; color: var(--accent); font-weight: 600; margin-bottom: 8px; text-transform: uppercase; }
   .friis-block label { display: block; font-size: 11px; color: var(--muted); margin-bottom: 2px; margin-top: 6px; }
   .friis-block input { width: 90px; }
   .friis-chain { display: flex; align-items: center; gap: 0; flex-wrap: wrap; padding: 12px 0 4px; }
   .arrow { color: var(--muted); font-size: 18px; padding: 0 6px; align-self: center; }
   .big-result { display: flex; gap: 12px; flex-wrap: wrap; padding: 10px 0 4px; }
-  .metric-box { background: #12151f; border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; min-width: 160px; flex: 1; }
+  .metric-box { background: var(--metric-bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; min-width: 160px; flex: 1; }
   .metric-box .label { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
   .metric-box .value { font-size: 20px; font-weight: 700; font-family: 'Courier New', monospace; color: var(--accent2); }
   .metric-box .value.warn { color: var(--warn); }
   .metric-box .value.bad { color: var(--err); }
   .metric-box .unit { font-size: 11px; color: var(--muted); margin-top: 2px; }
-  .formula-box { background: #12151f; border: 1px solid var(--border); border-radius: 6px; padding: 8px 12px; font-family: 'Courier New', monospace; font-size: 11px; color: #a78bfa; margin: 8px 0 4px; }
+  .formula-box { background: var(--formula-bg); border: 1px solid var(--border); border-radius: 6px; padding: 8px 12px; font-family: 'Courier New', monospace; font-size: 11px; color: #a78bfa; margin: 8px 0 4px; }
   .note { font-size: 11px; color: var(--muted); padding: 6px 0; }
   hr { border: none; border-top: 1px solid var(--border); margin: 10px 0; }
   .col2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   .tag { display: inline-block; font-size: 10px; padding: 1px 6px; border-radius: 3px; font-weight: 600; margin-left: 6px; }
-  .tag.eu { background: #1e3a5f; color: #60a5fa; }
-  .tag.na { background: #1a3a2a; color: #34d399; }
-  .tag.lb { background: #1e3a5f; color: #60a5fa; }
-  .tag.ub { background: #1a3a2a; color: #34d399; }
-  .phy-badge { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 700; background: #1e3a5f; color: #60a5fa; border: 1px solid #2e4a7a; }
+  .tag.eu { background: var(--card-header-bg); color: var(--accent); }
+  .tag.na { background: var(--card-header-bg); color: var(--accent2); }
+  .tag.lb { background: var(--card-header-bg); color: var(--accent); }
+  .tag.ub { background: var(--card-header-bg); color: var(--accent2); }
+  .phy-badge { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 700; background: var(--card-header-bg); color: var(--accent); border: 1px solid var(--border); }
   .pdf-btn-bar { display:flex; justify-content:flex-end; padding:12px 20px 20px; max-width:1400px; margin:0 auto; }
   .pdf-btn {
     display:inline-flex; align-items:center; gap:8px;
-    padding:11px 24px; background:linear-gradient(135deg,#1e3a5f,#1a2a4a);
-    border:1px solid #4f8ef7; border-radius:8px; color:#60a5fa;
+    padding:11px 24px; background:var(--card-header-bg);
+    border:1px solid var(--accent); border-radius:8px; color:var(--accent);
     font-size:13px; font-weight:600; cursor:pointer; transition:all 0.2s;
     letter-spacing:0.3px;
   }
-  .pdf-btn:hover { background:linear-gradient(135deg,#2a4a7a,#1e3a5f); border-color:#60a5fa; color:#93c5fd; box-shadow:0 0 12px rgba(79,142,247,0.25); }
+  .pdf-btn:hover { opacity:0.85; box-shadow:0 0 12px rgba(79,142,247,0.25); }
   .pdf-btn svg { flex-shrink:0; }
   .push-btn { background:none; border:none; cursor:pointer; font-size:13px; padding:1px 3px; vertical-align:middle; opacity:0.7; transition:opacity 0.15s; }
   .push-btn:hover { opacity:1; }
   /* ── Quick-push source picker modal ─────────────────────────────── */
   .qp-overlay { position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:10000;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(3px); }
-  .qp-modal { background:#1a1d27;border:1px solid #4f8ef7;border-radius:12px;width:340px;max-height:80vh;display:flex;flex-direction:column;box-shadow:0 8px 32px rgba(0,0,0,0.5); }
-  .qp-header { padding:14px 18px 10px;border-bottom:1px solid #2e3248; }
-  .qp-header h3 { font-size:13px;font-weight:700;color:#4f8ef7;margin:0 0 4px; }
-  .qp-header p { font-size:11px;color:#94a3b8;margin:0; }
+  .qp-modal { background:var(--panel);border:1px solid var(--accent);border-radius:12px;width:340px;max-height:80vh;display:flex;flex-direction:column;box-shadow:0 8px 32px rgba(0,0,0,0.5); }
+  .qp-header { padding:14px 18px 10px;border-bottom:1px solid var(--border); }
+  .qp-header h3 { font-size:13px;font-weight:700;color:var(--accent);margin:0 0 4px; }
+  .qp-header p { font-size:11px;color:var(--muted);margin:0; }
   .qp-list { overflow-y:auto;padding:6px 0;flex:1; }
-  .qp-item { display:flex;align-items:center;gap:10px;padding:9px 18px;cursor:pointer;transition:background 0.12s;font-size:12px;color:#e2e8f0; }
-  .qp-item:hover { background:#1e2a4a; }
+  .qp-item { display:flex;align-items:center;gap:10px;padding:9px 18px;cursor:pointer;transition:background 0.12s;font-size:12px;color:var(--text); }
+  .qp-item:hover { background:var(--card-header-bg); }
   .qp-item .qp-icon { width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0; }
   .qp-item .qp-label { flex:1; }
   .qp-item .qp-idx { font-size:10px;color:#64748b;font-weight:600;min-width:18px;text-align:center; }
@@ -192,7 +334,14 @@
     <h1>RF Desense Toolbox</h1>
     <div style="margin-top:4px; font-size:11px; color:var(--muted)">Cascaded NF · Noise Floor · Desense · Range Estimation · EU / NA / LTE / WiFi 2.4G / WiFi 5G / GNSS</div>
   </div>
-  <span>Authorized Access Only</span>
+  <div style="display:flex;align-items:center;gap:10px;margin-left:auto">
+    <div style="display:flex;align-items:center;gap:6px;background:var(--metric-bg);border:1px solid var(--border);border-radius:6px;padding:4px 8px">
+      <span style="font-size:11px;color:var(--muted)">Theme:</span>
+      <button id="themeBtnDark" onclick="setAppTheme('dark')" style="padding:3px 10px;border-radius:4px;border:1px solid var(--accent);background:var(--accent);color:#fff;font-size:11px;font-weight:600;cursor:pointer">🌙 Dark</button>
+      <button id="themeBtnLight" onclick="setAppTheme('light')" style="padding:3px 10px;border-radius:4px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:11px;font-weight:600;cursor:pointer">☀️ Light</button>
+    </div>
+    <span>Authorized Access Only</span>
+  </div>
 </header>
 
 <!-- Tab Bar -->
@@ -649,6 +798,65 @@
   </div>
 
 </div><!-- end lora layout -->
+
+<div style="padding:0 20px 16px 20px;max-width:1400px;margin:0 auto">
+<div class="card full" style="margin-top:0">
+  <div class="card-header"><div class="dot" style="background:#60a5fa"></div>📚 Reference: LoRa Sensitivity Calculation Example</div>
+  <div class="card-body" style="font-size:12px;color:#cbd5e1;line-height:1.7">
+    <p style="margin-bottom:8px">Worked example using default values for <span style="color:#60a5fa;font-weight:600">LoRa EU · 867 MHz (SF11, BW=500 kHz)</span>. Assume NF_total = 3.5 dB.</p>
+    <div style="background:#12151f;border:1px solid #2e3248;border-radius:8px;padding:14px 18px;margin:8px 0;font-family:'Courier New',monospace;font-size:12px;color:#60a5fa;line-height:1.9">
+      10·log₁₀(500,000) = <span style="color:#34d399;font-weight:700">56.99 dB</span><br>
+      MDS = −174 + 56.99 + 3.5 = <span style="color:#34d399;font-weight:700">−113.51 dBm</span><br>
+      Rx Sens = MDS + SNR = −113.51 + (−18) = <span style="color:#34d399;font-weight:700">−131.51 dBm</span><br>
+      OTA Sens = −131.51 − (−5) = <span style="color:#f59e0b;font-weight:700">−126.51 dBm</span>
+    </div>
+    <div style="background:#12151f;border:1px solid #2e3248;border-radius:8px;padding:14px 18px;margin:8px 0;font-size:12px">
+      <div style="color:#ef4444;font-weight:600;margin-bottom:6px">Desense Example: SA band power = −72.5 dBm/BW, LNA = 42 dB</div>
+      <div style="font-family:'Courier New',monospace;color:#60a5fa;line-height:1.9">
+        Noise_at_DUT = −72.5 − 42 + 0 = <span style="color:#f59e0b;font-weight:700">−114.50 dBm</span><br>
+        New_MDS = 10·log₁₀(10^(−114.5/10) + 10^(−113.51/10)) = <span style="color:#ef4444;font-weight:700">−110.98 dBm</span><br>
+        Desense = −110.98 − (−113.51) = <span style="color:#ef4444;font-weight:700">2.53 dB</span><br>
+        Degraded Sens = −131.51 + 2.53 = <span style="color:#ef4444;font-weight:700">−128.98 dBm</span>
+      </div>
+    </div>
+    <p style="color:#64748b;font-size:11px;font-style:italic">LoRa's negative SNR (−18 dB) reflects chirp spread spectrum's ability to demodulate below the noise floor. This gives LoRa exceptional range but makes it sensitive to even small desense values.</p>
+
+    <h4 style="color:#60a5fa;font-size:13px;margin:16px 0 6px 0;border-top:1px solid #2e3248;padding-top:12px">📡 Modulation Deep-Dive: Chirp Spread Spectrum (CSS)</h4>
+    <p>LoRa uses <span style="color:#60a5fa;font-weight:600">Chirp Spread Spectrum (CSS)</span> — a wideband modulation where the carrier frequency sweeps linearly across the bandwidth (a "chirp"). This is fundamentally different from narrowband modulations like FSK or QAM.</p>
+    <ul style="margin:6px 0 6px 20px;color:#94a3b8">
+      <li><span style="color:#f59e0b;font-weight:600">Up-chirp:</span> Frequency increases linearly from f₀ to f₀+BW over one symbol period</li>
+      <li><span style="color:#f59e0b;font-weight:600">Data encoding:</span> Data is encoded as a cyclic time-shift of the base chirp. Each symbol carries SF bits (e.g., SF11 → 11 bits/symbol → 2048 possible shifts)</li>
+      <li><span style="color:#f59e0b;font-weight:600">Spreading Factor (SF):</span> SF7–SF12. Higher SF = more chips per symbol = better sensitivity but lower data rate</li>
+    </ul>
+    <div style="background:#12151f;border:1px solid #2e3248;border-radius:8px;padding:12px 16px;margin:8px 0;font-family:'Courier New',monospace;font-size:11px;color:#60a5fa;line-height:1.8">
+      Symbol rate = BW / 2^SF<br>
+      Bit rate = SF × BW / 2^SF × CR<br>
+      <span style="color:#94a3b8">Example (SF11, BW=500kHz, CR=4/5):</span><br>
+      Symbol rate = 500,000 / 2^11 = 500,000 / 2048 = <span style="color:#34d399;font-weight:700">244.14 symbols/s</span><br>
+      Bit rate = 11 × 244.14 × (4/5) = <span style="color:#34d399;font-weight:700">2,148 bps</span>
+    </div>
+    <table style="width:100%;border-collapse:collapse;font-size:11px;margin:8px 0">
+      <thead><tr style="border-bottom:2px solid #60a5fa">
+        <th style="text-align:left;padding:4px 8px;color:#60a5fa;font-size:10px">SF</th>
+        <th style="text-align:center;padding:4px 8px;color:#60a5fa;font-size:10px">Chips/Symbol</th>
+        <th style="text-align:center;padding:4px 8px;color:#60a5fa;font-size:10px">Min SNR</th>
+        <th style="text-align:center;padding:4px 8px;color:#60a5fa;font-size:10px">Bit Rate (500kHz)</th>
+        <th style="text-align:center;padding:4px 8px;color:#60a5fa;font-size:10px">Sensitivity Gain vs SF7</th>
+      </tr></thead>
+      <tbody>
+        <tr style="border-bottom:1px solid #2e3248"><td style="padding:3px 8px;color:#94a3b8">SF7</td><td style="text-align:center;color:#60a5fa">128</td><td style="text-align:center;color:#f59e0b">−7.5 dB</td><td style="text-align:center;color:#34d399">21,875 bps</td><td style="text-align:center;color:#94a3b8">0 dB (ref)</td></tr>
+        <tr style="border-bottom:1px solid #2e3248"><td style="padding:3px 8px;color:#94a3b8">SF8</td><td style="text-align:center;color:#60a5fa">256</td><td style="text-align:center;color:#f59e0b">−10 dB</td><td style="text-align:center;color:#34d399">12,500 bps</td><td style="text-align:center;color:#34d399">+2.5 dB</td></tr>
+        <tr style="border-bottom:1px solid #2e3248"><td style="padding:3px 8px;color:#94a3b8">SF9</td><td style="text-align:center;color:#60a5fa">512</td><td style="text-align:center;color:#f59e0b">−12.5 dB</td><td style="text-align:center;color:#34d399">7,031 bps</td><td style="text-align:center;color:#34d399">+5 dB</td></tr>
+        <tr style="border-bottom:1px solid #2e3248"><td style="padding:3px 8px;color:#94a3b8">SF10</td><td style="text-align:center;color:#60a5fa">1024</td><td style="text-align:center;color:#f59e0b">−15 dB</td><td style="text-align:center;color:#34d399">3,906 bps</td><td style="text-align:center;color:#34d399">+7.5 dB</td></tr>
+        <tr style="border-bottom:1px solid #2e3248"><td style="padding:3px 8px;color:#94a3b8">SF11</td><td style="text-align:center;color:#60a5fa">2048</td><td style="text-align:center;color:#f59e0b">−18 dB</td><td style="text-align:center;color:#34d399">2,148 bps</td><td style="text-align:center;color:#34d399">+10.5 dB</td></tr>
+        <tr><td style="padding:3px 8px;color:#94a3b8">SF12</td><td style="text-align:center;color:#60a5fa">4096</td><td style="text-align:center;color:#f59e0b">−20 dB</td><td style="text-align:center;color:#34d399">1,172 bps</td><td style="text-align:center;color:#34d399">+12.5 dB</td></tr>
+      </tbody>
+    </table>
+    <p style="color:#64748b;font-size:11px;font-style:italic">CSS achieves processing gain of ~2.5 dB per SF step. The negative SNR means LoRa can decode signals buried in noise — this is the key to its km-range capability. Each SF doubles the time-on-air, so there's a direct trade-off between range and battery life.</p>
+  </div>
+</div>
+</div>
+
 <div class="pdf-btn-bar">
   <button class="pdf-btn" onclick="generatePDF('lora')">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
@@ -963,6 +1171,59 @@
   </div>
 
 </div><!-- end ble layout -->
+
+<div style="padding:0 20px 16px 20px;max-width:1400px;margin:0 auto">
+<div class="card full" style="margin-top:0">
+  <div class="card-header"><div class="dot" style="background:#56B4E9"></div>📚 Reference: BLE Sensitivity Calculation Example</div>
+  <div class="card-body" style="font-size:12px;color:#cbd5e1;line-height:1.7">
+    <p style="margin-bottom:8px">Worked example for <span style="color:#60a5fa;font-weight:600">BLE 2.4 GHz · 1M PHY (GFSK)</span>. Assume NF_total = 3.5 dB.</p>
+    <div style="background:#12151f;border:1px solid #2e3248;border-radius:8px;padding:14px 18px;margin:8px 0;font-family:'Courier New',monospace;font-size:12px;color:#60a5fa;line-height:1.9">
+      BW = 1 MHz = 1,000,000 Hz<br>
+      10·log₁₀(1,000,000) = <span style="color:#34d399;font-weight:700">60.00 dB</span><br>
+      MDS = −174 + 60.00 + 3.5 = <span style="color:#34d399;font-weight:700">−110.50 dBm</span><br>
+      Rx Sens = MDS + SNR = −110.50 + 11 = <span style="color:#34d399;font-weight:700">−99.50 dBm</span><br>
+      OTA Sens = −99.50 − (−3) = <span style="color:#f59e0b;font-weight:700">−96.50 dBm</span>
+    </div>
+    <div style="background:#12151f;border:1px solid #2e3248;border-radius:8px;padding:14px 18px;margin:8px 0;font-size:12px">
+      <div style="color:#ef4444;font-weight:600;margin-bottom:6px">Desense Example: SA band power = −65 dBm/BW, LNA = 42 dB</div>
+      <div style="font-family:'Courier New',monospace;color:#60a5fa;line-height:1.9">
+        Noise_at_DUT = −65 − 42 = <span style="color:#f59e0b;font-weight:700">−107.00 dBm</span><br>
+        New_MDS = 10·log₁₀(10^(−107/10) + 10^(−110.5/10)) = <span style="color:#ef4444;font-weight:700">−105.47 dBm</span><br>
+        Desense = −105.47 − (−110.50) = <span style="color:#ef4444;font-weight:700">5.03 dB</span><br>
+        Degraded Sens = −99.50 + 5.03 = <span style="color:#ef4444;font-weight:700">−94.47 dBm</span>
+      </div>
+    </div>
+    <p style="color:#64748b;font-size:11px;font-style:italic">BLE's 1 MHz bandwidth gives a moderate noise floor. The 11 dB SNR requirement for GFSK means BLE sensitivity is typically around −94 to −100 dBm. WiFi 2.4 GHz coexistence is the primary desense concern since both share the 2.4 GHz ISM band.</p>
+
+    <h4 style="color:#56B4E9;font-size:13px;margin:16px 0 6px 0;border-top:1px solid #2e3248;padding-top:12px">📡 Modulation Deep-Dive: GFSK (Gaussian Frequency Shift Keying)</h4>
+    <p>BLE uses <span style="color:#56B4E9;font-weight:600">GFSK</span> — a constant-envelope frequency modulation where binary data shifts the carrier frequency by ±250 kHz (modulation index h = 0.5).</p>
+    <ul style="margin:6px 0 6px 20px;color:#94a3b8">
+      <li><span style="color:#f59e0b;font-weight:600">Gaussian filter:</span> A Gaussian pulse-shaping filter (BT = 0.5) smooths frequency transitions, reducing spectral sidelobes and adjacent channel interference</li>
+      <li><span style="color:#f59e0b;font-weight:600">Constant envelope:</span> Unlike QAM, GFSK has no amplitude variation — this allows use of efficient non-linear power amplifiers</li>
+      <li><span style="color:#f59e0b;font-weight:600">Frequency hopping:</span> BLE hops across 40 channels (37 data + 3 advertising) at 2 MHz spacing, providing interference diversity</li>
+    </ul>
+    <table style="width:100%;border-collapse:collapse;font-size:11px;margin:8px 0">
+      <thead><tr style="border-bottom:2px solid #56B4E9">
+        <th style="text-align:left;padding:4px 8px;color:#56B4E9;font-size:10px">BLE PHY</th>
+        <th style="text-align:center;padding:4px 8px;color:#56B4E9;font-size:10px">Modulation</th>
+        <th style="text-align:center;padding:4px 8px;color:#56B4E9;font-size:10px">Symbol Rate</th>
+        <th style="text-align:center;padding:4px 8px;color:#56B4E9;font-size:10px">Data Rate</th>
+        <th style="text-align:center;padding:4px 8px;color:#56B4E9;font-size:10px">BW</th>
+        <th style="text-align:center;padding:4px 8px;color:#56B4E9;font-size:10px">Min SNR</th>
+        <th style="text-align:center;padding:4px 8px;color:#56B4E9;font-size:10px">Typ. Sensitivity</th>
+      </tr></thead>
+      <tbody>
+        <tr style="border-bottom:1px solid #2e3248"><td style="padding:3px 8px;color:#94a3b8">LE 1M</td><td style="text-align:center;color:#60a5fa">GFSK</td><td style="text-align:center;color:#94a3b8">1 Msym/s</td><td style="text-align:center;color:#34d399">1 Mbps</td><td style="text-align:center;color:#94a3b8">1 MHz</td><td style="text-align:center;color:#f59e0b">11 dB</td><td style="text-align:center;color:#34d399">−96 dBm</td></tr>
+        <tr style="border-bottom:1px solid #2e3248"><td style="padding:3px 8px;color:#94a3b8">LE 2M</td><td style="text-align:center;color:#60a5fa">GFSK</td><td style="text-align:center;color:#94a3b8">2 Msym/s</td><td style="text-align:center;color:#34d399">2 Mbps</td><td style="text-align:center;color:#94a3b8">2 MHz</td><td style="text-align:center;color:#f59e0b">11 dB</td><td style="text-align:center;color:#f59e0b">−93 dBm</td></tr>
+        <tr style="border-bottom:1px solid #2e3248"><td style="padding:3px 8px;color:#94a3b8">LE Coded S=2</td><td style="text-align:center;color:#60a5fa">GFSK + FEC</td><td style="text-align:center;color:#94a3b8">1 Msym/s</td><td style="text-align:center;color:#34d399">500 kbps</td><td style="text-align:center;color:#94a3b8">1 MHz</td><td style="text-align:center;color:#f59e0b">8 dB</td><td style="text-align:center;color:#34d399">−99 dBm</td></tr>
+        <tr><td style="padding:3px 8px;color:#94a3b8">LE Coded S=8</td><td style="text-align:center;color:#60a5fa">GFSK + FEC</td><td style="text-align:center;color:#94a3b8">1 Msym/s</td><td style="text-align:center;color:#34d399">125 kbps</td><td style="text-align:center;color:#94a3b8">1 MHz</td><td style="text-align:center;color:#f59e0b">5 dB</td><td style="text-align:center;color:#34d399">−103 dBm</td></tr>
+      </tbody>
+    </table>
+    <p style="color:#64748b;font-size:11px;font-style:italic">LE Coded PHY (BLE 5.0 Long Range) adds forward error correction, reducing the required SNR by 3–6 dB at the cost of data rate. This extends BLE range from ~100m to ~400m in open field. The 2M PHY doubles throughput but costs 3 dB sensitivity due to doubled bandwidth.</p>
+  </div>
+</div>
+</div>
+
 <div class="pdf-btn-bar">
   <button class="pdf-btn" onclick="generatePDF('ble')">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
@@ -1312,6 +1573,59 @@
   </div>
 
 </div><!-- end lb layout -->
+
+<div style="padding:0 20px 16px 20px;max-width:1400px;margin:0 auto">
+<div class="card full" style="margin-top:0">
+  <div class="card-header"><div class="dot" style="background:#60a5fa"></div>📚 Reference: LTE Low Band Sensitivity Calculation Example</div>
+  <div class="card-body" style="font-size:12px;color:#cbd5e1;line-height:1.7">
+    <p style="margin-bottom:8px">Worked example for <span style="color:#60a5fa;font-weight:600">LTE Low Band · B71 (600 MHz), 10 MHz BW, QPSK 1/3</span>. Assume NF_total = 3.5 dB.</p>
+    <div style="background:#12151f;border:1px solid #2e3248;border-radius:8px;padding:14px 18px;margin:8px 0;font-family:'Courier New',monospace;font-size:12px;color:#60a5fa;line-height:1.9">
+      BW = 10 MHz = 10,000,000 Hz<br>
+      10·log₁₀(10,000,000) = <span style="color:#34d399;font-weight:700">70.00 dB</span><br>
+      MDS = −174 + 70.00 + 3.5 = <span style="color:#34d399;font-weight:700">−100.50 dBm</span><br>
+      Rx Sens = MDS + SNR = −100.50 + (−1) = <span style="color:#34d399;font-weight:700">−101.50 dBm</span><br>
+      OTA Sens = −101.50 − (−6) = <span style="color:#f59e0b;font-weight:700">−95.50 dBm</span>
+    </div>
+    <div style="background:#12151f;border:1px solid #2e3248;border-radius:8px;padding:14px 18px;margin:8px 0;font-size:12px">
+      <div style="color:#ef4444;font-weight:600;margin-bottom:6px">Desense Example: SA band power = −55 dBm/BW, LNA = 42 dB</div>
+      <div style="font-family:'Courier New',monospace;color:#60a5fa;line-height:1.9">
+        Noise_at_DUT = −55 − 42 = <span style="color:#f59e0b;font-weight:700">−97.00 dBm</span><br>
+        New_MDS = 10·log₁₀(10^(−97/10) + 10^(−100.5/10)) = <span style="color:#ef4444;font-weight:700">−95.47 dBm</span><br>
+        Desense = −95.47 − (−100.50) = <span style="color:#ef4444;font-weight:700">5.03 dB</span><br>
+        Degraded Sens = −101.50 + 5.03 = <span style="color:#ef4444;font-weight:700">−96.47 dBm</span>
+      </div>
+    </div>
+    <p style="color:#64748b;font-size:11px;font-style:italic">LTE's negative SNR (−1 dB for QPSK 1/3) means sensitivity is slightly better than MDS. The wide 10 MHz bandwidth raises the noise floor significantly. Low-band LTE (600–900 MHz) is critical for coverage — even 2–3 dB desense can cause dropped calls at cell edge.</p>
+
+    <h4 style="color:#60a5fa;font-size:13px;margin:16px 0 6px 0;border-top:1px solid #2e3248;padding-top:12px">📡 Modulation Deep-Dive: LTE OFDMA</h4>
+    <p>LTE downlink uses <span style="color:#60a5fa;font-weight:600">OFDMA (Orthogonal Frequency Division Multiple Access)</span> — the bandwidth is divided into 15 kHz subcarriers, grouped into Resource Blocks (RBs) of 12 subcarriers (180 kHz each).</p>
+    <ul style="margin:6px 0 6px 20px;color:#94a3b8">
+      <li><span style="color:#f59e0b;font-weight:600">Adaptive modulation:</span> The base station selects modulation order based on channel quality (CQI). Poor signal → QPSK; good signal → 64-QAM</li>
+      <li><span style="color:#f59e0b;font-weight:600">Turbo coding:</span> LTE uses turbo codes with variable code rates (1/3 to ~0.93) for forward error correction</li>
+      <li><span style="color:#f59e0b;font-weight:600">MIMO:</span> 2×2 or 4×4 spatial multiplexing doubles/quadruples peak throughput</li>
+    </ul>
+    <table style="width:100%;border-collapse:collapse;font-size:11px;margin:8px 0">
+      <thead><tr style="border-bottom:2px solid #60a5fa">
+        <th style="text-align:left;padding:4px 8px;color:#60a5fa;font-size:10px">MCS / Modulation</th>
+        <th style="text-align:center;padding:4px 8px;color:#60a5fa;font-size:10px">Bits/Symbol</th>
+        <th style="text-align:center;padding:4px 8px;color:#60a5fa;font-size:10px">Code Rate</th>
+        <th style="text-align:center;padding:4px 8px;color:#60a5fa;font-size:10px">Min SNR</th>
+        <th style="text-align:center;padding:4px 8px;color:#60a5fa;font-size:10px">Spectral Eff.</th>
+        <th style="text-align:center;padding:4px 8px;color:#60a5fa;font-size:10px">Throughput (10 MHz)</th>
+      </tr></thead>
+      <tbody>
+        <tr style="border-bottom:1px solid #2e3248"><td style="padding:3px 8px;color:#94a3b8">QPSK 1/3</td><td style="text-align:center;color:#60a5fa">2</td><td style="text-align:center;color:#94a3b8">0.33</td><td style="text-align:center;color:#f59e0b">−1 dB</td><td style="text-align:center;color:#34d399">0.66 b/s/Hz</td><td style="text-align:center;color:#34d399">~4 Mbps</td></tr>
+        <tr style="border-bottom:1px solid #2e3248"><td style="padding:3px 8px;color:#94a3b8">QPSK 1/2</td><td style="text-align:center;color:#60a5fa">2</td><td style="text-align:center;color:#94a3b8">0.50</td><td style="text-align:center;color:#f59e0b">2 dB</td><td style="text-align:center;color:#34d399">1.0 b/s/Hz</td><td style="text-align:center;color:#34d399">~6 Mbps</td></tr>
+        <tr style="border-bottom:1px solid #2e3248"><td style="padding:3px 8px;color:#94a3b8">16-QAM 1/2</td><td style="text-align:center;color:#60a5fa">4</td><td style="text-align:center;color:#94a3b8">0.50</td><td style="text-align:center;color:#f59e0b">8 dB</td><td style="text-align:center;color:#34d399">2.0 b/s/Hz</td><td style="text-align:center;color:#34d399">~15 Mbps</td></tr>
+        <tr style="border-bottom:1px solid #2e3248"><td style="padding:3px 8px;color:#94a3b8">64-QAM 3/4</td><td style="text-align:center;color:#60a5fa">6</td><td style="text-align:center;color:#94a3b8">0.75</td><td style="text-align:center;color:#f59e0b">17 dB</td><td style="text-align:center;color:#34d399">4.5 b/s/Hz</td><td style="text-align:center;color:#34d399">~36 Mbps</td></tr>
+        <tr><td style="padding:3px 8px;color:#94a3b8">64-QAM 0.93</td><td style="text-align:center;color:#60a5fa">6</td><td style="text-align:center;color:#94a3b8">0.93</td><td style="text-align:center;color:#f59e0b">20 dB</td><td style="text-align:center;color:#34d399">5.6 b/s/Hz</td><td style="text-align:center;color:#34d399">~50 Mbps</td></tr>
+      </tbody>
+    </table>
+    <p style="color:#64748b;font-size:11px;font-style:italic">The reference sensitivity in this calculator uses QPSK 1/3 (−1 dB SNR) — the most robust MCS. Desense forces the modem to fall back from 64-QAM to 16-QAM to QPSK, progressively reducing throughput before connection loss. A 10 dB desense can drop throughput from 50 Mbps to 4 Mbps.</p>
+  </div>
+</div>
+</div>
+
 <div class="pdf-btn-bar">
   <button class="pdf-btn" onclick="generatePDF('lb')">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
@@ -1666,6 +1980,43 @@
   </div>
 
 </div><!-- end ub layout -->
+
+<div style="padding:0 20px 16px 20px;max-width:1400px;margin:0 auto">
+<div class="card full" style="margin-top:0">
+  <div class="card-header"><div class="dot" style="background:#60a5fa"></div>📚 Reference: LTE Upper Band Sensitivity Calculation Example</div>
+  <div class="card-body" style="font-size:12px;color:#cbd5e1;line-height:1.7">
+    <p style="margin-bottom:8px">Worked example for <span style="color:#60a5fa;font-weight:600">LTE Upper Band · B7 (2600 MHz), 10 MHz BW, QPSK 1/3</span>. Assume NF_total = 3.5 dB.</p>
+    <div style="background:#12151f;border:1px solid #2e3248;border-radius:8px;padding:14px 18px;margin:8px 0;font-family:'Courier New',monospace;font-size:12px;color:#60a5fa;line-height:1.9">
+      BW = 10 MHz = 10,000,000 Hz<br>
+      10·log₁₀(10,000,000) = <span style="color:#34d399;font-weight:700">70.00 dB</span><br>
+      MDS = −174 + 70.00 + 3.5 = <span style="color:#34d399;font-weight:700">−100.50 dBm</span><br>
+      Rx Sens = MDS + SNR = −100.50 + (−1) = <span style="color:#34d399;font-weight:700">−101.50 dBm</span><br>
+      OTA Sens = −101.50 − (−6) = <span style="color:#f59e0b;font-weight:700">−95.50 dBm</span>
+    </div>
+    <div style="background:#12151f;border:1px solid #2e3248;border-radius:8px;padding:14px 18px;margin:8px 0;font-size:12px">
+      <div style="color:#ef4444;font-weight:600;margin-bottom:6px">Desense Example: SA band power = −55 dBm/BW, LNA = 42 dB</div>
+      <div style="font-family:'Courier New',monospace;color:#60a5fa;line-height:1.9">
+        Noise_at_DUT = −55 − 42 = <span style="color:#f59e0b;font-weight:700">−97.00 dBm</span><br>
+        New_MDS = 10·log₁₀(10^(−97/10) + 10^(−100.5/10)) = <span style="color:#ef4444;font-weight:700">−95.47 dBm</span><br>
+        Desense = −95.47 − (−100.50) = <span style="color:#ef4444;font-weight:700">5.03 dB</span><br>
+        Degraded Sens = −101.50 + 5.03 = <span style="color:#ef4444;font-weight:700">−96.47 dBm</span>
+      </div>
+    </div>
+    <p style="color:#64748b;font-size:11px;font-style:italic">Upper-band LTE (1700–2700 MHz) shares spectrum proximity with WiFi 2.4 GHz and BLE, making it susceptible to harmonic and intermodulation desense. The same 10 MHz BW and QPSK 1/3 parameters apply, but higher-frequency path loss means less coverage margin.</p>
+
+    <h4 style="color:#60a5fa;font-size:13px;margin:16px 0 6px 0;border-top:1px solid #2e3248;padding-top:12px">📡 Modulation Deep-Dive: LTE-A Carrier Aggregation &amp; Upper Band Considerations</h4>
+    <p>Upper-band LTE uses the same OFDMA modulation as low-band (see LTE Low Band reference for the full MCS table). Key upper-band specific considerations:</p>
+    <ul style="margin:6px 0 6px 20px;color:#94a3b8">
+      <li><span style="color:#f59e0b;font-weight:600">Carrier Aggregation (CA):</span> LTE-A can bond multiple carriers (e.g., B7+B3) for up to 100 MHz aggregate BW. Each component carrier is independently modulated</li>
+      <li><span style="color:#f59e0b;font-weight:600">256-QAM (LTE Cat 11+):</span> 8 bits/symbol, requires SNR &gt; 24 dB. Only viable in strong signal conditions — very sensitive to desense</li>
+      <li><span style="color:#f59e0b;font-weight:600">TDD vs FDD:</span> Upper bands often use TDD (time-division duplex) where Tx and Rx share the same frequency. Self-interference from Tx→Rx leakage is a major desense source</li>
+      <li><span style="color:#f59e0b;font-weight:600">Harmonic interference:</span> 2nd harmonic of B7 Tx (2×2620 MHz = 5240 MHz) falls in WiFi 5G band. 3rd harmonic of 900 MHz LoRa (3×915 = 2745 MHz) is near B7 Rx</li>
+    </ul>
+    <p style="color:#64748b;font-size:11px;font-style:italic">Upper-band desense analysis must consider not just in-band noise but also harmonic relationships between all co-located radios. The calculator's desense dashboard helps identify these cross-radio interference paths.</p>
+  </div>
+</div>
+</div>
+
 <div class="pdf-btn-bar">
   <button class="pdf-btn" onclick="generatePDF('ub')">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
@@ -1910,6 +2261,59 @@
     </div>
   </div>
 </div>
+
+<div style="padding:0 20px 16px 20px;max-width:1400px;margin:0 auto">
+<div class="card full" style="margin-top:0">
+  <div class="card-header"><div class="dot" style="background:#34d399"></div>📚 Reference: WiFi 2.4G Sensitivity Calculation Example</div>
+  <div class="card-body" style="font-size:12px;color:#cbd5e1;line-height:1.7">
+    <p style="margin-bottom:8px">Worked example for <span style="color:#60a5fa;font-weight:600">WiFi 2.4 GHz · 802.11n · 20 MHz BW · MCS7 (64-QAM 5/6)</span>. Assume NF_total = 3.5 dB.</p>
+    <div style="background:#12151f;border:1px solid #2e3248;border-radius:8px;padding:14px 18px;margin:8px 0;font-family:'Courier New',monospace;font-size:12px;color:#60a5fa;line-height:1.9">
+      BW = 20 MHz = 20,000,000 Hz<br>
+      10·log₁₀(20,000,000) = <span style="color:#34d399;font-weight:700">73.01 dB</span><br>
+      MDS = −174 + 73.01 + 3.5 = <span style="color:#34d399;font-weight:700">−97.49 dBm</span><br>
+      Rx Sens = MDS + SNR = −97.49 + 23 = <span style="color:#34d399;font-weight:700">−74.49 dBm</span><br>
+      OTA Sens = −74.49 − (−3.5) = <span style="color:#f59e0b;font-weight:700">−70.99 dBm</span>
+    </div>
+    <div style="background:#12151f;border:1px solid #2e3248;border-radius:8px;padding:14px 18px;margin:8px 0;font-size:12px">
+      <div style="color:#ef4444;font-weight:600;margin-bottom:6px">Desense Example: SA band power = −50 dBm/BW, LNA = 42 dB</div>
+      <div style="font-family:'Courier New',monospace;color:#60a5fa;line-height:1.9">
+        Noise_at_DUT = −50 − 42 = <span style="color:#f59e0b;font-weight:700">−92.00 dBm</span><br>
+        New_MDS = 10·log₁₀(10^(−92/10) + 10^(−97.49/10)) = <span style="color:#ef4444;font-weight:700">−90.72 dBm</span><br>
+        Desense = −90.72 − (−97.49) = <span style="color:#ef4444;font-weight:700">6.77 dB</span><br>
+        Degraded Sens = −74.49 + 6.77 = <span style="color:#ef4444;font-weight:700">−67.72 dBm</span>
+      </div>
+    </div>
+    <p style="color:#64748b;font-size:11px;font-style:italic">WiFi 2.4G requires high SNR (23 dB for MCS7 64-QAM) which makes its sensitivity relatively poor compared to narrowband radios. However, the wide bandwidth enables high throughput. Desense causes MCS fallback — the radio drops to lower modulation orders (QPSK, BPSK) reducing throughput before losing connection entirely.</p>
+
+    <h4 style="color:#34d399;font-size:13px;margin:16px 0 6px 0;border-top:1px solid #2e3248;padding-top:12px">📡 Modulation Deep-Dive: WiFi 802.11n OFDM</h4>
+    <p>WiFi 2.4 GHz (802.11n) uses <span style="color:#34d399;font-weight:600">OFDM</span> with 64 subcarriers (52 data + 4 pilot + 8 unused) at 312.5 kHz spacing in a 20 MHz channel.</p>
+    <ul style="margin:6px 0 6px 20px;color:#94a3b8">
+      <li><span style="color:#f59e0b;font-weight:600">Guard interval:</span> 800 ns (standard) or 400 ns (short GI for +11% throughput). Short GI is more susceptible to multipath</li>
+      <li><span style="color:#f59e0b;font-weight:600">Channel bonding:</span> Two 20 MHz channels can be bonded to 40 MHz, doubling throughput but halving available non-overlapping channels</li>
+      <li><span style="color:#f59e0b;font-weight:600">MIMO:</span> Up to 4 spatial streams (4×4). Each stream requires independent RF chain with its own NF contribution</li>
+    </ul>
+    <table style="width:100%;border-collapse:collapse;font-size:11px;margin:8px 0">
+      <thead><tr style="border-bottom:2px solid #34d399">
+        <th style="text-align:left;padding:4px 8px;color:#34d399;font-size:10px">MCS</th>
+        <th style="text-align:center;padding:4px 8px;color:#34d399;font-size:10px">Modulation</th>
+        <th style="text-align:center;padding:4px 8px;color:#34d399;font-size:10px">Code Rate</th>
+        <th style="text-align:center;padding:4px 8px;color:#34d399;font-size:10px">Min SNR</th>
+        <th style="text-align:center;padding:4px 8px;color:#34d399;font-size:10px">Rate (20 MHz, 1SS)</th>
+        <th style="text-align:center;padding:4px 8px;color:#34d399;font-size:10px">Typ. Sensitivity</th>
+      </tr></thead>
+      <tbody>
+        <tr style="border-bottom:1px solid #2e3248"><td style="padding:3px 8px;color:#94a3b8">MCS0</td><td style="text-align:center;color:#60a5fa">BPSK</td><td style="text-align:center;color:#94a3b8">1/2</td><td style="text-align:center;color:#f59e0b">2 dB</td><td style="text-align:center;color:#34d399">6.5 Mbps</td><td style="text-align:center;color:#34d399">−82 dBm</td></tr>
+        <tr style="border-bottom:1px solid #2e3248"><td style="padding:3px 8px;color:#94a3b8">MCS2</td><td style="text-align:center;color:#60a5fa">QPSK</td><td style="text-align:center;color:#94a3b8">3/4</td><td style="text-align:center;color:#f59e0b">9 dB</td><td style="text-align:center;color:#34d399">19.5 Mbps</td><td style="text-align:center;color:#f59e0b">−79 dBm</td></tr>
+        <tr style="border-bottom:1px solid #2e3248"><td style="padding:3px 8px;color:#94a3b8">MCS4</td><td style="text-align:center;color:#60a5fa">16-QAM</td><td style="text-align:center;color:#94a3b8">3/4</td><td style="text-align:center;color:#f59e0b">15 dB</td><td style="text-align:center;color:#34d399">39 Mbps</td><td style="text-align:center;color:#f59e0b">−74 dBm</td></tr>
+        <tr style="border-bottom:1px solid #2e3248"><td style="padding:3px 8px;color:#94a3b8">MCS6</td><td style="text-align:center;color:#60a5fa">64-QAM</td><td style="text-align:center;color:#94a3b8">3/4</td><td style="text-align:center;color:#f59e0b">21 dB</td><td style="text-align:center;color:#34d399">58.5 Mbps</td><td style="text-align:center;color:#ef4444">−68 dBm</td></tr>
+        <tr><td style="padding:3px 8px;color:#94a3b8;font-weight:600">MCS7</td><td style="text-align:center;color:#60a5fa;font-weight:600">64-QAM</td><td style="text-align:center;color:#94a3b8">5/6</td><td style="text-align:center;color:#f59e0b;font-weight:600">23 dB</td><td style="text-align:center;color:#34d399;font-weight:600">65 Mbps</td><td style="text-align:center;color:#ef4444">−65 dBm</td></tr>
+      </tbody>
+    </table>
+    <p style="color:#64748b;font-size:11px;font-style:italic">MCS7 (64-QAM 5/6) is the default in this calculator — it represents the highest single-stream rate. In practice, WiFi adapts MCS dynamically. A 6 dB desense would force fallback from MCS7 to MCS4 (16-QAM), cutting throughput by 40%. The 2.4 GHz band has only 3 non-overlapping channels (1, 6, 11), making it highly congested.</p>
+  </div>
+</div>
+</div>
+
 <div class="pdf-btn-bar">
   <button class="pdf-btn" onclick="generatePDF('wifi2g')">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
@@ -2163,6 +2567,70 @@
     </div>
   </div>
 </div>
+
+<div style="padding:0 20px 16px 20px;max-width:1400px;margin:0 auto">
+<div class="card full" style="margin-top:0">
+  <div class="card-header"><div class="dot" style="background:#34d399"></div>📚 Reference: WiFi 5G Sensitivity Calculation Example</div>
+  <div class="card-body" style="font-size:12px;color:#cbd5e1;line-height:1.7">
+    <p style="margin-bottom:8px">Worked example for <span style="color:#60a5fa;font-weight:600">WiFi 5 GHz · 802.11ac · 80 MHz BW · MCS7 (64-QAM 5/6)</span>. Assume NF_total = 3.5 dB.</p>
+    <div style="background:#12151f;border:1px solid #2e3248;border-radius:8px;padding:14px 18px;margin:8px 0;font-family:'Courier New',monospace;font-size:12px;color:#60a5fa;line-height:1.9">
+      BW = 80 MHz = 80,000,000 Hz<br>
+      10·log₁₀(80,000,000) = <span style="color:#34d399;font-weight:700">79.03 dB</span><br>
+      MDS = −174 + 79.03 + 3.5 = <span style="color:#34d399;font-weight:700">−91.47 dBm</span><br>
+      Rx Sens = MDS + SNR = −91.47 + 23 = <span style="color:#34d399;font-weight:700">−68.47 dBm</span><br>
+      OTA Sens = −68.47 − (−6) = <span style="color:#f59e0b;font-weight:700">−62.47 dBm</span>
+    </div>
+    <div style="background:#12151f;border:1px solid #2e3248;border-radius:8px;padding:14px 18px;margin:8px 0;font-size:12px">
+      <div style="color:#ef4444;font-weight:600;margin-bottom:6px">Desense Example: SA band power = −80 dBm/BW, LNA = 44 dB</div>
+      <div style="font-family:'Courier New',monospace;color:#60a5fa;line-height:1.9">
+        Noise_at_DUT = −80 − 44 = <span style="color:#f59e0b;font-weight:700">−124.00 dBm</span><br>
+        New_MDS = 10·log₁₀(10^(−124/10) + 10^(−91.47/10)) = <span style="color:#34d399;font-weight:700">−91.47 dBm</span><br>
+        Desense = −91.47 − (−91.47) ≈ <span style="color:#34d399;font-weight:700">0.00 dB</span> ✅<br>
+        <span style="color:#94a3b8">(Noise is 32.5 dB below MDS — negligible impact)</span>
+      </div>
+    </div>
+    <div style="background:#12151f;border:1px solid #2e3248;border-radius:8px;padding:14px 18px;margin:8px 0;font-size:12px">
+      <div style="color:#ef4444;font-weight:600;margin-bottom:6px">High Noise: SA band power = −45 dBm/BW, LNA = 44 dB</div>
+      <div style="font-family:'Courier New',monospace;color:#60a5fa;line-height:1.9">
+        Noise_at_DUT = −45 − 44 = <span style="color:#f59e0b;font-weight:700">−89.00 dBm</span><br>
+        New_MDS = 10·log₁₀(10^(−89/10) + 10^(−91.47/10)) = <span style="color:#ef4444;font-weight:700">−87.05 dBm</span><br>
+        Desense = −87.05 − (−91.47) = <span style="color:#ef4444;font-weight:700">4.42 dB</span><br>
+        Degraded Sens = −68.47 + 4.42 = <span style="color:#ef4444;font-weight:700">−64.05 dBm</span>
+      </div>
+    </div>
+    <p style="color:#64748b;font-size:11px;font-style:italic">WiFi 5G's 80 MHz bandwidth creates the highest noise floor of all radios (−91.47 dBm). Combined with 23 dB SNR for MCS7, sensitivity is only −68.47 dBm — making it the least sensitive radio. However, the wide bandwidth enables 433 Mbps throughput (1×1 80 MHz). Desense primarily causes MCS fallback and reduced throughput before connection loss.</p>
+
+    <h4 style="color:#34d399;font-size:13px;margin:16px 0 6px 0;border-top:1px solid #2e3248;padding-top:12px">📡 Modulation Deep-Dive: WiFi 802.11ac OFDM (VHT)</h4>
+    <p>WiFi 5 GHz (802.11ac) uses <span style="color:#34d399;font-weight:600">OFDM with Very High Throughput (VHT)</span> enhancements — wider channels (up to 160 MHz), 256-QAM, and up to 8 spatial streams.</p>
+    <ul style="margin:6px 0 6px 20px;color:#94a3b8">
+      <li><span style="color:#f59e0b;font-weight:600">Subcarrier structure (80 MHz):</span> 256 subcarriers total, 234 data + 8 pilot + 14 unused. Subcarrier spacing = 312.5 kHz</li>
+      <li><span style="color:#f59e0b;font-weight:600">256-QAM (MCS8/9):</span> 802.11ac introduced 256-QAM (8 bits/symbol), requiring SNR &gt; 27 dB — extremely sensitive to noise</li>
+      <li><span style="color:#f59e0b;font-weight:600">Beamforming:</span> Explicit beamforming (sounding-based) focuses energy toward the client, effectively improving SNR by 3–6 dB</li>
+      <li><span style="color:#f59e0b;font-weight:600">DFS channels:</span> 5 GHz includes Dynamic Frequency Selection channels shared with radar — radar detection can force channel changes</li>
+    </ul>
+    <table style="width:100%;border-collapse:collapse;font-size:11px;margin:8px 0">
+      <thead><tr style="border-bottom:2px solid #34d399">
+        <th style="text-align:left;padding:4px 8px;color:#34d399;font-size:10px">MCS</th>
+        <th style="text-align:center;padding:4px 8px;color:#34d399;font-size:10px">Modulation</th>
+        <th style="text-align:center;padding:4px 8px;color:#34d399;font-size:10px">Code Rate</th>
+        <th style="text-align:center;padding:4px 8px;color:#34d399;font-size:10px">Min SNR</th>
+        <th style="text-align:center;padding:4px 8px;color:#34d399;font-size:10px">Rate (80 MHz, 1SS)</th>
+        <th style="text-align:center;padding:4px 8px;color:#34d399;font-size:10px">Typ. Sensitivity</th>
+      </tr></thead>
+      <tbody>
+        <tr style="border-bottom:1px solid #2e3248"><td style="padding:3px 8px;color:#94a3b8">MCS0</td><td style="text-align:center;color:#60a5fa">BPSK</td><td style="text-align:center;color:#94a3b8">1/2</td><td style="text-align:center;color:#f59e0b">2 dB</td><td style="text-align:center;color:#34d399">29.3 Mbps</td><td style="text-align:center;color:#34d399">−79 dBm</td></tr>
+        <tr style="border-bottom:1px solid #2e3248"><td style="padding:3px 8px;color:#94a3b8">MCS3</td><td style="text-align:center;color:#60a5fa">16-QAM</td><td style="text-align:center;color:#94a3b8">1/2</td><td style="text-align:center;color:#f59e0b">11 dB</td><td style="text-align:center;color:#34d399">117 Mbps</td><td style="text-align:center;color:#f59e0b">−72 dBm</td></tr>
+        <tr style="border-bottom:1px solid #2e3248"><td style="padding:3px 8px;color:#94a3b8">MCS5</td><td style="text-align:center;color:#60a5fa">64-QAM</td><td style="text-align:center;color:#94a3b8">2/3</td><td style="text-align:center;color:#f59e0b">19 dB</td><td style="text-align:center;color:#34d399">263.3 Mbps</td><td style="text-align:center;color:#ef4444">−66 dBm</td></tr>
+        <tr style="border-bottom:1px solid #2e3248"><td style="padding:3px 8px;color:#94a3b8;font-weight:600">MCS7</td><td style="text-align:center;color:#60a5fa;font-weight:600">64-QAM</td><td style="text-align:center;color:#94a3b8">5/6</td><td style="text-align:center;color:#f59e0b;font-weight:600">23 dB</td><td style="text-align:center;color:#34d399;font-weight:600">292.5 Mbps</td><td style="text-align:center;color:#ef4444">−62 dBm</td></tr>
+        <tr style="border-bottom:1px solid #2e3248"><td style="padding:3px 8px;color:#94a3b8">MCS8</td><td style="text-align:center;color:#60a5fa">256-QAM</td><td style="text-align:center;color:#94a3b8">3/4</td><td style="text-align:center;color:#f59e0b">27 dB</td><td style="text-align:center;color:#34d399">351 Mbps</td><td style="text-align:center;color:#ef4444">−58 dBm</td></tr>
+        <tr><td style="padding:3px 8px;color:#94a3b8">MCS9</td><td style="text-align:center;color:#60a5fa">256-QAM</td><td style="text-align:center;color:#94a3b8">5/6</td><td style="text-align:center;color:#f59e0b">30 dB</td><td style="text-align:center;color:#34d399">390 Mbps</td><td style="text-align:center;color:#ef4444">−55 dBm</td></tr>
+      </tbody>
+    </table>
+    <p style="color:#64748b;font-size:11px;font-style:italic">802.11ac MCS9 (256-QAM 5/6) requires 30 dB SNR — any desense immediately forces fallback. With 80 MHz bandwidth, even 3 dB desense drops throughput from 390 to ~263 Mbps. The 5 GHz band has 25 non-overlapping 20 MHz channels (vs 3 at 2.4 GHz), providing much better channel availability.</p>
+  </div>
+</div>
+</div>
+
 <div class="pdf-btn-bar">
   <button class="pdf-btn" onclick="generatePDF('wifi5g')">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
@@ -2367,6 +2835,360 @@
   </div>
 
 </div><!-- end gnss2 layout -->
+
+<!-- GNSS Receiver Initialization Reference -->
+<div style="padding:0 20px 16px 20px;max-width:1400px;margin:0 auto">
+<div class="card full" style="margin-top:0">
+  <div class="card-header"><div class="dot" style="background:#a78bfa"></div>📚 Reference: GNSS Receiver Initialization &amp; TTFF</div>
+  <div class="card-body" style="font-size:12px;color:#cbd5e1;line-height:1.7">
+
+    <p style="color:#94a3b8;margin-bottom:12px">This technical brief outlines the initialization states of GNSS receivers, focusing on signal acquisition, data demodulation, and factors affecting Time to First Fix (TTFF).</p>
+
+    <h4 style="color:#a78bfa;font-size:13px;margin:16px 0 6px 0">1. Introduction: The TTFF Challenge</h4>
+    <p>Time to First Fix (TTFF) is the primary performance metric for GNSS receiver startup. To calculate a 3D position (latitude, longitude, altitude), a receiver must track at least <span style="color:#f59e0b;font-weight:600">four satellites</span> and solve for four unknowns: <i>x, y, z</i>, and <i>t</i> (clock bias). The speed depends on three critical components:</p>
+    <ul style="margin:6px 0 6px 20px;color:#94a3b8">
+      <li><span style="color:#34d399;font-weight:600">Valid Ephemeris Data:</span> Precise orbital parameters for each satellite (valid ~2–4 hours)</li>
+      <li><span style="color:#34d399;font-weight:600">Valid Almanac Data:</span> Coarse orbital data for the entire constellation (valid ~180 days)</li>
+      <li><span style="color:#34d399;font-weight:600">Approximate Position and Time:</span> To narrow the frequency search space (Doppler shift)</li>
+    </ul>
+
+    <h4 style="color:#a78bfa;font-size:13px;margin:16px 0 6px 0">2. Cold Start: The "From Scratch" Scenario</h4>
+    <p>Occurs when NVRAM is empty or data is outdated (e.g., factory reset or powered off for weeks).</p>
+    <ul style="margin:6px 0 6px 20px;color:#94a3b8">
+      <li><span style="color:#f59e0b">Search:</span> Blind search — scans all PRN codes across wide frequency bins for Doppler shifts</li>
+      <li><span style="color:#f59e0b">Demodulation:</span> Navigation Message at 50 bps. Full Almanac download takes <span style="color:#ef4444;font-weight:600">12.5 minutes</span>. Ephemeris sent every 30s per subframe — a dropped bit means another 30s wait</li>
+      <li><span style="color:#f59e0b">Bottleneck:</span> Physical time to demodulate the 50 bps signal</li>
+    </ul>
+
+    <h4 style="color:#a78bfa;font-size:13px;margin:16px 0 6px 0">3. Warm Start: The Data Refresh</h4>
+    <p>Receiver has valid Almanac, current Time, and Last Known Position, but Ephemeris has expired (2–6 hours after last fix).</p>
+    <ul style="margin:6px 0 6px 20px;color:#94a3b8">
+      <li><span style="color:#f59e0b">Search:</span> Calculates visible satellites from almanac + time + position — drastically narrows PRN and frequency search</li>
+      <li><span style="color:#f59e0b">Fix:</span> Quickly locks signals but must download fresh Ephemeris from ≥4 satellites</li>
+      <li><span style="color:#f59e0b">TTFF:</span> <span style="color:#34d399;font-weight:600">30–45 seconds</span> (governed by 30s subframe cycle)</li>
+    </ul>
+
+    <h4 style="color:#a78bfa;font-size:13px;margin:16px 0 6px 0">4. Hot Start: The Instant Fix</h4>
+    <p>Receiver was recently active (within ~2 hours). Ephemeris, Almanac, and Time/Position all valid in battery-backed RAM.</p>
+    <ul style="margin:6px 0 6px 20px;color:#94a3b8">
+      <li><span style="color:#f59e0b">Search:</span> Knows exact satellites and predicted Doppler — re-acquires almost instantly</li>
+      <li><span style="color:#f59e0b">Fix:</span> Only needs code phase (timing) measurements to compute range</li>
+      <li><span style="color:#f59e0b">TTFF:</span> <span style="color:#34d399;font-weight:600">1–10 seconds</span> (standard for tunnel/foliage recovery)</li>
+    </ul>
+
+    <h4 style="color:#a78bfa;font-size:13px;margin:16px 0 6px 0">5. Comparative Analysis</h4>
+    <table style="width:100%;border-collapse:collapse;font-size:12px;margin:8px 0">
+      <thead><tr style="border-bottom:2px solid #a78bfa">
+        <th style="text-align:left;padding:6px 10px;color:#a78bfa;font-size:11px">Component</th>
+        <th style="text-align:center;padding:6px 10px;color:#ef4444;font-size:11px">Cold Start</th>
+        <th style="text-align:center;padding:6px 10px;color:#f59e0b;font-size:11px">Warm Start</th>
+        <th style="text-align:center;padding:6px 10px;color:#34d399;font-size:11px">Hot Start</th>
+      </tr></thead>
+      <tbody>
+        <tr style="border-bottom:1px solid #2e3248"><td style="padding:6px 10px;color:#94a3b8">Almanac</td><td style="text-align:center;color:#ef4444">Required (Download)</td><td style="text-align:center;color:#f59e0b">Valid (In Memory)</td><td style="text-align:center;color:#34d399">Valid (In Memory)</td></tr>
+        <tr style="border-bottom:1px solid #2e3248"><td style="padding:6px 10px;color:#94a3b8">Ephemeris</td><td style="text-align:center;color:#ef4444">Required (Download)</td><td style="text-align:center;color:#f59e0b">Required (Download)</td><td style="text-align:center;color:#34d399">Valid (In Memory)</td></tr>
+        <tr style="border-bottom:1px solid #2e3248"><td style="padding:6px 10px;color:#94a3b8">Approx. Position/Time</td><td style="text-align:center;color:#ef4444">Unknown</td><td style="text-align:center;color:#f59e0b">Known</td><td style="text-align:center;color:#34d399">Known</td></tr>
+        <tr><td style="padding:6px 10px;color:#94a3b8;font-weight:600">Typical TTFF</td><td style="text-align:center;color:#ef4444;font-weight:700">12.5 min (worst)</td><td style="text-align:center;color:#f59e0b;font-weight:700">30–45 sec</td><td style="text-align:center;color:#34d399;font-weight:700">&lt; 10 sec</td></tr>
+      </tbody>
+    </table>
+
+    <h4 style="color:#a78bfa;font-size:13px;margin:16px 0 6px 0">6. Modern Enhancement: Assisted GNSS (A-GNSS)</h4>
+    <p>To bypass the Cold Start penalty, modern devices use <span style="color:#4f8ef7;font-weight:600">Assisted GNSS</span>. Instead of downloading the Navigation Message at 50 bps from satellites, the device downloads Ephemeris and Almanac via cellular or Wi-Fi (at Mbps speeds). This achieves Hot Start performance (<span style="color:#34d399;font-weight:600">TTFF &lt; 5s</span>) even after being off for days.</p>
+
+    <h4 style="color:#a78bfa;font-size:13px;margin:20px 0 6px 0;border-top:1px solid #2e3248;padding-top:16px">📡 Modulation Deep-Dive: GNSS BPSK/CDMA Signal Structure</h4>
+    <p>GNSS signals use <span style="color:#a78bfa;font-weight:600">DSSS (Direct Sequence Spread Spectrum)</span> with BPSK modulation. Each satellite transmits on the same frequency but with a unique PRN (Pseudo-Random Noise) code — this is CDMA (Code Division Multiple Access).</p>
+    <ul style="margin:6px 0 6px 20px;color:#94a3b8">
+      <li><span style="color:#f59e0b;font-weight:600">BPSK modulation:</span> Binary Phase Shift Keying — the simplest modulation (1 bit/symbol). The carrier phase flips 180° between 0 and 1</li>
+      <li><span style="color:#f59e0b;font-weight:600">PRN spreading:</span> GPS L1 C/A code has 1023 chips at 1.023 Mchip/s (period = 1 ms). This spreads the signal across 2.046 MHz bandwidth</li>
+      <li><span style="color:#f59e0b;font-weight:600">Processing gain:</span> 10·log₁₀(1.023 MHz / 50 bps) = 43.1 dB. This is why GNSS can work at −130 dBm (far below thermal noise)</li>
+      <li><span style="color:#f59e0b;font-weight:600">Navigation data:</span> 50 bps data rate modulated on top of the PRN code. Contains ephemeris, almanac, clock corrections</li>
+    </ul>
+    <table style="width:100%;border-collapse:collapse;font-size:11px;margin:8px 0">
+      <thead><tr style="border-bottom:2px solid #a78bfa">
+        <th style="text-align:left;padding:4px 8px;color:#a78bfa;font-size:10px">Signal</th>
+        <th style="text-align:center;padding:4px 8px;color:#a78bfa;font-size:10px">Frequency</th>
+        <th style="text-align:center;padding:4px 8px;color:#a78bfa;font-size:10px">Modulation</th>
+        <th style="text-align:center;padding:4px 8px;color:#a78bfa;font-size:10px">Chip Rate</th>
+        <th style="text-align:center;padding:4px 8px;color:#a78bfa;font-size:10px">BW</th>
+        <th style="text-align:center;padding:4px 8px;color:#a78bfa;font-size:10px">Data Rate</th>
+        <th style="text-align:center;padding:4px 8px;color:#a78bfa;font-size:10px">Min Rx Power</th>
+      </tr></thead>
+      <tbody>
+        <tr style="border-bottom:1px solid #2e3248"><td style="padding:3px 8px;color:#94a3b8">GPS L1 C/A</td><td style="text-align:center;color:#60a5fa">1575.42 MHz</td><td style="text-align:center;color:#60a5fa">BPSK(1)</td><td style="text-align:center;color:#94a3b8">1.023 Mc/s</td><td style="text-align:center;color:#94a3b8">2.046 MHz</td><td style="text-align:center;color:#34d399">50 bps</td><td style="text-align:center;color:#f59e0b">−130 dBm</td></tr>
+        <tr style="border-bottom:1px solid #2e3248"><td style="padding:3px 8px;color:#94a3b8">GPS L5</td><td style="text-align:center;color:#60a5fa">1176.45 MHz</td><td style="text-align:center;color:#60a5fa">BPSK(10)</td><td style="text-align:center;color:#94a3b8">10.23 Mc/s</td><td style="text-align:center;color:#94a3b8">20.46 MHz</td><td style="text-align:center;color:#34d399">50 bps</td><td style="text-align:center;color:#f59e0b">−128.5 dBm</td></tr>
+        <tr style="border-bottom:1px solid #2e3248"><td style="padding:3px 8px;color:#94a3b8">GLONASS G1</td><td style="text-align:center;color:#60a5fa">1602 MHz</td><td style="text-align:center;color:#60a5fa">BPSK(0.511)</td><td style="text-align:center;color:#94a3b8">0.511 Mc/s</td><td style="text-align:center;color:#94a3b8">1.022 MHz</td><td style="text-align:center;color:#34d399">50 bps</td><td style="text-align:center;color:#f59e0b">−131 dBm</td></tr>
+        <tr style="border-bottom:1px solid #2e3248"><td style="padding:3px 8px;color:#94a3b8">Galileo E1</td><td style="text-align:center;color:#60a5fa">1575.42 MHz</td><td style="text-align:center;color:#60a5fa">BOC(1,1)</td><td style="text-align:center;color:#94a3b8">1.023 Mc/s</td><td style="text-align:center;color:#94a3b8">4.092 MHz</td><td style="text-align:center;color:#34d399">125 bps</td><td style="text-align:center;color:#f59e0b">−127 dBm</td></tr>
+        <tr><td style="padding:3px 8px;color:#94a3b8">BeiDou B1</td><td style="text-align:center;color:#60a5fa">1561.098 MHz</td><td style="text-align:center;color:#60a5fa">BPSK(2)</td><td style="text-align:center;color:#94a3b8">2.046 Mc/s</td><td style="text-align:center;color:#94a3b8">4.092 MHz</td><td style="text-align:center;color:#34d399">50 bps</td><td style="text-align:center;color:#f59e0b">−130 dBm</td></tr>
+      </tbody>
+    </table>
+    <p style="color:#64748b;font-size:11px;font-style:italic">Galileo E1 uses BOC(1,1) — Binary Offset Carrier — which splits the spectrum into two lobes for better multipath rejection and sharper correlation peaks. GPS L5's 10× higher chip rate provides 10 dB more processing gain and better interference rejection, making it the preferred signal for high-accuracy applications.</p>
+
+    <!-- C/N₀ Derivation -->
+    <h4 style="color:#a78bfa;font-size:13px;margin:20px 0 6px 0;border-top:1px solid #2e3248;padding-top:16px">7. C/N₀ Derivation for GNSS Receivers</h4>
+    <p>Carrier-to-Noise Density Ratio (<span style="color:#4f8ef7;font-weight:600">C/N₀</span>) is the fundamental figure of merit for GNSS signal quality. It is expressed in <span style="color:#f59e0b">dB-Hz</span> and represents the ratio of carrier power to noise power spectral density.</p>
+
+    <div style="background:#12151f;border:1px solid #2e3248;border-radius:8px;padding:14px 18px;margin:10px 0;font-family:'Courier New',monospace;font-size:12px;color:#60a5fa">
+      C/N₀ = C − N₀ &nbsp;&nbsp;[dB-Hz]<br>
+      <span style="color:#94a3b8">where:</span><br>
+      &nbsp;&nbsp;C = received signal power [dBm]<br>
+      &nbsp;&nbsp;N₀ = noise power spectral density = kT + NF [dBm/Hz]<br>
+      &nbsp;&nbsp;k = Boltzmann's constant = −228.6 dBW/K/Hz<br>
+      &nbsp;&nbsp;T = system temperature (290 K → kT = −174 dBm/Hz)
+    </div>
+
+    <p style="margin-top:10px"><span style="color:#34d399;font-weight:600">Converting C/N₀ to SNR:</span> The relationship between C/N₀ and in-band SNR depends on the signal bandwidth:</p>
+    <div style="background:#12151f;border:1px solid #2e3248;border-radius:8px;padding:14px 18px;margin:10px 0;font-family:'Courier New',monospace;font-size:12px;color:#60a5fa">
+      SNR = C/N₀ − 10·log₁₀(BW) &nbsp;&nbsp;[dB]<br>
+      <span style="color:#94a3b8">where BW = signal bandwidth in Hz</span>
+    </div>
+
+    <p style="margin-top:10px"><span style="color:#f59e0b;font-weight:600">Hot Start vs Cold Start C/N₀:</span></p>
+    <ul style="margin:6px 0 6px 20px;color:#94a3b8">
+      <li><span style="color:#34d399;font-weight:600">Hot Start (tracking):</span> C/N₀ ≈ 13.5 dB-Hz — receiver is already locked and uses narrow correlation to maintain tracking. Lower threshold because the code phase and carrier frequency are known.</li>
+      <li><span style="color:#ef4444;font-weight:600">Cold Start (acquisition):</span> C/N₀ ≈ 25 dB-Hz — receiver must search across all code phases and Doppler bins. Higher threshold needed because the integration time is shorter and the search space is large.</li>
+    </ul>
+
+    <p style="margin-top:10px"><span style="color:#4f8ef7;font-weight:600">Sensitivity formulas used in this calculator:</span></p>
+    <div style="background:#12151f;border:1px solid #2e3248;border-radius:8px;padding:14px 18px;margin:10px 0;font-family:'Courier New',monospace;font-size:12px;color:#60a5fa">
+      MDS = kT + 10·log₁₀(BW) + NF_total &nbsp;&nbsp;[dBm]<br><br>
+      SNR_hot  = C/N₀_hot  − 10·log₁₀(BW) &nbsp;&nbsp;[dB]<br>
+      SNR_cold = C/N₀_cold − 10·log₁₀(BW) &nbsp;&nbsp;[dB]<br><br>
+      Rx_Sens_hot  = MDS + SNR_hot  &nbsp;&nbsp;[dBm]<br>
+      Rx_Sens_cold = MDS + SNR_cold &nbsp;&nbsp;[dBm]<br><br>
+      <span style="color:#94a3b8">Desense calculation:</span><br>
+      Noise_at_DUT = SA_band_power − LNA_gain + Cable_loss &nbsp;&nbsp;[dBm]<br>
+      New_MDS = 10·log₁₀(10^(Noise/10) + 10^(MDS/10)) &nbsp;&nbsp;[dBm]<br>
+      Desense = New_MDS − MDS &nbsp;&nbsp;[dB]<br>
+      Degraded_Sens = Rx_Sens_cold + Desense &nbsp;&nbsp;[dBm]
+    </div>
+
+    <!-- Example Calculation -->
+    <h4 style="color:#a78bfa;font-size:13px;margin:20px 0 6px 0;border-top:1px solid #2e3248;padding-top:16px">8. Worked Example: GPS L1 End-to-End Calculation</h4>
+    <p>Using the default values in this calculator for <span style="color:#4f8ef7;font-weight:600">GPS L1 C/A (1575.42 MHz)</span>:</p>
+
+    <div style="background:#12151f;border:1px solid #2e3248;border-radius:8px;padding:14px 18px;margin:10px 0;font-size:12px">
+      <div style="color:#a78bfa;font-weight:600;margin-bottom:8px">Step 1: System Parameters</div>
+      <table style="width:100%;border-collapse:collapse;font-size:11px">
+        <tr style="border-bottom:1px solid #2e3248"><td style="padding:4px 8px;color:#94a3b8">Signal BW</td><td style="color:#60a5fa;font-family:monospace">2,046,000 Hz (2.046 MHz)</td></tr>
+        <tr style="border-bottom:1px solid #2e3248"><td style="padding:4px 8px;color:#94a3b8">kT (thermal noise)</td><td style="color:#60a5fa;font-family:monospace">−174 dBm/Hz</td></tr>
+        <tr style="border-bottom:1px solid #2e3248"><td style="padding:4px 8px;color:#94a3b8">Rx Antenna Efficiency</td><td style="color:#60a5fa;font-family:monospace">−4 dB</td></tr>
+        <tr style="border-bottom:1px solid #2e3248"><td style="padding:4px 8px;color:#94a3b8">C/N₀ Hot Start (tracking)</td><td style="color:#60a5fa;font-family:monospace">13.5 dB-Hz</td></tr>
+        <tr><td style="padding:4px 8px;color:#94a3b8">C/N₀ Cold Start (acquisition)</td><td style="color:#60a5fa;font-family:monospace">25 dB-Hz</td></tr>
+      </table>
+    </div>
+
+    <div style="background:#12151f;border:1px solid #2e3248;border-radius:8px;padding:14px 18px;margin:10px 0;font-size:12px">
+      <div style="color:#a78bfa;font-weight:600;margin-bottom:8px">Step 2: Cascaded NF (assume NF_total = 3.5 dB from RF chain)</div>
+      <div style="font-family:monospace;color:#60a5fa;line-height:1.8">
+        10·log₁₀(BW) = 10·log₁₀(2,046,000) = <span style="color:#34d399;font-weight:700">63.11 dB</span><br><br>
+        MDS = kT + 10·log₁₀(BW) + NF_total<br>
+        MDS = −174 + 63.11 + 3.5 = <span style="color:#34d399;font-weight:700">−107.39 dBm</span>
+      </div>
+    </div>
+
+    <div style="background:#12151f;border:1px solid #2e3248;border-radius:8px;padding:14px 18px;margin:10px 0;font-size:12px">
+      <div style="color:#a78bfa;font-weight:600;margin-bottom:8px">Step 3: SNR and Sensitivity</div>
+      <div style="font-family:monospace;color:#60a5fa;line-height:1.8">
+        SNR_hot  = 13.5 − 63.11 = <span style="color:#34d399;font-weight:700">−49.61 dB</span><br>
+        SNR_cold = 25.0 − 63.11 = <span style="color:#34d399;font-weight:700">−38.11 dB</span><br><br>
+        Rx_Sens_hot  = −107.39 + (−49.61) = <span style="color:#34d399;font-weight:700">−157.00 dBm</span><br>
+        Rx_Sens_cold = −107.39 + (−38.11) = <span style="color:#34d399;font-weight:700">−145.50 dBm</span>
+      </div>
+    </div>
+
+    <div style="background:#12151f;border:1px solid #2e3248;border-radius:8px;padding:14px 18px;margin:10px 0;font-size:12px">
+      <div style="color:#a78bfa;font-weight:600;margin-bottom:8px">Step 4: Desense from Lab Measurement</div>
+      <div style="font-family:monospace;color:#60a5fa;line-height:1.8">
+        <span style="color:#94a3b8">Given: SA band power = −100 dBm/BW, LNA gain = 44 dB, Cable loss = 0 dB</span><br><br>
+        Noise_at_DUT = −100 − 44 + 0 = <span style="color:#f59e0b;font-weight:700">−144 dBm</span><br><br>
+        New_MDS = 10·log₁₀(10^(−144/10) + 10^(−107.39/10))<br>
+        New_MDS = 10·log₁₀(3.98×10⁻¹⁵ + 1.82×10⁻¹¹)<br>
+        New_MDS ≈ <span style="color:#34d399;font-weight:700">−107.39 dBm</span> <span style="color:#94a3b8">(noise is far below MDS, negligible impact)</span><br><br>
+        Desense = −107.39 − (−107.39) ≈ <span style="color:#34d399;font-weight:700">0.00 dB</span> ✅<br>
+        <span style="color:#94a3b8">(No desense — the injected noise is ~37 dB below MDS)</span>
+      </div>
+    </div>
+
+    <div style="background:#12151f;border:1px solid #2e3248;border-radius:8px;padding:14px 18px;margin:10px 0;font-size:12px">
+      <div style="color:#ef4444;font-weight:600;margin-bottom:8px">Step 4b: Desense Example — High Noise Scenario</div>
+      <div style="font-family:monospace;color:#60a5fa;line-height:1.8">
+        <span style="color:#94a3b8">Given: SA band power = −60 dBm/BW (strong interferer), LNA gain = 44 dB</span><br><br>
+        Noise_at_DUT = −60 − 44 + 0 = <span style="color:#f59e0b;font-weight:700">−104 dBm</span><br><br>
+        New_MDS = 10·log₁₀(10^(−104/10) + 10^(−107.39/10))<br>
+        New_MDS = 10·log₁₀(3.98×10⁻¹¹ + 1.82×10⁻¹¹)<br>
+        New_MDS ≈ <span style="color:#ef4444;font-weight:700">−102.37 dBm</span><br><br>
+        Desense = −102.37 − (−107.39) = <span style="color:#ef4444;font-weight:700">5.02 dB</span> ⚠️<br>
+        Degraded_Sens = −145.50 + 5.02 = <span style="color:#ef4444;font-weight:700">−140.48 dBm</span><br>
+        OTA Sens = −140.48 − (−4) = <span style="color:#ef4444;font-weight:700">−136.48 dBm</span><br><br>
+        <span style="color:#94a3b8">This 5 dB desense would noticeably degrade GNSS acquisition, especially in weak-signal environments (urban canyons, indoors).</span>
+      </div>
+    </div>
+
+    <!-- All Radio Examples -->
+    <h4 style="color:#a78bfa;font-size:13px;margin:20px 0 6px 0;border-top:1px solid #2e3248;padding-top:16px">9. Quick Reference: Example Calculations for All Radios</h4>
+    <p style="margin-bottom:10px">All examples assume <span style="color:#f59e0b">NF_total = 3.5 dB</span> from the RF chain. Formula: MDS = kT + 10·log₁₀(BW) + NF, Rx Sens = MDS + SNR.</p>
+
+    <table style="width:100%;border-collapse:collapse;font-size:11px;margin:8px 0">
+      <thead><tr style="border-bottom:2px solid #a78bfa">
+        <th style="text-align:left;padding:6px 8px;color:#a78bfa;font-size:10px">Radio</th>
+        <th style="text-align:center;padding:6px 8px;color:#a78bfa;font-size:10px">BW</th>
+        <th style="text-align:center;padding:6px 8px;color:#a78bfa;font-size:10px">10·log₁₀(BW)</th>
+        <th style="text-align:center;padding:6px 8px;color:#a78bfa;font-size:10px">SNR</th>
+        <th style="text-align:center;padding:6px 8px;color:#a78bfa;font-size:10px">MDS</th>
+        <th style="text-align:center;padding:6px 8px;color:#a78bfa;font-size:10px">Rx Sens</th>
+        <th style="text-align:center;padding:6px 8px;color:#a78bfa;font-size:10px">Ant Eff</th>
+        <th style="text-align:center;padding:6px 8px;color:#a78bfa;font-size:10px">OTA Sens</th>
+      </tr></thead>
+      <tbody>
+        <tr style="border-bottom:1px solid #2e3248">
+          <td style="padding:5px 8px;color:#60a5fa;font-weight:600">LoRa EU (867 MHz)</td>
+          <td style="text-align:center;color:#94a3b8">500 kHz</td>
+          <td style="text-align:center;color:#60a5fa;font-family:monospace">56.99 dB</td>
+          <td style="text-align:center;color:#f59e0b;font-family:monospace">−18 dB</td>
+          <td style="text-align:center;color:#34d399;font-family:monospace">−113.51 dBm</td>
+          <td style="text-align:center;color:#34d399;font-family:monospace;font-weight:700">−131.51 dBm</td>
+          <td style="text-align:center;color:#94a3b8">−5 dB</td>
+          <td style="text-align:center;color:#f59e0b;font-family:monospace">−126.51 dBm</td>
+        </tr>
+        <tr style="border-bottom:1px solid #2e3248">
+          <td style="padding:5px 8px;color:#34d399;font-weight:600">LoRa NA (925 MHz)</td>
+          <td style="text-align:center;color:#94a3b8">500 kHz</td>
+          <td style="text-align:center;color:#60a5fa;font-family:monospace">56.99 dB</td>
+          <td style="text-align:center;color:#f59e0b;font-family:monospace">−18 dB</td>
+          <td style="text-align:center;color:#34d399;font-family:monospace">−113.51 dBm</td>
+          <td style="text-align:center;color:#34d399;font-family:monospace;font-weight:700">−131.51 dBm</td>
+          <td style="text-align:center;color:#94a3b8">−3 dB</td>
+          <td style="text-align:center;color:#f59e0b;font-family:monospace">−128.51 dBm</td>
+        </tr>
+        <tr style="border-bottom:1px solid #2e3248">
+          <td style="padding:5px 8px;color:#60a5fa;font-weight:600">BLE 2.4 GHz (1M PHY)</td>
+          <td style="text-align:center;color:#94a3b8">1 MHz</td>
+          <td style="text-align:center;color:#60a5fa;font-family:monospace">60.00 dB</td>
+          <td style="text-align:center;color:#f59e0b;font-family:monospace">11 dB</td>
+          <td style="text-align:center;color:#34d399;font-family:monospace">−110.50 dBm</td>
+          <td style="text-align:center;color:#34d399;font-family:monospace;font-weight:700">−99.50 dBm</td>
+          <td style="text-align:center;color:#94a3b8">−3 dB</td>
+          <td style="text-align:center;color:#f59e0b;font-family:monospace">−96.50 dBm</td>
+        </tr>
+        <tr style="border-bottom:1px solid #2e3248">
+          <td style="padding:5px 8px;color:#60a5fa;font-weight:600">LTE Low Band (B71)</td>
+          <td style="text-align:center;color:#94a3b8">10 MHz</td>
+          <td style="text-align:center;color:#60a5fa;font-family:monospace">70.00 dB</td>
+          <td style="text-align:center;color:#f59e0b;font-family:monospace">−1 dB</td>
+          <td style="text-align:center;color:#34d399;font-family:monospace">−100.50 dBm</td>
+          <td style="text-align:center;color:#34d399;font-family:monospace;font-weight:700">−101.50 dBm</td>
+          <td style="text-align:center;color:#94a3b8">−6 dB</td>
+          <td style="text-align:center;color:#f59e0b;font-family:monospace">−95.50 dBm</td>
+        </tr>
+        <tr style="border-bottom:1px solid #2e3248">
+          <td style="padding:5px 8px;color:#60a5fa;font-weight:600">LTE Upper Band (B7)</td>
+          <td style="text-align:center;color:#94a3b8">10 MHz</td>
+          <td style="text-align:center;color:#60a5fa;font-family:monospace">70.00 dB</td>
+          <td style="text-align:center;color:#f59e0b;font-family:monospace">−1 dB</td>
+          <td style="text-align:center;color:#34d399;font-family:monospace">−100.50 dBm</td>
+          <td style="text-align:center;color:#34d399;font-family:monospace;font-weight:700">−101.50 dBm</td>
+          <td style="text-align:center;color:#94a3b8">−6 dB</td>
+          <td style="text-align:center;color:#f59e0b;font-family:monospace">−95.50 dBm</td>
+        </tr>
+        <tr style="border-bottom:1px solid #2e3248">
+          <td style="padding:5px 8px;color:#60a5fa;font-weight:600">WiFi 2.4G (20 MHz)</td>
+          <td style="text-align:center;color:#94a3b8">20 MHz</td>
+          <td style="text-align:center;color:#60a5fa;font-family:monospace">73.01 dB</td>
+          <td style="text-align:center;color:#f59e0b;font-family:monospace">23 dB</td>
+          <td style="text-align:center;color:#34d399;font-family:monospace">−97.49 dBm</td>
+          <td style="text-align:center;color:#34d399;font-family:monospace;font-weight:700">−74.49 dBm</td>
+          <td style="text-align:center;color:#94a3b8">−3.5 dB</td>
+          <td style="text-align:center;color:#f59e0b;font-family:monospace">−70.99 dBm</td>
+        </tr>
+        <tr style="border-bottom:1px solid #2e3248">
+          <td style="padding:5px 8px;color:#60a5fa;font-weight:600">WiFi 5G (80 MHz)</td>
+          <td style="text-align:center;color:#94a3b8">80 MHz</td>
+          <td style="text-align:center;color:#60a5fa;font-family:monospace">79.03 dB</td>
+          <td style="text-align:center;color:#f59e0b;font-family:monospace">23 dB</td>
+          <td style="text-align:center;color:#34d399;font-family:monospace">−91.47 dBm</td>
+          <td style="text-align:center;color:#34d399;font-family:monospace;font-weight:700">−68.47 dBm</td>
+          <td style="text-align:center;color:#94a3b8">−6 dB</td>
+          <td style="text-align:center;color:#f59e0b;font-family:monospace">−62.47 dBm</td>
+        </tr>
+        <tr>
+          <td style="padding:5px 8px;color:#a78bfa;font-weight:600">GNSS L1 (cold start)</td>
+          <td style="text-align:center;color:#94a3b8">2.046 MHz</td>
+          <td style="text-align:center;color:#60a5fa;font-family:monospace">63.11 dB</td>
+          <td style="text-align:center;color:#f59e0b;font-family:monospace">−38.11 dB</td>
+          <td style="text-align:center;color:#34d399;font-family:monospace">−107.39 dBm</td>
+          <td style="text-align:center;color:#34d399;font-family:monospace;font-weight:700">−145.50 dBm</td>
+          <td style="text-align:center;color:#94a3b8">−4 dB</td>
+          <td style="text-align:center;color:#f59e0b;font-family:monospace">−141.50 dBm</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p style="margin-top:12px;color:#64748b;font-size:11px;font-style:italic">Note: GNSS SNR is derived from C/N₀ (25 dB-Hz − 63.11 = −38.11 dB). For LoRa, the negative SNR (−18 dB) reflects the sub-noise-floor demodulation capability of chirp spread spectrum. WiFi requires high SNR (23 dB) for MCS7 64-QAM modulation. LTE QPSK 1/3 operates near the noise floor (−1 dB SNR).</p>
+
+    <!-- Desense Impact Comparison -->
+    <h4 style="color:#a78bfa;font-size:13px;margin:20px 0 6px 0;border-top:1px solid #2e3248;padding-top:16px">10. Desense Impact: 3 dB Noise Injection Across All Radios</h4>
+    <p style="margin-bottom:10px">What happens when injected noise equals the MDS (i.e., noise = MDS → 3 dB desense)?</p>
+
+    <table style="width:100%;border-collapse:collapse;font-size:11px;margin:8px 0">
+      <thead><tr style="border-bottom:2px solid #ef4444">
+        <th style="text-align:left;padding:6px 8px;color:#a78bfa;font-size:10px">Radio</th>
+        <th style="text-align:center;padding:6px 8px;color:#34d399;font-size:10px">Clean Rx Sens</th>
+        <th style="text-align:center;padding:6px 8px;color:#ef4444;font-size:10px">+3 dB Desense</th>
+        <th style="text-align:center;padding:6px 8px;color:#ef4444;font-size:10px">Degraded Sens</th>
+        <th style="text-align:center;padding:6px 8px;color:#f59e0b;font-size:10px">Practical Impact</th>
+      </tr></thead>
+      <tbody>
+        <tr style="border-bottom:1px solid #2e3248">
+          <td style="padding:5px 8px;color:#60a5fa;font-weight:600">LoRa EU</td>
+          <td style="text-align:center;color:#34d399;font-family:monospace">−131.51 dBm</td>
+          <td style="text-align:center;color:#ef4444;font-family:monospace;font-weight:700">3.0 dB</td>
+          <td style="text-align:center;color:#ef4444;font-family:monospace">−128.51 dBm</td>
+          <td style="text-align:center;color:#f59e0b;font-size:10px">~30% range reduction</td>
+        </tr>
+        <tr style="border-bottom:1px solid #2e3248">
+          <td style="padding:5px 8px;color:#60a5fa;font-weight:600">BLE 2.4 GHz</td>
+          <td style="text-align:center;color:#34d399;font-family:monospace">−99.50 dBm</td>
+          <td style="text-align:center;color:#ef4444;font-family:monospace;font-weight:700">3.0 dB</td>
+          <td style="text-align:center;color:#ef4444;font-family:monospace">−96.50 dBm</td>
+          <td style="text-align:center;color:#f59e0b;font-size:10px">~30% range reduction</td>
+        </tr>
+        <tr style="border-bottom:1px solid #2e3248">
+          <td style="padding:5px 8px;color:#60a5fa;font-weight:600">LTE Low Band</td>
+          <td style="text-align:center;color:#34d399;font-family:monospace">−101.50 dBm</td>
+          <td style="text-align:center;color:#ef4444;font-family:monospace;font-weight:700">3.0 dB</td>
+          <td style="text-align:center;color:#ef4444;font-family:monospace">−98.50 dBm</td>
+          <td style="text-align:center;color:#f59e0b;font-size:10px">Dropped calls at cell edge</td>
+        </tr>
+        <tr style="border-bottom:1px solid #2e3248">
+          <td style="padding:5px 8px;color:#60a5fa;font-weight:600">WiFi 2.4G</td>
+          <td style="text-align:center;color:#34d399;font-family:monospace">−74.49 dBm</td>
+          <td style="text-align:center;color:#ef4444;font-family:monospace;font-weight:700">3.0 dB</td>
+          <td style="text-align:center;color:#ef4444;font-family:monospace">−71.49 dBm</td>
+          <td style="text-align:center;color:#f59e0b;font-size:10px">MCS fallback, lower throughput</td>
+        </tr>
+        <tr style="border-bottom:1px solid #2e3248">
+          <td style="padding:5px 8px;color:#60a5fa;font-weight:600">WiFi 5G</td>
+          <td style="text-align:center;color:#34d399;font-family:monospace">−68.47 dBm</td>
+          <td style="text-align:center;color:#ef4444;font-family:monospace;font-weight:700">3.0 dB</td>
+          <td style="text-align:center;color:#ef4444;font-family:monospace">−65.47 dBm</td>
+          <td style="text-align:center;color:#f59e0b;font-size:10px">MCS fallback, reduced range</td>
+        </tr>
+        <tr>
+          <td style="padding:5px 8px;color:#a78bfa;font-weight:600">GNSS L1</td>
+          <td style="text-align:center;color:#34d399;font-family:monospace">−145.50 dBm</td>
+          <td style="text-align:center;color:#ef4444;font-family:monospace;font-weight:700">3.0 dB</td>
+          <td style="text-align:center;color:#ef4444;font-family:monospace">−142.50 dBm</td>
+          <td style="text-align:center;color:#f59e0b;font-size:10px">Longer TTFF, lost satellites</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p style="margin-top:10px;color:#64748b;font-size:11px;font-style:italic">Key insight: 3 dB desense halves the signal-to-noise ratio and reduces range by ~30% (free-space). For GNSS, even 1–2 dB desense can cause satellite loss in marginal conditions. LoRa is most sensitive in absolute terms (−131 dBm) but its spread-spectrum modulation provides inherent interference resilience.</p>
+
+  </div>
+</div>
+</div>
+
 <div class="pdf-btn-bar">
   <button class="pdf-btn" onclick="generatePDF('gnss2')">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
@@ -2566,127 +3388,92 @@
 
 <!-- ═══════════════════ COUPLER METHOD TAB ═══════════════════ -->
 <div id="tab-coupler" class="tab-panel">
-<div style="padding:16px 20px;max-width:1400px;margin:0 auto">
-  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px">
-    <div>
-      <div style="font-size:16px;font-weight:700;color:#4f8ef7">🔗 Coupler Method — Rx Sensitivity & Desense</div>
-      <div style="font-size:11px;color:#64748b;margin-top:2px">Directional coupler-based conducted Rx sensitivity measurement for RF desense analysis.</div>
-    </div>
-    <div style="display:flex;gap:6px;align-items:center">
-      <label style="font-size:11px;color:#94a3b8">Setup:</label>
-      <select id="cpl_setup" onchange="coupler_renderDiagram();coupler_calculate()" style="padding:4px 8px;border-radius:5px;background:#1a1d27;border:1px solid #2e3248;color:#e2e8f0;font-size:12px">
-        <option value="single">Single DUT</option>
-        <option value="dual">Dual DUT</option>
-      </select>
-    </div>
-  </div>
+<div class="layout">
 
-  <!-- Interactive Block Diagram -->
-  <div style="background:#0f1117;border:1px solid #2e3248;border-radius:10px;padding:16px;margin-bottom:16px">
-    <div style="font-size:12px;font-weight:600;color:#94a3b8;margin-bottom:10px">📐 MEASUREMENT BLOCK DIAGRAM</div>
-    <svg id="cpl_svg" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:800px;display:block;margin:0 auto"></svg>
-  </div>
-
-  <!-- Calculator -->
-  <div class="layout">
-    <!-- Left: Path Loss Budget -->
-    <div class="radio-section">
-      <div class="section-title" style="color:#4f8ef7">📉 Path Loss Budget</div>
-      <div class="input-row">
-        <label>Coupler Coupling Factor (dB)</label>
-        <input type="number" id="cpl_coupling" value="10" step="0.1" oninput="coupler_calculate()">
-      </div>
-      <div class="input-row">
-        <label>Coupler Insertion Loss (dB)</label>
-        <input type="number" id="cpl_insertion" value="1.5" step="0.1" oninput="coupler_calculate()">
-      </div>
-      <div class="input-row">
-        <label>Cable Loss — SigGen to Coupler (dB)</label>
-        <input type="number" id="cpl_cable1" value="0.5" step="0.1" oninput="coupler_calculate()">
-      </div>
-      <div class="input-row">
-        <label>Cable Loss — Coupler to DUT (dB)</label>
-        <input type="number" id="cpl_cable2" value="0.3" step="0.1" oninput="coupler_calculate()">
-      </div>
-      <div class="input-row">
-        <label>Connector Losses (total, dB)</label>
-        <input type="number" id="cpl_conn" value="0.2" step="0.1" oninput="coupler_calculate()">
-      </div>
-      <div class="result-box" style="margin-top:10px">
-        <strong>Total Path Loss:</strong> <span id="cpl_totalLoss" style="color:#f59e0b;font-weight:700">—</span> dB
-      </div>
-    </div>
-
-    <!-- Right: Sensitivity & Desense -->
-    <div class="radio-section">
-      <div class="section-title" style="color:#4f8ef7">📊 Rx Sensitivity & Desense</div>
-      <div class="input-row">
-        <label>Radio</label>
-        <select id="cpl_radio" onchange="coupler_calculate()" style="padding:4px 8px;border-radius:5px;background:#1a1d27;border:1px solid #2e3248;color:#e2e8f0;font-size:12px;width:100%">
-          <option value="lora">LoRa (867–925 MHz)</option>
-          <option value="ble">BLE 2.4 GHz</option>
-          <option value="lte_lb">LTE Low Band (600–900 MHz)</option>
-          <option value="lte_ub">LTE Upper Band (1700–2700 MHz)</option>
-          <option value="wifi2g" selected>WiFi 2.4 GHz</option>
-          <option value="wifi5g">WiFi 5 GHz</option>
-          <option value="gnss">GNSS (1575 MHz)</option>
+  <!-- Block Diagram -->
+  <div class="card full">
+    <div class="card-header"><div class="dot" style="background:#4f8ef7"></div>📐 Measurement Block Diagram
+      <span style="margin-left:auto;display:flex;gap:6px;align-items:center">
+        <label style="font-size:11px;color:#94a3b8">Setup:</label>
+        <select id="cpl_setup" onchange="coupler_renderDiagram();coupler_calculate()" style="padding:4px 8px;border-radius:5px;background:#1a1d27;border:1px solid #2e3248;color:#e2e8f0;font-size:12px">
+          <option value="single">Single DUT</option>
+          <option value="dual">Dual DUT</option>
         </select>
-      </div>
-      <div class="input-row">
-        <label>Frequency (MHz)</label>
-        <input type="number" id="cpl_freq" value="2437" step="1" oninput="coupler_calculate()">
-      </div>
-      <div class="input-row">
-        <label>SigGen Power at PER/BER Threshold — Clean (dBm)</label>
-        <input type="number" id="cpl_siggen_clean" value="-65" step="0.1" oninput="coupler_calculate()">
-      </div>
-      <div class="input-row">
-        <label>SigGen Power at PER/BER Threshold — Noisy (dBm)</label>
-        <input type="number" id="cpl_siggen_noisy" value="-58" step="0.1" oninput="coupler_calculate()">
-      </div>
-      <div class="input-row">
-        <label>Noise Source</label>
-        <input type="text" id="cpl_noise_src" value="CPU Load" style="padding:4px 8px;border-radius:5px;background:#1a1d27;border:1px solid #2e3248;color:#e2e8f0;font-size:12px;width:100%">
-      </div>
+      </span>
+    </div>
+    <div class="card-body" style="padding:14px 16px">
+      <svg id="cpl_svg" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:800px;display:block;margin:0 auto"></svg>
+    </div>
+  </div>
 
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px">
-        <div class="result-box" style="text-align:center">
-          <div style="font-size:10px;color:#64748b;margin-bottom:2px">CLEAN SENSITIVITY</div>
-          <div id="cpl_cleanSens" style="font-size:16px;font-weight:700;color:#34d399">—</div>
-          <div style="font-size:10px;color:#64748b">dBm</div>
-        </div>
-        <div class="result-box" style="text-align:center">
-          <div style="font-size:10px;color:#64748b;margin-bottom:2px">NOISY SENSITIVITY</div>
-          <div id="cpl_noisySens" style="font-size:16px;font-weight:700;color:#f59e0b">—</div>
-          <div style="font-size:10px;color:#64748b">dBm</div>
-        </div>
-        <div class="result-box" style="text-align:center">
-          <div style="font-size:10px;color:#64748b;margin-bottom:2px">DESENSE</div>
-          <div id="cpl_desense" style="font-size:16px;font-weight:700;color:#ef4444">—</div>
-          <div style="font-size:10px;color:#64748b">dB</div>
-        </div>
+  <!-- Path Loss Budget -->
+  <div class="card">
+    <div class="card-header"><div class="dot" style="background:#f59e0b"></div>📉 Path Loss Budget</div>
+    <div class="card-body">
+      <table>
+        <tr><th>Parameter</th><th>Value</th><th>Unit</th></tr>
+        <tr><td class="param-label">Coupler Coupling Factor</td><td><input type="number" id="cpl_coupling" value="10" step="0.1" oninput="coupler_calculate()"></td><td class="param-unit">dB</td></tr>
+        <tr><td class="param-label">Coupler Insertion Loss</td><td><input type="number" id="cpl_insertion" value="1.5" step="0.1" oninput="coupler_calculate()"></td><td class="param-unit">dB</td></tr>
+        <tr><td class="param-label">Cable Loss — SigGen to Coupler</td><td><input type="number" id="cpl_cable1" value="0.5" step="0.1" oninput="coupler_calculate()"></td><td class="param-unit">dB</td></tr>
+        <tr><td class="param-label">Cable Loss — Coupler to DUT</td><td><input type="number" id="cpl_cable2" value="0.3" step="0.1" oninput="coupler_calculate()"></td><td class="param-unit">dB</td></tr>
+        <tr><td class="param-label">Connector Losses (total)</td><td><input type="number" id="cpl_conn" value="0.2" step="0.1" oninput="coupler_calculate()"></td><td class="param-unit">dB</td></tr>
+        <tr><td colspan="3"><hr></td></tr>
+        <tr><td class="param-label" style="font-weight:700">Total Path Loss</td><td class="result" id="cpl_totalLoss">—</td><td class="param-unit">dB</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Rx Sensitivity & Desense -->
+  <div class="card">
+    <div class="card-header"><div class="dot" style="background:#34d399"></div>📊 Rx Sensitivity &amp; Desense</div>
+    <div class="card-body">
+      <table>
+        <tr><th>Parameter</th><th>Value</th><th>Unit</th></tr>
+        <tr><td class="param-label">Radio</td><td colspan="2">
+          <select id="cpl_radio" onchange="coupler_calculate()" style="width:100%;padding:6px 10px;border-radius:5px;background:#1a1d27;border:1px solid #2e3248;color:#e2e8f0;font-size:12px">
+            <option value="lora">LoRa (867–925 MHz)</option>
+            <option value="ble">BLE 2.4 GHz</option>
+            <option value="lte_lb">LTE Low Band (600–900 MHz)</option>
+            <option value="lte_ub">LTE Upper Band (1700–2700 MHz)</option>
+            <option value="wifi2g" selected>WiFi 2.4 GHz</option>
+            <option value="wifi5g">WiFi 5 GHz</option>
+            <option value="gnss">GNSS (1575 MHz)</option>
+          </select>
+        </td></tr>
+        <tr><td class="param-label">Frequency</td><td><input type="number" id="cpl_freq" value="2437" step="1" oninput="coupler_calculate()"></td><td class="param-unit">MHz</td></tr>
+        <tr><td class="param-label">SigGen Power — Clean (PER/BER threshold)</td><td><input type="number" id="cpl_siggen_clean" value="-65" step="0.1" oninput="coupler_calculate()"></td><td class="param-unit">dBm</td></tr>
+        <tr><td class="param-label">SigGen Power — Noisy (PER/BER threshold)</td><td><input type="number" id="cpl_siggen_noisy" value="-58" step="0.1" oninput="coupler_calculate()"></td><td class="param-unit">dBm</td></tr>
+        <tr><td class="param-label">Noise Source</td><td colspan="2"><input type="text" id="cpl_noise_src" value="CPU Load" style="width:100%;padding:6px 10px;border-radius:5px;background:#1a1d27;border:1px solid #2e3248;color:#e2e8f0;font-size:12px"></td></tr>
+      </table>
+      <div class="big-result" style="margin-top:14px">
+        <div class="metric-box"><div class="label">Clean Sensitivity</div><div class="value" id="cpl_cleanSens" style="color:#34d399">—</div><div class="unit">dBm</div></div>
+        <div class="metric-box"><div class="label">Noisy Sensitivity</div><div class="value" id="cpl_noisySens" style="color:#f59e0b">—</div><div class="unit">dBm</div></div>
+        <div class="metric-box"><div class="label">Desense</div><div class="value" id="cpl_desense" style="color:#ef4444">—</div><div class="unit">dB</div></div>
       </div>
     </div>
   </div>
 
   <!-- Comparison Table -->
-  <div style="margin-top:16px;background:#1a1d27;border:1px solid #2e3248;border-radius:8px;padding:16px">
-    <div style="font-size:13px;font-weight:600;color:#4f8ef7;margin-bottom:10px">⚡ Coupler Method vs. TIS Comparison</div>
-    <table style="width:100%;border-collapse:collapse;font-size:12px">
-      <thead><tr style="border-bottom:2px solid #4f8ef7">
-        <th style="text-align:left;padding:6px 10px;color:#4f8ef7;font-size:11px">METRIC</th>
-        <th style="text-align:center;padding:6px 10px;color:#34d399;font-size:11px">COUPLER METHOD</th>
-        <th style="text-align:center;padding:6px 10px;color:#f59e0b;font-size:11px">TIS (CHAMBER)</th>
-      </tr></thead>
-      <tbody>
-        <tr style="border-bottom:1px solid #2e3248"><td style="padding:6px 10px;color:#94a3b8">Time per channel</td><td style="text-align:center;color:#34d399;font-weight:600">&lt; 3 min</td><td style="text-align:center;color:#f59e0b">~40 min</td></tr>
-        <tr style="border-bottom:1px solid #2e3248"><td style="padding:6px 10px;color:#94a3b8">Equipment cost</td><td style="text-align:center;color:#34d399;font-weight:600">Low (coupler + cables)</td><td style="text-align:center;color:#f59e0b">High (anechoic chamber)</td></tr>
-        <tr style="border-bottom:1px solid #2e3248"><td style="padding:6px 10px;color:#94a3b8">Measures real noise impact</td><td style="text-align:center;color:#34d399;font-weight:600">Yes (conducted)</td><td style="text-align:center;color:#f59e0b">Yes (radiated)</td></tr>
-        <tr style="border-bottom:1px solid #2e3248"><td style="padding:6px 10px;color:#94a3b8">Applicable radios</td><td style="text-align:center;color:#94a3b8">LoRa, WiFi, BLE, LTE, GPS</td><td style="text-align:center;color:#94a3b8">All</td></tr>
-        <tr><td style="padding:6px 10px;color:#94a3b8">Automation</td><td style="text-align:center;color:#34d399;font-weight:600">WFT / IQxel compatible</td><td style="text-align:center;color:#94a3b8">Requires chamber SW</td></tr>
-      </tbody>
-    </table>
+  <div class="card full">
+    <div class="card-header"><div class="dot" style="background:#a78bfa"></div>⚡ Coupler Method vs. TIS Comparison</div>
+    <div class="card-body">
+      <table>
+        <thead><tr>
+          <th style="text-align:left">Metric</th>
+          <th style="text-align:center;color:#34d399">Coupler Method</th>
+          <th style="text-align:center;color:#f59e0b">TIS (Chamber)</th>
+        </tr></thead>
+        <tbody>
+          <tr><td class="param-label">Time per channel</td><td class="result" style="text-align:center;color:#34d399;font-weight:600">&lt; 3 min</td><td class="result" style="text-align:center;color:#f59e0b">~40 min</td></tr>
+          <tr><td class="param-label">Equipment cost</td><td class="result" style="text-align:center;color:#34d399;font-weight:600">Low (coupler + cables)</td><td class="result" style="text-align:center;color:#f59e0b">High (anechoic chamber)</td></tr>
+          <tr><td class="param-label">Measures real noise impact</td><td class="result" style="text-align:center;color:#34d399;font-weight:600">Yes (conducted)</td><td class="result" style="text-align:center;color:#f59e0b">Yes (radiated)</td></tr>
+          <tr><td class="param-label">Applicable radios</td><td class="result" style="text-align:center;color:#94a3b8">LoRa, WiFi, BLE, LTE, GPS</td><td class="result" style="text-align:center;color:#94a3b8">All</td></tr>
+          <tr><td class="param-label">Automation</td><td class="result" style="text-align:center;color:#34d399;font-weight:600">WFT / IQxel compatible</td><td class="result" style="text-align:center;color:#94a3b8">Requires chamber SW</td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
+
 </div>
 </div>
 
@@ -4343,11 +5130,33 @@ function ub_renderChainDiagram(nf_total){
 // ═══════════════════════════════════════════════════════════════════════════
 // PASSWORD UNLOCK
 // ═══════════════════════════════════════════════════════════════════════════
+function setAppTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  var darkBtn = document.getElementById('themeBtnDark');
+  var lightBtn = document.getElementById('themeBtnLight');
+  if (darkBtn && lightBtn) {
+    if (theme === 'dark') {
+      darkBtn.style.background = 'var(--accent)'; darkBtn.style.color = '#fff'; darkBtn.style.borderColor = 'var(--accent)';
+      lightBtn.style.background = 'transparent'; lightBtn.style.color = 'var(--muted)'; lightBtn.style.borderColor = 'var(--border)';
+    } else {
+      lightBtn.style.background = 'var(--accent)'; lightBtn.style.color = '#fff'; lightBtn.style.borderColor = 'var(--accent)';
+      darkBtn.style.background = 'transparent'; darkBtn.style.color = 'var(--muted)'; darkBtn.style.borderColor = 'var(--border)';
+    }
+  }
+  try { localStorage.setItem('rf_desense_theme', theme); } catch(e) {}
+}
+// Restore saved theme on load
+(function() {
+  try { var t = localStorage.getItem('rf_desense_theme'); if (t) document.documentElement.setAttribute('data-theme', t); } catch(e) {}
+})();
+
 function unlock() {
   var pwd = document.getElementById('pwdInput');
   if (pwd && pwd.value === 'AM2026') {
     document.getElementById('lockScreen').style.display = 'none';
     document.getElementById('appContent').style.display = 'block';
+    // Restore theme button state
+    try { var t = localStorage.getItem('rf_desense_theme') || 'dark'; setAppTheme(t); } catch(e) {}
     try {
     lora_calculate();    lora_renderChainDiagram();
     ble_calculate();     ble_renderChainDiagram();
@@ -7643,28 +8452,36 @@ function coupler_renderDiagram() {
   s += '<text x="'+(W/2+18)+'" y="'+((cableY1+14+couplerY)/2+12)+'" fill="#94a3b8" font-size="11" font-style="italic" '+F+'>Cable ('+cable1+' dB)</text>';
 
   // ═══ DIRECTIONAL COUPLER (center) ═══
-  var cpW = 220, cpH = 70;
+  var cpW = 220, cpH = 80;
   var cpX = W/2 - cpW/2, cpY2 = couplerY;
   // Outer coupler box
   s += '<rect x="'+cpX+'" y="'+cpY2+'" width="'+cpW+'" height="'+cpH+'" rx="6" fill="#1e3a6e" stroke="#4f8ef7" stroke-width="1.5"/>';
   // Inner white coupler schematic symbol
-  var iW = 80, iH = 40;
-  var iX = W/2 - iW/2, iY = cpY2 + 8;
+  var iW = 90, iH = 50;
+  var iX = W/2 - iW/2, iY = cpY2 + (cpH-iH)/2;
   s += '<rect x="'+iX+'" y="'+iY+'" width="'+iW+'" height="'+iH+'" rx="3" fill="#e2e8f0" stroke="#94a3b8" stroke-width="0.5"/>';
-  // Through line (horizontal, upper portion)
-  s += '<line x1="'+iX+'" y1="'+(iY+iH*0.33)+'" x2="'+(iX+iW)+'" y2="'+(iY+iH*0.33)+'" stroke="#333" stroke-width="1.5"/>';
-  // Coupled line (curved, lower portion) with coupling arc
-  s += '<line x1="'+iX+'" y1="'+(iY+iH*0.7)+'" x2="'+(iX+iW*0.35)+'" y2="'+(iY+iH*0.7)+'" stroke="#333" stroke-width="1.5"/>';
-  s += '<path d="M'+(iX+iW*0.35)+','+(iY+iH*0.7)+' Q'+(iX+iW*0.5)+','+(iY+iH*0.42)+' '+(iX+iW*0.65)+','+(iY+iH*0.7)+'" fill="none" stroke="#333" stroke-width="1.5"/>';
-  s += '<line x1="'+(iX+iW*0.65)+'" y1="'+(iY+iH*0.7)+'" x2="'+(iX+iW)+'" y2="'+(iY+iH*0.7)+'" stroke="#333" stroke-width="1.5"/>';
-  // Port circles on all 4 sides of the white box
-  s += '<circle cx="'+iX+'" cy="'+(iY+iH*0.33)+'" r="3" fill="#fff" stroke="#333" stroke-width="1"/>';
-  s += '<circle cx="'+(iX+iW)+'" cy="'+(iY+iH*0.33)+'" r="3" fill="#fff" stroke="#333" stroke-width="1"/>';
-  s += '<circle cx="'+iX+'" cy="'+(iY+iH*0.7)+'" r="3" fill="#fff" stroke="#333" stroke-width="1"/>';
-  s += '<circle cx="'+(iX+iW)+'" cy="'+(iY+iH*0.7)+'" r="3" fill="#fff" stroke="#333" stroke-width="1"/>';
-  // Port dots on outer coupler box (left, right)
+  // Through line: horizontal line across middle of white box (left port to right port)
+  var throughY = iY + iH*0.6;
+  s += '<line x1="'+iX+'" y1="'+throughY+'" x2="'+(iX+iW)+'" y2="'+throughY+'" stroke="#333" stroke-width="1.5"/>';
+  // Small rectangle on through line (transmission line element)
+  var boxW2 = 24, boxH2 = 14;
+  var boxX2 = W/2 - boxW2/2, boxY2 = throughY - boxH2/2;
+  s += '<rect x="'+boxX2+'" y="'+boxY2+'" width="'+boxW2+'" height="'+boxH2+'" rx="2" fill="#fff" stroke="#333" stroke-width="1"/>';
+  // Coupling arc: curved line from small box up to coupled port (top center)
+  var coupledY = iY + iH*0.15;
+  s += '<path d="M'+(W/2)+','+(boxY2)+' Q'+(W/2+18)+','+(coupledY+8)+' '+(W/2)+','+coupledY+'" fill="none" stroke="#333" stroke-width="1.5"/>';
+  // Port circles on white box edges
+  s += '<circle cx="'+iX+'" cy="'+throughY+'" r="3" fill="#fff" stroke="#333" stroke-width="1"/>';       // left (input)
+  s += '<circle cx="'+(iX+iW)+'" cy="'+throughY+'" r="3" fill="#fff" stroke="#333" stroke-width="1"/>';   // right (through)
+  s += '<circle cx="'+(W/2)+'" cy="'+coupledY+'" r="3" fill="#fff" stroke="#333" stroke-width="1"/>';     // top (coupled)
+  // Lines from outer box to white box ports
+  s += '<line x1="'+cpX+'" y1="'+(cpY2+cpH/2)+'" x2="'+iX+'" y2="'+throughY+'" stroke="#333" stroke-width="1"/>';
+  s += '<line x1="'+(cpX+cpW)+'" y1="'+(cpY2+cpH/2)+'" x2="'+(iX+iW)+'" y2="'+throughY+'" stroke="#333" stroke-width="1"/>';
+  s += '<line x1="'+(W/2)+'" y1="'+cpY2+'" x2="'+(W/2)+'" y2="'+coupledY+'" stroke="#333" stroke-width="1"/>';
+  // Port dots on outer coupler box (left, right, top)
   s += '<circle cx="'+cpX+'" cy="'+(cpY2+cpH/2)+'" r="4.5" fill="#f59e0b" stroke="#0f1117" stroke-width="1.5"/>';
   s += '<circle cx="'+(cpX+cpW)+'" cy="'+(cpY2+cpH/2)+'" r="4.5" fill="#f59e0b" stroke="#0f1117" stroke-width="1.5"/>';
+  s += '<circle cx="'+(W/2)+'" cy="'+cpY2+'" r="4.5" fill="#f59e0b" stroke="#0f1117" stroke-width="1.5"/>';
   // Coupled port dot (bottom center of coupler)
   s += '<circle cx="'+(W/2)+'" cy="'+(cpY2+cpH)+'" r="4.5" fill="#f59e0b" stroke="#0f1117" stroke-width="1.5"/>';
   // Label below coupler
@@ -7764,23 +8581,31 @@ function coupler_renderDiagram() {
     // Outer coupler box
     s += '<rect x="'+cpX+'" y="'+cpY2+'" width="'+cpW+'" height="'+cpH+'" rx="6" fill="#1e3a6e" stroke="#4f8ef7" stroke-width="1.5"/>';
     // Inner white coupler schematic symbol
-    var iW2 = 80, iH2 = 40;
-    var iX2 = W/2 - iW2/2, iY2 = cpY2 + 8;
+    var iW2 = 90, iH2 = 50;
+    var iX2 = W/2 - iW2/2, iY2 = cpY2 + (cpH-iH2)/2;
     s += '<rect x="'+iX2+'" y="'+iY2+'" width="'+iW2+'" height="'+iH2+'" rx="3" fill="#e2e8f0" stroke="#94a3b8" stroke-width="0.5"/>';
-    // Through line (horizontal, upper portion)
-    s += '<line x1="'+iX2+'" y1="'+(iY2+iH2*0.33)+'" x2="'+(iX2+iW2)+'" y2="'+(iY2+iH2*0.33)+'" stroke="#333" stroke-width="1.5"/>';
-    // Coupled line with arc (lower portion)
-    s += '<line x1="'+iX2+'" y1="'+(iY2+iH2*0.7)+'" x2="'+(iX2+iW2*0.35)+'" y2="'+(iY2+iH2*0.7)+'" stroke="#333" stroke-width="1.5"/>';
-    s += '<path d="M'+(iX2+iW2*0.35)+','+(iY2+iH2*0.7)+' Q'+(iX2+iW2*0.5)+','+(iY2+iH2*0.42)+' '+(iX2+iW2*0.65)+','+(iY2+iH2*0.7)+'" fill="none" stroke="#333" stroke-width="1.5"/>';
-    s += '<line x1="'+(iX2+iW2*0.65)+'" y1="'+(iY2+iH2*0.7)+'" x2="'+(iX2+iW2)+'" y2="'+(iY2+iH2*0.7)+'" stroke="#333" stroke-width="1.5"/>';
-    // Port circles on white box
-    s += '<circle cx="'+iX2+'" cy="'+(iY2+iH2*0.33)+'" r="3" fill="#fff" stroke="#333" stroke-width="1"/>';
-    s += '<circle cx="'+(iX2+iW2)+'" cy="'+(iY2+iH2*0.33)+'" r="3" fill="#fff" stroke="#333" stroke-width="1"/>';
-    s += '<circle cx="'+iX2+'" cy="'+(iY2+iH2*0.7)+'" r="3" fill="#fff" stroke="#333" stroke-width="1"/>';
-    s += '<circle cx="'+(iX2+iW2)+'" cy="'+(iY2+iH2*0.7)+'" r="3" fill="#fff" stroke="#333" stroke-width="1"/>';
-    // Port dots on outer coupler box (left, right, bottom)
+    // Through line: horizontal across middle of white box
+    var throughY2 = iY2 + iH2*0.6;
+    s += '<line x1="'+iX2+'" y1="'+throughY2+'" x2="'+(iX2+iW2)+'" y2="'+throughY2+'" stroke="#333" stroke-width="1.5"/>';
+    // Small rectangle on through line
+    var bW2 = 24, bH2 = 14;
+    var bX2 = W/2 - bW2/2, bY2 = throughY2 - bH2/2;
+    s += '<rect x="'+bX2+'" y="'+bY2+'" width="'+bW2+'" height="'+bH2+'" rx="2" fill="#fff" stroke="#333" stroke-width="1"/>';
+    // Coupling arc from small box up to coupled port
+    var coupledY2 = iY2 + iH2*0.15;
+    s += '<path d="M'+(W/2)+','+(bY2)+' Q'+(W/2+18)+','+(coupledY2+8)+' '+(W/2)+','+coupledY2+'" fill="none" stroke="#333" stroke-width="1.5"/>';
+    // Port circles on white box edges
+    s += '<circle cx="'+iX2+'" cy="'+throughY2+'" r="3" fill="#fff" stroke="#333" stroke-width="1"/>';
+    s += '<circle cx="'+(iX2+iW2)+'" cy="'+throughY2+'" r="3" fill="#fff" stroke="#333" stroke-width="1"/>';
+    s += '<circle cx="'+(W/2)+'" cy="'+coupledY2+'" r="3" fill="#fff" stroke="#333" stroke-width="1"/>';
+    // Lines from outer box to white box ports
+    s += '<line x1="'+cpX+'" y1="'+cMidY+'" x2="'+iX2+'" y2="'+throughY2+'" stroke="#333" stroke-width="1"/>';
+    s += '<line x1="'+(cpX+cpW)+'" y1="'+cMidY+'" x2="'+(iX2+iW2)+'" y2="'+throughY2+'" stroke="#333" stroke-width="1"/>';
+    s += '<line x1="'+(W/2)+'" y1="'+cpY2+'" x2="'+(W/2)+'" y2="'+coupledY2+'" stroke="#333" stroke-width="1"/>';
+    // Port dots on outer coupler box (left, right, top, bottom)
     s += '<circle cx="'+cpX+'" cy="'+cMidY+'" r="4.5" fill="#f59e0b" stroke="#0f1117" stroke-width="1.5"/>';
     s += '<circle cx="'+(cpX+cpW)+'" cy="'+cMidY+'" r="4.5" fill="#f59e0b" stroke="#0f1117" stroke-width="1.5"/>';
+    s += '<circle cx="'+(W/2)+'" cy="'+cpY2+'" r="4.5" fill="#f59e0b" stroke="#0f1117" stroke-width="1.5"/>';
     s += '<circle cx="'+(W/2)+'" cy="'+(cpY2+cpH)+'" r="4.5" fill="#f59e0b" stroke="#0f1117" stroke-width="1.5"/>';
     // Coupler label
     s += '<text x="'+(W/2)+'" y="'+(cpY2+cpH+18)+'" text-anchor="middle" fill="#94a3b8" font-size="10" '+F+'>4-port directional coupler</text>';
